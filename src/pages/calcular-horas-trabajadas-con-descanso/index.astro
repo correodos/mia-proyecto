@@ -1,0 +1,174 @@
+---
+/**
+ * Página: Calcular horas trabajadas con descansos
+ */
+const title = 'Calcular horas trabajadas con descansos - Fórmula y errores comunes';
+
+const description = 'Aprende a descontar correctamente los descansos de tu jornada laboral. Ejemplos prácticos, la fórmula simple y el error más frecuente al calcular tiempo neto.';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://correodos.github.io/mia-proyecto/calcular-horas-trabajadas-con-descanso/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://correodos.github.io/mia-proyecto/calcular-horas-trabajadas-con-descanso/" />
+    <meta property="og:locale" content="es_ES" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+
+  <body>
+    <header role="banner">
+      <nav role="navigation" aria-label="Principal">
+        <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
+      </nav>
+    </header>
+
+    <main role="main">
+      <article aria-labelledby="guide-heading">
+        <section>
+          <h1 id="guide-heading">Cómo calcular horas trabajadas descontando los descansos</h1>
+          
+          <p class="intro-text">
+            Muchas personas sobreestiman el tiempo que han trabajado porque olvidan restar las pausas. Te enseñamos a hacerlo correctamente con ejemplos claros y la fórmula que siempre dará un resultado exacto.
+          </p>
+        </section>
+
+        <section aria-labelledby="formula-heading">
+          <h2 id="formula-heading">La fórmula en texto sencillo</h2>
+
+          <p>No necesitas una calculadora compleja. El cálculo consiste en:</p>
+
+          <ol>
+            <li>Convertir las horas de entrada y salida a segundos desde medianoche o calcular bien la diferencia temporal entre ambas.</li>
+            <li>Restar el tiempo de descanso total sumado.</li>
+          </ol>
+
+          <blockquote>
+            <p><strong>Horas trabajadas = Tiempo transcurrido desde que entraste hasta que saliste − Suma de todos los descansos</strong></p>
+          </blockquote>
+
+          <p>O en minutos, cuando la diferencia horaria es mayor a una hora completa:</p>
+
+          <blockquote>
+            <p><strong>Minutos trabajados = Minutos totales entre entrada y salida − Suma de todos los periodos de descanso</strong></p>
+          </blockquote>
+
+          <p>El resultado puede dar 0 si el tiempo transcurrido es exactamente igual a la suma de tus descansos, aunque eso significaría que no has trabajado nada durante ese periodo.</p>
+        </section>
+
+        <section aria-labelledby="example1-heading">
+          <h2 id="example1-heading">Ejemplo 1: Jornada con una hora de almuerzo</h2>
+
+          <ul>
+            <li><strong>Entrada:</strong> 09:00</li>
+            <li><strong>Salida:</strong> 18:00</li>
+            <li><strong>Tiempo entre entrada y salida:</strong> 9 horas (540 minutos)</li>
+            <li><strong>Descanso:</strong> 60 minutos (1 hora completa de almuerzo más café)</li>
+            <li><strong>Cálculo paso a paso:</strong></li>
+            <li>540 min − 60 min = <strong>480 minutos trabajados</strong>, es decir, <strong>8 horas netas</strong>.</li>
+          </ul>
+
+          <p>Aunque pasaste 9 horas en la oficina, solo 8 horas fueron tiempo realmente trabajando.</p>
+        </section>
+
+        <section aria-labelledby="example2-heading">
+          <h2 id="example2-heading">Ejemplo 2: Jornada con dos descansos cortos</h2>
+
+          <p>En este caso tienes varios periodos de descanso. La calculadora actual acepta un único campo de descanso, por lo que debes sumar primero esos tiempos:</p>
+
+          <ul>
+            <li><strong>Entrada:</strong> 07:30</li>
+            <li><strong>Salida:</strong> 16:00</li>
+            <li><strong>Tiempo total entre entrada y salida:</strong> 8 horas y 30 minutos (510 minutos)</li>
+            <li><strong>Descansos individuales:</strong> 15 minutos de café + 20 minutos para almorzar = <strong>35 minutos totales</strong></li>
+            <li><strong>Cálculo:</strong></li>
+            <li>510 min − 35 min = <strong>475 minutos trabajados</strong>, es decir, <strong>7 horas y 55 minutos netos</strong>.</li>
+          </ul>
+
+          <p>Aquí se sumaron dos periodos de descanso separados. Lo importante es sumar todos antes de restar del total en tu herramienta.</p>
+        </section>
+
+        <section aria-labelledby="example1-heading">
+          <h2 id="example1-heading">Ejemplo 1: Jornada con una hora de almuerzo</h2>
+
+          <ul>
+            <li><strong>Entrada:</strong> 09:00</li>
+            <li><strong>Salida:</strong> 18:00</li>
+            <li><strong>Tiempo entre entrada y salida:</strong> 9 horas (540 minutos)</li>
+            <li><strong>Descanso:</strong> 60 minutos (1 hora completa de almuerzo más café)</li>
+            <li><strong>Cálculo paso a paso:</strong></li>
+            <li>540 min − 60 min = <strong>480 minutos trabajados</strong>, es decir, <strong>8 horas netas</strong>.</li>
+          </ul>
+
+          <p>Aunque pasaste 9 horas en la oficina, solo 8 horas fueron tiempo realmente trabajando.</p>
+        </section>
+
+        <section aria-labelledby="example2-heading">
+          <h2 id="example2-heading">Ejemplo 2: Jornada con dos descansos cortos</h2>
+
+          <ul>
+            <li><strong>Entrada:</strong> 07:30</li>
+            <li><strong>Salida:</strong> 16:00</li>
+            <li><strong>Tiempo total entre entrada y salida:</strong> 8 horas y 30 minutos (510 minutos)</li>
+            <li><strong>Descansos:</strong> 15 minutos de café + 20 minutos para almorzar = 35 minutos totales</li>
+            <li><strong>Cálculo:</strong></li>
+            <li>510 min − 35 min = <strong>475 minutos trabajados</strong>, es decir, <strong>7 horas y 55 minutos netos</strong>.</li>
+          </ul>
+
+          <p>Aquí se sumaron dos periodos de descanso separados. Lo importante es sumar todos antes de restar del total.</p>
+        </section>
+
+        <section aria-labelledby="common-error-heading">
+          <h2 id="common-error-heading">Un error habitual al calcular descansos</h2>
+
+          <p>El error más común surge cuando restas el descanso sin convertir todo a la misma unidad de tiempo. Por ejemplo:</p>
+
+          <blockquote>
+            <p><strong>Incorrecto:</strong> "Trabajé 9 horas, menos 1 hora de descanso" (mezclar horas enteras con decimales)</p>
+          </blockquote>
+
+          <blockquote>
+            <p><strong>También incorrecto:</strong> "Entré a las 8:00 y salí a las 16:00, descansé 45 min — por tanto 7 horas menos cuarto" (olvidar sumar correctamente los minutos o redondear antes de restar)</p>
+          </blockquote>
+
+          <p>Solución: convierte todo a minutos o decimales antes de operar. Luego, si quieres el resultado en horas, divide los minutos totales entre 60.</p>
+        </section>
+
+        <section aria-labelledby="calculator-link-heading" class="tool-rec">
+          <h2 id="calculator-link-heading">Calcula sin errores manuales</h2>
+
+          <p>Ahora que entiendes la fórmula y ves los ejemplos, puedes aplicarla tú mismo. Sin embargo, es fácil equivocarse al sumar varios descansos o pasar por alto los minutos sobrantes.</p>
+
+          <p>Usa nuestra calculadora para obtener resultados precisos solo con tus datos:</p>
+
+          <p><a href="../calculadora-horas/">Usar la calculadora de horas trabajadas y descansos</a></p>
+
+          <p>A ella ingresa entrada, salida y el total de descanso (sumado si tienes varios), y te da el resultado neto automáticamente.</p>
+        </section>
+
+        <nav aria-label="Otras guías útiles">
+          <h3 id="other-guides-heading">Te puede interesar</h3>
+
+          <ul>
+            <li><a href="../como-calcular-horas-trabajadas/">Cómo calcular las horas trabajadas — guía general</a></li>
+          </ul>
+        </nav>
+      </article>
+    </main>
+
+    <footer role="contentinfo">
+      <p>Herramientas gratuitas para organizar y calcular horas de trabajo</p>
+    </footer>
+  </body>
+</html>
