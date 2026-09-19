@@ -1,0 +1,214 @@
+---
+/**
+ * Calculadora de horas trabajadas - Componente Astro del MVP v1.0
+ */
+let resultHours = undefined;
+let resultMinutes = undefined;
+let resultDecimal = undefined;
+
+import type { Hour } from '../../types/index.js';
+---
+
+<div data-testid="calculator" class="calculator">
+  <h2>Calculadora de horas trabajadas</h2>
+  
+  <fieldset class="entry-section">
+    <legend>Horario</legend>
+    
+    <div class="form-group">
+      <label for="entry-time">Hora de entrada:</label>
+      <input
+        id="entry-time"
+        name="entryTime"
+        type="text"
+        pattern="[0-9]{2}:[0-9]{2}"
+        inputmode="numeric"
+        placeholder="09:00"
+        aria-label="Hora de entrada en formato HH:MM"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="exit-time">Hora de salida:</label>
+      <input
+        id="exit-time"
+        name="exitTime"
+        type="text"
+        pattern="[0-9]{2}:[0-9]{2}"
+        inputmode="numeric"
+        placeholder="18:00"
+        aria-label="Hora de salida en formato HH:MM"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="break-time">Descanso (minutos):</label>
+      <input
+        id="break-time"
+        name="breakTime"
+        type="number"
+        min="0"
+        step="1"
+        placeholder="60"
+        aria-label="Minutos de descanso"
+        aria-describedby="break-help"
+      />
+      <span id="break-help" class="help-text">Ej: 30, 60, 90 minutos</span>
+    </div>
+  </fieldset>
+
+  <div class="buttons">
+    <button type="button" data-event-calculate="true">Calcular</button>
+    <button type="button" id="reset-btn" data-event-reset="true">Reiniciar</button>
+  </div>
+
+  <section class="results-area" aria-live="polite" aria-labelledby="result-heading">
+    <h3 id="result-heading">Resultados</h3>
+    
+    { resultHours && (
+      <ul class="result-list" role="list">
+        <li data-testid="total-hours">Horas trabajadas: <strong>{resultHours}</strong></li>
+        <li data-testid="total-minutes">Minutos totales: <strong>{resultMinutes} min</strong></li>
+        <li data-testid="decimal-hours">Horas decimales: <strong>{resultDecimal} horas</strong></li>
+      </ul>
+    )}
+  </section>
+</div>
+
+---
+
+<style lang="css">
+:root {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+}
+
+.calculator {
+  background-color: var(--entry-bg, #fafafa);
+  border-radius: var(--radius, 8px);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  max-width: 600px;
+}
+
+h2#calculator-title {
+  color: #1f2937;
+  font-size: 1.5rem;
+  margin: 0 0 var(--spacing-md) 0;
+  text-align: center;
+}
+
+.entry-section,
+.exit-section,
+.break-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+}
+
+.help-text {
+  font-size: 0.75rem;
+  color: #6b7280;
+  display: block;
+  margin-top: 4px;
+}
+
+input,
+select,
+textarea,
+button {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+#entry-time,
+#exit-time,
+#break-time {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius);
+  background-color: #fff;
+}
+
+::placeholder {
+  color: #9ca3af;
+}
+
+.buttons {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+button {
+  flex: 1;
+  min-width: 120px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  background-color: var(--primary, #3b82f6);
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--primary-hover, #2563eb);
+}
+
+.results-area {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--result-bg, #f0fdf4);
+  border-radius: var(--radius);
+}
+
+.result-list li {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.result-list li:last-child {
+  border-bottom: none;
+}
+
+.error-message {
+  color: #ef4444;
+  padding: var(--spacing-sm);
+  background-color: rgba(239, 68, 68, 0.1);
+  border-radius: 4px;
+  margin-top: var(--spacing-sm);
+}
+
+@media (pointer: coarse) {
+  button {
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 500px) {
+  .calculator {
+    padding: var(--spacing-md);
+  }
+
+  h2#calculator-title {
+    font-size: 1.25rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+</style>

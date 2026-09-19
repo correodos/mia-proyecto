@@ -1,0 +1,66 @@
+---
+/**
+ * Página principal - Home de MiA Herramientas de tiempo
+ */
+import DailyCalculatorPreview from '../components/calculator/CalculatorPreview.astro';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MiA - Herramientas gratuitas para calcular horas y tiempo de trabajo" />
+    <meta property="og:description" content="Calculadoras online gratuitas para jornada laboral: calculadora de horas trabajadas, cálculo de descansos, organización de turnos y más herramientas relacionadas con horarios y tiempo de trabajo." />
+    <meta property="og:url" content="/" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MiA - Herramientas gratuitas para calcular horas y tiempo de trabajo">
+    <meta name="twitter:description" content="Calculadoras online gratuitas para jornada laboral: calculadora de horas trabajadas, cálculo de descansos, organización de turnos y más herramientas relacionadas con horarios y tiempo de trabajo.">
+
+    <title>MiA - Herramientas gratuitas para calcular horas y tiempo de trabajo</title>
+    <meta name="description" content="Calculadoras online gratuitas para jornada laboral: calculadora de horas trabajadas, cálculo de descansos, organización de turnos y más herramientas relacionadas con horarios y tiempo de trabajo." />
+  </head>
+
+  <body>
+    <header role="banner">
+      <nav role="navigation" aria-label="Principal">
+        <a href="/" aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
+      </nav>
+    </header>
+
+    <main role="main">
+      <section aria-labelledby="welcome-heading">
+        <h1 id="welcome-heading">Herramientas para organizar y calcular tu jornada laboral</h1>
+        
+        <p class="intro-text">Calculadoras gratuitas y sencillas para quienes trabajan por horas. Organiza tus turnos, calcula tu tiempo de trabajo real e incluso con descansos incluidos.</p>
+      </section>
+
+      <section aria-labelledby="tools-heading" class="tools-list">
+        <h2 id="tools-heading">Herramientas disponibles</h2>
+        
+        <nav role="navigation" aria-label="Lista de herramientas">
+          <ul role="list">
+            <li>
+              <a href="/calculadora-horas/">
+                <article aria-labelledby="tool-calculator-heading">
+                  <h3 id="tool-calculator-heading">Calculadora de horas trabajadas</h3>
+                  <p>Ingresando la hora de entrada y salida, más tu descanso, obtendrás el tiempo neto trabajado.</p>
+                </article>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <p>Herramientas gratuitas para organizar y calcular horas de trabajo - MiA v1.0</p>
+    </footer>
+  </body>
+</html>
