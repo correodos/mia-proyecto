@@ -1,0 +1,66 @@
+---
+/**
+ * Página 404 - No encontrada
+ */
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Página no encontrada - MiA Herramientas de tiempo" />
+    <meta property="og:description" content="La página que buscas no ha podido ser encontrada. Vuelve al inicio para usar nuestras calculadoras gratuitas." />
+    <meta property="og:url" content={import.meta.env.BASE_URL + "404"} />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Página no encontrada - MiA Herramientas de tiempo">
+    <meta name="twitter:description" content="La página que buscas no ha podido ser encontrada. Vuelve al inicio para usar nuestras calculadoras gratuitas.">
+
+    <title>Página no encontrada - MiA</title>
+    <meta name="description" content="La página que solicitaste no existe o ha sido movida. Vuelve al inicio o prueba la calculadora de horas trabajadas." />
+    <meta name="robots" content="noindex, follow" />
+  </head>
+
+  <body>
+    <header role="banner">
+      <nav role="navigation" aria-label="Principal">
+        <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
+      </nav>
+    </header>
+
+    <main role="main">
+      <section class="container" aria-labelledby="not-found-heading">
+        <article>
+          <h1 id="not-found-heading">Página no encontrada</h1>
+          
+          <p class="intro-text">
+            La página que buscas no existe, ha sido movida o eliminada. 
+            Vuelve al inicio o accede directamente a la calculadora de horas trabajadas.
+          </p>
+
+          <nav aria-labelledby="navegacion-404" role="navigation">
+            <h2 id="navegacion-404">Navegación</h2>
+            <ul role="list">
+              <li>
+                <a href={import.meta.env.BASE_URL}>Ir al inicio</a>
+              </li>
+              <li>
+                <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>Calculadora de horas trabajadas</a>
+              </li>
+            </ul>
+          </nav>
+        </article>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <p>Herramientas gratuitas para organizar y calcular horas de trabajo</p>
+    </footer>
+  </body>
+</html>
