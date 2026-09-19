@@ -52,10 +52,18 @@ import DailyCalculatorPreview from '../components/calculator/CalculatorPreview.a
         <nav role="navigation" aria-label="Recursos de aprendizaje">
           <ul role="list">
             <li>
-              <a href="como-calcular-horas-trabajadas/">
+              <a href={import.meta.env.BASE_URL + "como-calcular-horas-trabajadas/"}>
                 <article aria-labelledby="learn-calculator-heading">
                   <h3 id="learn-calculator-heading">Cómo calcular las horas trabajadas</h3>
                   <p>Paso a paso, con ejemplos y casos de jornada nocturna.</p>
+                </article>
+              </a>
+            </li>
+            <li>
+              <a href={import.meta.env.BASE_URL + "calcular-horas-trabajadas-con-descanso/"}>
+                <article aria-labelledby="learn-breaks-heading">
+                  <h3 id="learn-breaks-heading">Cómo calcular horas trabajadas con descansos</h3>
+                  <p>Aprende a restar correctamente los periodos de pausa y descansa bien sin errores.</p>
                 </article>
               </a>
             </li>
@@ -69,7 +77,7 @@ import DailyCalculatorPreview from '../components/calculator/CalculatorPreview.a
         <nav role="navigation" aria-label="Lista de herramientas">
           <ul role="list">
             <li>
-              <a href="calculadora-horas/">
+              <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
                 <article aria-labelledby="tool-calculator-heading">
                   <h3 id="tool-calculator-heading">Calculadora de horas trabajadas</h3>
                   <p>Ingresando la hora de entrada y salida, más tu descanso, obtendrás el tiempo neto trabajado.</p>
