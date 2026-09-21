@@ -48,21 +48,21 @@ Definir exactamente cómo funcionará la calculadora principal antes de programa
 
 ### Tareas
 
-- [ ] Definir flujo principal de usuario.
-- [ ] Definir todos los campos de entrada.
-- [ ] Definir formatos de entrada.
-- [ ] Definir formato de resultados.
-- [ ] Definir comportamiento de descansos.
-- [ ] Definir múltiples tramos.
-- [ ] Definir jornadas partidas.
-- [ ] Definir turnos que atraviesan medianoche.
-- [ ] Definir funcionamiento semanal.
-- [ ] Definir estados vacíos.
-- [ ] Definir mensajes de error.
-- [ ] Definir casos límite.
-- [ ] Definir comportamiento móvil.
-- [ ] Definir accesibilidad básica.
-- [ ] Definir componentes reutilizables.
+- [x] Definir flujo principal de usuario.
+- [x] Definir todos los campos de entrada.
+- [x] Definir formatos de entrada.
+- [x] Definir formato de resultados.
+- [x] Definir comportamiento de descansos.
+- [x] Definir múltiples tramos.
+- [x] Definir jornadas partidas.
+- [x] Definir turnos que atraviesan medianoche.
+- [x] Definir funcionamiento semanal.
+- [x] Definir estados vacíos.
+- [x] Definir mensajes de error.
+- [x] Definir casos límite.
+- [x] Definir comportamiento móvil.
+- [x] Definir accesibilidad básica.
+- [x] Definir componentes reutilizables.
 
 ### Resultado esperado
 
@@ -78,15 +78,15 @@ Establecer una estructura de código sencilla y reutilizable.
 
 ### Tareas
 
-- [ ] Confirmar estructura de `src/`.
-- [ ] Definir organización de componentes.
-- [ ] Definir organización de utilidades.
-- [ ] Definir tipos y modelos de datos.
-- [ ] Definir funciones compartidas para cálculos.
-- [ ] Definir sistema de estilos.
-- [ ] Definir layout general.
-- [ ] Definir sistema básico de SEO.
-- [ ] Definir estrategia para pruebas.
+- [x] Confirmar estructura de `src/`.
+- [x] Definir organización de componentes.
+- [x] Definir organización de utilidades.
+- [x] Definir tipos y modelos de datos.
+- [x] Definir funciones compartidas para cálculos.
+- [x] Definir sistema de estilos.
+- [x] Definir layout general.
+- [x] Definir sistema básico de SEO.
+- [x] Definir estrategia para pruebas.
 
 ### Principios
 
@@ -111,31 +111,31 @@ Construir una calculadora de horas trabajadas sólida y fiable.
 
 ### Funcionalidades
 
-- [ ] Entrada y salida.
-- [ ] Descansos.
-- [ ] Cálculo de duración.
-- [ ] Múltiples tramos.
-- [ ] Jornadas partidas.
-- [ ] Cruce de medianoche.
-- [ ] Horas decimales.
-- [ ] Resultado en horas y minutos.
-- [ ] Resultado en minutos.
-- [ ] Reiniciar cálculo.
-- [ ] Copiar resultado.
-- [ ] Validación de entradas.
-- [ ] Mensajes de error.
+- [x] Entrada y salida.
+- [x] Descansos.
+- [x] Cálculo de duración.
+- [x] Múltiples tramos.
+- [x] Jornadas partidas.
+- [x] Cruce de medianoche.
+- [x] Horas decimales.
+- [x] Resultado en horas y minutos.
+- [x] Resultado en minutos.
+- [x] Reiniciar cálculo.
+- [x] Copiar resultado.
+- [x] Validación de entradas.
+- [x] Mensajes de error.
 
 ### Calidad
 
-- [ ] Crear pruebas unitarias de la lógica.
-- [ ] Probar casos normales.
-- [ ] Probar casos límite.
-- [ ] Probar entradas inválidas.
-- [ ] Probar medianoche.
-- [ ] Probar jornadas partidas.
-- [ ] Probar descansos.
-- [ ] Ejecutar build.
-- [ ] Comprobar funcionamiento en móvil.
+- [x] Crear pruebas unitarias de la lógica.
+- [x] Probar casos normales.
+- [x] Probar casos límite.
+- [x] Probar entradas inválidas.
+- [x] Probar medianoche.
+- [x] Probar jornadas partidas.
+- [x] Probar descansos.
+- [x] Ejecutar build.
+- [x] Comprobar funcionamiento en móvil.
 
 ### Regla
 
@@ -151,23 +151,23 @@ Ampliar la calculadora principal para permitir el cálculo de varias jornadas.
 
 ### Funcionalidades
 
-- [ ] Añadir días.
-- [ ] Eliminar días.
-- [ ] Añadir varios tramos por día.
-- [ ] Calcular total diario.
-- [ ] Calcular total semanal.
-- [ ] Mostrar minutos totales.
-- [ ] Mostrar horas decimales.
-- [ ] Mostrar resumen semanal.
-- [ ] Validar datos de cada jornada.
+- [x] Añadir días.
+- [x] Eliminar días.
+- [x] Añadir varios tramos por día.
+- [x] Calcular total diario.
+- [x] Calcular total semanal.
+- [x] Mostrar minutos totales.
+- [x] Mostrar horas decimales.
+- [x] Mostrar resumen semanal.
+- [x] Validar datos de cada jornada.
 
 ### Calidad
 
-- [ ] Crear pruebas de acumulación.
-- [ ] Comprobar semanas incompletas.
-- [ ] Comprobar días sin datos.
-- [ ] Comprobar múltiples tramos.
-- [ ] Comprobar combinación de días normales y turnos nocturnos.
+- [x] Crear pruebas de acumulación.
+- [x] Comprobar semanas incompletas.
+- [x] Comprobar días sin datos.
+- [x] Comprobar múltiples tramos.
+- [x] Comprobar combinación de días normales y turnos nocturnos.
 
 ---
 
@@ -179,7 +179,7 @@ Crear herramientas adicionales reutilizando la lógica y los componentes ya exis
 
 ### Orden inicial
 
-1. [ ] Calculadora de tiempo entre dos horas.
+1. [ ] Calculadora de tiempo entre horas horas.
 2. [ ] Sumar y restar horas y minutos.
 3. [ ] Conversor de horas y minutos a horas decimales.
 4. [ ] Conversor de horas decimales a horas y minutos.
@@ -514,7 +514,7 @@ No afirmar que un dato es real si en realidad es una estimación.
 
 ## Fase actual
 
-Fase 0 — Base del proyecto.
+Fase 5 — Base del proyecto.
 
 ## Próximo objetivo
 

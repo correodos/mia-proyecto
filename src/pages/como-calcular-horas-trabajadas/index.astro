@@ -2,30 +2,34 @@
 /**
  * Guía: Cómo calcular las horas trabajadas
  */
-const title = 'Cómo calcular las horas trabajadas - Paso a paso con ejemplos';
+export const metadata = {
+  title: 'Cómo calcular las horas trabajadas - Paso a paso con ejemplos',
+  description: 'Aprende a calcular tus horas trabajadas restando los descansos al tiempo total entre entrada y salida. Ejemplos prácticos, casos de medianoche y la fórmula correcta.',
+};
 
-const description = 'Aprende a calcular tus horas trabajadas restando los descansos al tiempo total entre entrada y salida. Ejemplos prácticos y casos con medianoche.';
+export const canonicalURL = '/como-calcular-horas-trabajadas/';
 ---
 
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
+   <head>
+     <title>{metadata.title}</title>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://correodos.github.io/mia-proyecto/como-calcular-horas-trabajadas/" />
+     <!-- Canonical -->
+     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://correodos.github.io/mia-proyecto/como-calcular-horas-trabajadas/" />
-    <meta property="og:locale" content="es_ES" />
+     <!-- Open Graph -->
+     <meta property="og:type" content="article" />
+     <meta property="og:title" content={metadata.title} />
+     <meta property="og:description" content={metadata.description} />
+     <meta property="og:url" content="https://correodos.github.io/mia-proyecto/como-calcular-horas-trabajadas/" />
+     <meta property="og:site_name" content="MiA - Herramientas de tiempo" />
+     <meta property="og:locale" content="es_ES" />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
-  </head>
+     <meta name="description" content={metadata.description} />
+   </head>
 
   <body>
     <header role="banner">

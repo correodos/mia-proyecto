@@ -1,0 +1,440 @@
+---
+/**
+ * Calculadora de jornada partida - Componente Astro independiente
+ */
+
+import type { Hour } from '../../types/index';
+
+type ShiftPart = { entry: Hour; exit: Hour };
+interface DailyEntry {
+  shifts: { part1: ShiftPart; part2: ShiftPart };
+  breakMinutes: number | null;
+}
+---
+
+<div data-testid="split-shift-calculator" class="calculator">
+  <h2>Calculadora de jornada partida</h2>
+  
+  <style lang="css">
+    .calculator, .calculator * {
+      box-sizing: border-box;
+    }
+    
+    .calculator fieldset {
+      min-width: 0;
+    }
+    
+    .shift {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md, 1.5rem);
+      margin-bottom: var(--spacing-sm, 0.5rem);
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      color: #374151;
+      margin-bottom: 0.25rem;
+    }
+    
+    input[type="text"],
+    input[readonly] {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      text-align: center;
+      font-size: 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #fff;
+      color: inherit;
+    }
+    
+    input[type="text"][readonly] {
+      background-color: #f3f4f6;
+      color: #6b7280;
+    }
+    
+    input[type="text"]:focus,
+    input[readonly]:focus {
+      outline: none;
+      border-color: var(--primary, #3b82f6);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    
+    .break-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    
+    .help-text {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    
+    @media (max-width: 500px) {
+      .calculator {
+        padding: var(--spacing-md, 1rem);
+      }
+      
+      h2 {
+        font-size: 1.25rem;
+      }
+      
+      .buttons {
+        flex-direction: column;
+      }
+      
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+  
+  <fieldset class="shift">
+    <legend>Primer tramo</legend>
+    
+    <div class="form-group">
+      <label for="part1-entry" class="entry-label">Entrada</label>
+      <input
+        id="part1-entry"
+        name="part1Entry"
+        type="text"
+        inputmode="numeric"
+        placeholder="--:--"
+        aria-label="Hora de entrada del primer tramo en formato HH:MM"
+        autocomplete="off"
+        maxlength="5"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="part1-exit" class="exit-label">Salida</label>
+      <input
+        id="part1-exit"
+        name="part1Exit"
+        type="text"
+        inputmode="numeric"
+        placeholder="--:--"
+        aria-label="Hora de salida del primer tramo en formato HH:MM"
+        autocomplete="off"
+        maxlength="5"
+      />
+    </div>
+  </fieldset>
+
+  <fieldset class="shift">
+    <legend>Segundo tramo</legend>
+    
+    <div class="form-group">
+      <label for="part2-entry" class="entry-label">Entrada</label>
+      <input
+        id="part2-entry"
+        name="part2Entry"
+        type="text"
+        inputmode="numeric"
+        placeholder="--:--"
+        aria-label="Hora de entrada del segundo tramo en formato HH:MM"
+        autocomplete="off"
+        maxlength="5"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="part2-exit" class="exit-label">Salida</label>
+      <input
+        id="part2-exit"
+        name="part2Exit"
+        type="text"
+        inputmode="numeric"
+        placeholder="--:--"
+        aria-label="Hora de salida del segundo tramo en formato HH:MM"
+        autocomplete="off"
+        maxlength="5"
+      />
+    </div>
+  </fieldset>
+
+  <fieldset class="shift" style="grid-template-columns: 1fr;">
+    <legend>Descanso</legend>
+    
+    <div class="form-group break-group">
+      <label for="break-time">Descanso entre turnos</label>
+      <input
+        id="break-time"
+        name="breakTime"
+        type="text"
+        value=""
+        disabled
+        aria-label="Descanso automático calculado (solo lectura)"
+        readonly
+      />
+    </div>
+  </fieldset>
+
+  <div class="buttons">
+    <button type="button" data-event-calculate-split-shift="true">Calcular</button>
+    <button type="button" id="reset-btn-split-shift" data-event-reset-split-shift="true">Reiniciar</button>
+  </div>
+
+  <section class="results-area split-results" aria-live="polite" aria-labelledby="result-heading">
+    <h3 id="result-heading">Resultados</h3>
+    <ul class="result-list" role="list"></ul>
+  </section>
+</div>
+
+<style lang="css">
+.calculator {
+  background-color: var(--entry-bg, #fafafa);
+  border-radius: var(--radius, 8px);
+  padding: var(--spacing-lg, 1rem);
+  margin-bottom: var(--spacing-md, 1.5rem);
+  max-width: 600px;
+}
+
+h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  margin: 0 0 var(--spacing-md, 1.5rem) 0;
+  text-align: center;
+}
+
+.entry-section {
+  margin-bottom: calc(var(--spacing-sm, 0.5rem) * 0.2);
+}
+
+.form-group {
+  margin-bottom: calc(var(--spacing-sm, 0.5rem) * 0.5);
+}
+
+.two-shorts {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-md, 1.5rem);
+}
+
+.form-group.two-shorts > label {
+  width: unset;
+  margin-bottom: calc(var(--spacing-sm, 0.5rem) * 0.25);
+}
+
+.form-group.two-shorts > input:first-child {
+  flex-shrink: 0;
+  width: 130px;
+}
+
+.form-group.two-shorts > input:last-child {
+  flex: 1;
+  min-width: 140px;
+}
+
+.help-text {
+  font-size: 0.75rem;
+  color: #6b7280;
+  display: block;
+  margin-top: var(--spacing-xs, 0.25rem);
+}
+
+input[type="text"],
+.form-group.two-shorts > input:last-child {
+  width: 100%;
+  padding: var(--spacing-sm, 0.5rem);
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius, 8px);
+  background-color: #fff;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.form-group.two-shorts > input:last-child:focus,
+.form-group.two-shorts > input:first-child:focus {
+  outline: none;
+  border-color: var(--primary, #3b82f6);
+}
+
+input,
+select,
+textarea,
+button {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+[type="number"] {
+  width: 100%;
+  padding: var(--spacing-sm, 0.5rem);
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius, 8px);
+  background-color: #fff;
+}
+
+::placeholder {
+  color: #9ca3af;
+}
+
+.buttons {
+  display: flex;
+  gap: var(--spacing-md, 1.5rem);
+  margin-top: var(--spacing-lg, 1.5rem);
+}
+
+button {
+  flex: 1;
+  min-width: 120px;
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1.5rem);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius, 8px);
+  background-color: var(--primary, #3b82f6);
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.split-results {
+  margin-top: var(--spacing-lg, 1.5rem);
+  padding: var(--spacing-md, 1rem);
+  background-color: var(--result-bg, #f0fdf4);
+  border-radius: var(--radius, 8px);
+}
+
+.result-list li {
+  padding: var(--spacing-sm, 0.5rem);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.result-list li:last-child {
+  border-bottom: none;
+}
+
+.error-message {
+  color: #ef4444;
+  padding: var(--spacing-sm, 0.5rem);
+  background-color: rgba(239, 68, 68, 0.1);
+  border-radius: 4px;
+  margin-top: var(--spacing-sm, 0.5rem);
+}
+
+@media (pointer: coarse) {
+  button {
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 500px) {
+  .calculator {
+    padding: var(--spacing-md, 1rem);
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+  }
+  
+  .buttons {
+    flex-direction: column;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
+  .form-group.two-shorts {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .form-group.two-shorts > label {
+    width: unset;
+    margin-bottom: var(--spacing-sm, 0.5rem);
+    text-align: left;
+    display: block;
+  }
+  
+  .form-group.two-shorts > input:first-child,
+  .form-group.two-shorts > input:last-child {
+    width: 100%;
+    min-width: unset;
+  }
+}
+</style>
+
+<script>import { attachButtonEventsForSplitShift, getBreakBetweenShifts } from '../../scripts/splitShiftCalculator.js';
+
+// Auto-formato de horas - usa event.target para obtener el input correctamente
+const formatTimeInput = (event: Event): void => {
+    const input = event.target as HTMLInputElement;
+    
+    // Extraer solo dígitos del valor actual, limitar a 4 dígitos
+    const digits = input.value.replace(/\D/g, '').slice(0, 4);
+    
+    // Añadir los dos puntos únicamente cuando hay MÁS de 2 dígitos
+    // Esto permite borrar con retroceso sin que el ":" reaparezca
+    if (digits.length > 2) {
+        input.value = `${digits.slice(0, 2)}:${digits.slice(2)}`;
+    } else {
+        input.value = digits;
+    }
+};
+
+// Función auxiliar para obtener elementos por ID
+const getInput = (id: string) => document.getElementById(id) as HTMLInputElement | null;
+
+// Convertir HH:MM a minutos o null si inválido
+const toMinutes = (value: string): number | null => {
+    const match = /^(\d{2}):(\d{2})$/.exec(value);
+    if (!match) return null;
+    const hours = Number(match[1]);
+    const minutes = Number(match[2]);
+    // Validar rango correcto de horas (0-23) y minutos (0-59)
+    return hours <= 23 && minutes <= 59 ? hours * 60 + minutes : null;
+};
+
+// Calcular y actualizar el campo de descanso automáticamente
+const updateBreak = (): void => {
+    const exit1 = getInput('part1-exit')?.value ?? '';
+    const entry2 = getInput('part2-entry')?.value ?? '';
+    
+    const exit1Min = toMinutes(exit1);
+    const entry2Min = toMinutes(entry2);
+    
+    // Calcular descanso automático (informativo, no resta del total)
+    const breakInput = getInput('break-time');
+    if (exit1Min !== null && entry2Min !== null) {
+        // Descanso entre salida primer tramo y entrada segundo tramo
+        // Se calcula como: diferencia positiva entre ambas horas
+        const minutes = Math.max(0, entry2Min - exit1Min);
+        
+        // Formato consistente: Xh xxm o xxm
+        let formatted: string;
+        if (minutes >= 60) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            formatted = `${hours}h ${mins === 0 ? '00' : String(mins).padStart(2, '0')}m`;
+        } else {
+            formatted = `${minutes}m`;
+        }
+        
+        breakInput.value = formatted;
+    } else {
+        // Mostrar vacío cuando no hay descanso válido
+        breakInput.value = '';
+    }
+};
+
+// Registrar listeners para los 4 campos de hora
+['part1-entry', 'part1-exit', 'part2-entry', 'part2-exit'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+        // Primero el listener de formato automático
+        el.addEventListener('input', formatTimeInput);
+        // Luego el listener para calcular descanso automático
+        el.addEventListener('input', updateBreak);
+    }
+});
+
+attachButtonEventsForSplitShift();
+</script>

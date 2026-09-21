@@ -2,30 +2,34 @@
 /**
  * Página: Calcular horas trabajadas con descansos
  */
-const title = 'Calcular horas trabajadas con descansos - Fórmula y errores comunes';
+export const metadata = {
+  title: 'Calcular horas trabajadas con descansos - Fórmula y errores comunes',
+  description: 'Aprende a descontar correctamente los descansos de tu jornada laboral. Ejemplos prácticos, la fórmula simple y el error más frecuente al calcular tiempo neto.',
+};
 
-const description = 'Aprende a descontar correctamente los descansos de tu jornada laboral. Ejemplos prácticos, la fórmula simple y el error más frecuente al calcular tiempo neto.';
+export const canonicalURL = '/calcular-horas-trabajadas-con-descanso/';
 ---
 
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
+   <head>
+     <title>{metadata.title}</title>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://correodos.github.io/mia-proyecto/calcular-horas-trabajadas-con-descanso/" />
+     <!-- Canonical -->
+     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://correodos.github.io/mia-proyecto/calcular-horas-trabajadas-con-descanso/" />
-    <meta property="og:locale" content="es_ES" />
+     <!-- Open Graph -->
+     <meta property="og:type" content="article" />
+     <meta property="og:title" content={metadata.title} />
+     <meta property="og:description" content={metadata.description} />
+     <meta property="og:url" content="https://correodos.github.io/mia-proyecto/calcular-horas-trabajadas-con-descanso/" />
+     <meta property="og:site_name" content="MiA - Herramientas de tiempo" />
+     <meta property="og:locale" content="es_ES" />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
-  </head>
+     <meta name="description" content={metadata.description} />
+   </head>
 
   <body>
     <header role="banner">

@@ -15,18 +15,18 @@ import type { Hour } from '../../types/index.js';
     
     <div class="form-group">
       <label for="lun-entry">Entrada:</label>
-      <input id="lun-entry" name="weeklyEntry[0]" type="time">
+      <input id="lun-entry" name="weeklyEntry[0]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
       <label for="lun-exit">Salida:</label>
-      <input id="lun-exit" name="weeklyExit[0]" type="time">
+      <input id="lun-exit" name="weeklyExit[0]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
     
     <div class="form-group">
-      <label for="lun-break">Descanso (min):</label>
+      <label for="lun-breaking">Descanso (min, opcional):</label>
       <input id="lun-break" name="weeklyBreak[0]" type="number" min="0" max="480">
-      <span id="lun-break-help" class="help-text">Ej: 30, 60 minutos</span>
+      <span id="lun-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
   </fieldset>
 
@@ -36,20 +36,20 @@ import type { Hour } from '../../types/index.js';
     
     <div class="form-group">
       <label for="mar-entry">Entrada:</label>
-      <input id="mar-entry" name="weeklyEntry[1]" type="time">
+      <input id="mar-entry" name="weeklyEntry[1]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
       <label for="mar-exit">Salida:</label>
-      <input id="mar-exit" name="weeklyExit[1]" type="time">
+      <input id="mar-exit" name="weeklyExit[1]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
-      <label for="mar-break">Descanso (min):</label>
+      <label for="mar-breaking">Descanso (min, opcional):</label>
       <input id="mar-break" name="weeklyBreak[1]" type="number" min="0" max="480">
-      <span id="mar-break-help" class="help-text">Ej: 30, 60 minutos</span>
+      <span id="mar-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-  </fieldset>
+    </fieldset>
 
   <!-- Miércoles -->
   <fieldset class="day-section miércoles">
@@ -57,20 +57,21 @@ import type { Hour } from '../../types/index.js';
     
     <div class="form-group">
       <label for="mie-entry">Entrada:</label>
-      <input id="mie-entry" name="weeklyEntry[2]" type="time">
+      <input id="mie-entry" name="weeklyEntry[2]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
       <label for="mie-exit">Salida:</label>
-      <input id="mie-exit" name="weeklyExit[2]" type="time">
+      <input id="mie-exit" name="weeklyExit[2]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
-      <label for="mie-break">Descanso (min):</label>
+      <label for="mie-breaking">Descanso (min, opcional):</label>
       <input id="mie-break" name="weeklyBreak[2]" type="number" min="0" max="480">
-      <span id="mie-break-help" class="help-text">Ej: 30, 60 minutos</span>
+      <span id="mie-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-  </fieldset>
+    </fieldset>
+
 
   <!-- Jueves -->
   <fieldset class="day-section jueves">
@@ -78,19 +79,20 @@ import type { Hour } from '../../types/index.js';
     
     <div class="form-group">
       <label for="jue-entry">Entrada:</label>
-      <input id="jue-entry" name="weeklyEntry[3]" type="time">
+      <input id="jue-entry" name="weeklyEntry[3]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
       <label for="jue-exit">Salida:</label>
-      <input id="jue-exit" name="weeklyExit[3]" type="time">
+      <input id="jue-exit" name="weeklyExit[3]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
-      <label for="jue-break">Descanso (min):</label>
+      <label for="jue-breaking">Descanso (min, opcional):</label>
       <input id="jue-break" name="weeklyBreak[3]" type="number" min="0" max="480">
-      <span id="jue-break-help" class="help-text">Ej: 30, 60 minutos</span>
+      <span id="jue-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
+
   </fieldset>
 
   <!-- Viernes -->
@@ -99,20 +101,22 @@ import type { Hour } from '../../types/index.js';
     
     <div class="form-group">
       <label for="vie-entry">Entrada:</label>
-      <input id="vie-entry" name="weeklyEntry[4]" type="time">
+      <input id="vie-entry" name="weeklyEntry[4]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
       <label for="vie-exit">Salida:</label>
-      <input id="vie-exit" name="weeklyExit[4]" type="time">
+      <input id="vie-exit" name="weeklyExit[4]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
-      <label for="vie-break">Descanso (min):</label>
+      <label for="vie-breaking">Descanso (min, opcional):</label>
       <input id="vie-break" name="weeklyBreak[4]" type="number" min="0" max="480">
-      <span id="vie-break-help" class="help-text">Ej: 30, 60 minutos</span>
+      <span id="vie-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-  </fieldset>
+    </fieldset>
+
+
 
   <!-- Sábado -->
   <fieldset class="day-section sábado">
@@ -120,20 +124,21 @@ import type { Hour } from '../../types/index.js';
     
     <div class="form-group">
       <label for="sab-entry">Entrada:</label>
-      <input id="sab-entry" name="weeklyEntry[5]" type="time">
+      <input id="sab-entry" name="weeklyEntry[5]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
       <label for="sab-exit">Salida:</label>
-      <input id="sab-exit" name="weeklyExit[5]" type="time">
+      <input id="sab-exit" name="weeklyExit[5]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
-      <label for="sab-break">Descanso (min):</label>
+      <label for="sab-breaking">Descanso (min, opcional):</label>
       <input id="sab-break" name="weeklyBreak[5]" type="number" min="0" max="480">
-      <span id="sab-break-help" class="help-text">Ej: 30, 60 minutos</span>
+      <span id="sab-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-  </fieldset>
+    </fieldset>
+
 
   <!-- Domingo -->
   <fieldset class="day-section domingo">
@@ -141,20 +146,20 @@ import type { Hour } from '../../types/index.js';
     
     <div class="form-group">
       <label for="dom-entry">Entrada:</label>
-      <input id="dom-entry" name="weeklyEntry[6]" type="time">
+      <input id="dom-entry" name="weeklyEntry[6]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
       <label for="dom-exit">Salida:</label>
-      <input id="dom-exit" name="weeklyExit[6]" type="time">
+      <input id="dom-exit" name="weeklyExit[6]" type="text" pattern="[0-9]{2}:[0-9]{2}" inputmode="numeric" placeholder="--:--">
     </div>
-    
+
     <div class="form-group">
-      <label for="dom-break">Descanso (min):</label>
+      <label for="dom-breaking">Descanso (min, opcional):</label>
       <input id="dom-break" name="weeklyBreak[6]" type="number" min="0" max="480">
-      <span id="dom-break-help" class="help-text">Ej: 30, 60 minutos</span>
+      <span id="dom-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-  </fieldset>
+    </fieldset>
 
   <!-- Botones -->
   <div class="buttons">
@@ -368,13 +373,16 @@ button:active {
   }
 }
 
-/* Layout compacto para móvil */
+/* Layout columna única para móvil estrecho */
 @media (max-width: 767px) {
   .calculator {
     padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
   }
 
-  .calculator h2 {
+  h2 {
     font-size: 1.3rem;
   }
 
@@ -383,7 +391,7 @@ button:active {
   }
 
   .form-group {
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
   }
 
   label {
@@ -392,19 +400,46 @@ button:active {
 
   input[type="time"],
   input[type="number"] {
-    width: auto;
-    min-width: 150px;
-    padding: var(--spacing-xs) var(--spacing-sm);
+    width: max-content;
+    min-width: 120px;
+    padding: var(--spacing-sm);
   }
 
   .buttons {
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-md);
   }
 
   button {
     width: 100%;
     max-width: none;
+    min-width: auto;
+  }
+}
+
+/* Ajustes mínimos para móviles muy estrechos (menor que 375px) */
+@media (max-width: 374px) {
+  .calculator {
+    padding: var(--spacing-sm);
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  legend {
+    font-size: 0.85rem;
+  }
+
+  label {
+    font-size: 0.75rem;
+  }
+
+  input[type="time"],
+  input[type="number"] {
+    min-width: 100px;
+    padding: var(--spacing-xs);
   }
 }
 </style>
@@ -599,32 +634,35 @@ const displayResults = (dailyResults) => {
 
 // Calcular semanal
 const calculateWeekly = () => {
-  const dailyResults = [];
+  const dailyResults: Array<{dayName: string, minutes?: number, decimal?: string, formatted?: string, error?: string} | null> = [];
 
   dayPrefixes.forEach((prefix, index) => {
-    const entryInput = document.getElementById(prefix + '-entry');
-    const exitInput = document.getElementById(prefix + '-exit');
-    const breakInput = document.getElementById(prefix + '-break');
+    const entryInput = document.getElementById(prefix + '-entry') as HTMLInputElement | null;
+    const exitInput = document.getElementById(prefix + '-exit') as HTMLInputElement | null;
+    const breakInput = document.getElementById(prefix + '-break') as HTMLInputElement | null;
 
-    // Verificar que los inputs existen
     if (!entryInput || !exitInput) {
+      dailyResults.push(null);
       return;
     }
 
     const entryVal = entryInput.value.trim();
     const exitVal = exitInput.value.trim();
 
-    // Día vacío - no validar ni añadir resultado
+    // Día vacío - devuelve null para el filtro posterior
     if (!entryVal || !exitVal) {
+      dailyResults.push(null);
       return;
     }
 
-    // Pasamos index + 2 porque los arrays en JS son 0-based pero nuestros índices de día son 1-based para el mapeo
-    // Lunes=0, Martes=1, ..., Domingo=6
-    const result = calculateDay(entryVal, exitVal, breakInput && breakInput.value !== '' ? breakInput.value : '', index);
+    // Pasamos index directamente (Lunes=0, Martes=1, ..., Domingo=6)
+    const result = calculateDay(entryVal, exitVal, breakInput?.value !== '' ? breakInput.value : '', index);
 
     if (result) {
       dailyResults.push(result);
+    } else {
+      // Caso de error sin resultado válido, lo registramos como null
+      dailyResults.push(null);
     }
   });
 
@@ -648,235 +686,83 @@ const handleReset = () => {
     if (exitInput) exitInput.value = '';
     if (breakInput) breakInput.value = '';
   });
+  
+  // Restaurar placeholders '--:--'
+  dayPrefixes.forEach((prefix, index) => {
+    const entryInput = document.getElementById(prefix + '-entry') as HTMLInputElement | null;
+    const exitInput = document.getElementById(prefix + '-exit') as HTMLInputElement | null;
+    
+    if (entryInput) entryInput.placeholder = '--:--';
+    if (exitInput) exitInput.placeholder = '--:--';
+  });
 
   // Limpiar resultados para reiniciar completo
   displayResults([]);
 };
 
-// Inicializar listeners
-document.addEventListener('DOMContentLoaded', () => {
-  const calculateBtn = document.getElementById('calculate-weekly-btn');
-  const resetBtn = document.getElementById('reset-weekly-btn');
-
-  if (calculateBtn) {
-    calculateBtn.addEventListener('click', handleCalculate);
-  }
-
-  if (resetBtn) {
-    resetBtn.addEventListener('click', handleReset);
-  }
-});
-</script>
-
-<script type="module" #client>
-/**
- * Calculadora semanal - Client-side logic MVP v1.0
- * Solo ejecución en navegación con client:only behavior
- */
-
-// Names de los días y sus prefixos para seleccionar inputs
-const dayNames = [
-  'Lunes',
-  'Martes',
-  'Miércoles',
-  'Jueves',
-  'Viernes',
-  'Sábado',
-  'Domingo'
-];
-
-// Mapeo de index a prefijo del ID (lun, mar, mie, etc.)
-const dayPrefixes = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'];
-
-
-
-// Formato de horas y minutos - solo en navegador
-const formatResult = (minutes) => {
-  if (!minutes || minutes <= 0) return '0 h 0 min';
-  
-  const hrs = Math.floor(minutes / 60);
-  const fractionalMinutes = Math.round(minutes % 60);
-  
-  return `${hrs}h ${fractionalMinutes < 10 ? '0' : ''}${fractionalMinutes} min`;
-};
-
-// Mostrar resultados en el DOM - solo en navegador
-const displayResults = (dailyResults) => {
-  const resultArea = document.getElementById('results-area');
-  
-  if (!resultArea) return;
-
-  // Calcular totales
-  const totalMinutes = dailyResults.reduce((sum, d) => sum + (d.minutes || 0), 0);
-  
-  // Mostrar resultados para cada día con datos
-  const items = [];
-  
-  [...dailyResults].forEach((dayResult) => {
-    if (!dayResult.dayName || !dayResult.error && dayResult.minutes === 0) return;
-    
-    const li = document.createElement('li');
-    
-    if (dayResult.error) {
-      li.style.color = '#ef4444';
-      li.textContent = `${dayResult.dayName}: ${dayResult.error}`;
-    } else if (dayResult.formatted && typeof dayResult.formatted === 'string') {
-      li.textContent = `${dayResult.dayName}: ${dayResult.formatted}`;
-    } else if (dayResult.minutes > 0) {
-      li.textContent = `${dayResult.dayName}: ${dayResult.formatted || formatResult(dayResult.minutes)}`;
-    }
-    
-    items.push(li);
-  });
-  
-  // Limpiar y construir contenido
-  resultArea.innerHTML = '';
-  
-  const h3 = document.createElement('h3');
-  h3.style.marginTop = '0';
-  h3.style.marginBottom = '.5rem';
-  h3.textContent = 'Resultados';
-  resultArea.appendChild(h3);
-  
-  // Mostrar items o mensaje de semana vacía
-  if (items.length === 0 || totalMinutes === 0) {
-    const p = document.createElement('p');
-    p.style.margin = '0.5rem auto';
-    p.textContent = '0 h 0 min (0.00 horas)';
-    resultArea.appendChild(p);
-  } else {
-    // Mostrar todos los items (validos y erroredds por igual en una sola lista)
-    const ul = document.createElement('ul');
-    ul.id = 'result-list';
-    items.forEach(item => ul.appendChild(item));
-    resultArea.appendChild(ul);
-    
-    // Mostrar total semanal abajo si hay datos
-    if (totalMinutes > 0) {
-      const summary = document.createElement('p');
-      summary.style.marginTop = '1rem';
-      summary.style.fontWeight = 'bold';
-      
-      const decimals = (totalMinutes / 60).toFixed(2);
-      summary.textContent = `Total semanal: ${Math.floor(totalMinutes / 60)}h ${(totalMinutes % 60)}. ${decimals} horas`;
-      resultArea.appendChild(summary);
-    }
-  }
-};
-
-// Calcular semanal - solo en navegador
-const calculateWeekly = () => {
-  const dailyResults = [];
-
+// Función para autoformatar inputs de hora (HH:MM automático)
+const setupTimeInputs = () => {
   dayPrefixes.forEach((prefix, index) => {
-    const entryInput = document.getElementById(prefix + '-entry');
-    const exitInput = document.getElementById(prefix + '-exit');
-    const breakInput = document.getElementById(prefix + '-break');
+    const entryInput = document.getElementById(prefix + '-entry') as HTMLInputElement | null;
+    const exitInput = document.getElementById(prefix + '-exit') as HTMLInputElement | null;
 
-    // Verificar que los inputs existen
-    if (!entryInput || !exitInput) {
-      return;
-    }
-
-    const entryVal = entryInput.value.trim();
-    const exitVal = exitInput.value.trim();
-
-    // Día vacío - no validar ni añadir resultado
-    if (!entryVal || !exitVal) {
-      return;
-    }
-
-    // Validar formato de hora
-    const entryMinutes = parseTime(entryVal);
-
-    if (!entryMinutes) {
-      dailyResults.push({
-        dayName: dayNames[index],
-        minutes: 0,
-        decimal: '0.00',
-        error: 'Formato de hora inválido'
-      });
-      return;
-    }
-
-    const exitMinutes = parseTime(exitVal);
-
-    if (!exitMinutes) {
-      dailyResults.push({
-        dayName: dayNames[index],
-        minutes: 0,
-        decimal: '0.00',
-        error: 'Formato de hora inválido'
-      });
-      return;
-    }
-
-    const breakVal = breakInput ? (breakInput.value || '0') : '0';
-    const breakMinutes = Number(breakVal) || 0;
-
- // Calcular duración  
-    const duration = diffMinutes(entryMinutes, exitMinutes);
-
-      if (!duration) {
-      dailyResults.push({
-        dayName: dayNames[index],
-        minutes: 0,
-        decimal: '0.00',
-        error: 'Cálculo de duración inválido'
-      });
-      return;
-    }
-
-    const workedMinutes = duration - breakMinutes;
-
-    if (workedMinutes < 0) {
-      dailyResults.push({
-        dayName: dayNames[index],
-        minutes: 0,
-        decimal: '0.00',
-        error: 'Descanso superior al tiempo trabajado'
-      });
-      return;
-    }
-
-    dailyResults.push({
-      dayName: dayNames[index],
-      minutes: workedMinutes,
-      decimal: (workedMinutes / 60).toFixed(2),
-      formatted: formatResult(workedMinutes),
-      error: null
-    });
+    if (entryInput) setupTimeInput(entryInput, '--:--');
+    if (exitInput) setupTimeInput(exitInput, '--:--');
   });
-
-  return dailyResults;
 };
 
-// Manejar click en calcular - solo en navegador
-const handleCalculate = () => {
-  const dailyResults = calculateWeekly();
-  displayResults(dailyResults);
-};
-
-// Manejar click en reiniciar - solo en navegador  
-const handleReset = () => {
-  dayPrefixes.forEach((prefix) => {
-    const entryInput = document.getElementById(prefix + '-entry');
-    const exitInput = document.getElementById(prefix + '-exit');
-    const breakInput = document.getElementById(prefix + '-break');
-
-    if (entryInput) entryInput.value = '';
-    if (exitInput) exitInput.value = '';
-    if (breakInput) breakInput.value = '';
+const setupTimeInput = (inputElement: HTMLInputElement, placeholderValue: string) => {
+  // Guardar valor inicial del placeholder
+  const originalPlaceholder = inputElement.placeholder;
+  
+  let isWriting = false; // Bandera para detectar si está escribiendo
+  
+  inputElement.addEventListener('input', () => {
+    if (isWriting) return; // Evitar loops infinito
+    
+    isWriting = true;
+    
+    const target = inputElement as HTMLInputElement;
+    
+    // Si empieza a escribir, establecer placeholder --:--
+    const valueAfterWrite = target.value.trim();
+    if (valueAfterWrite.length > 0 && originalPlaceholder === '--:--') {
+      target.placeholder = placeholderValue;
+    } else if (valueAfterWrite.length === 0) {
+      target.placeholder = originalPlaceholder === '--:--' ? originalPlaceholder : '';
+    }
+    
+    // Limpiar espacios, dejar solo números
+    let value = target.value.replace(/\D/g, '');
+    
+    // Máximo 4 dígitos (HHMM)
+    if (value.length > 4) {
+      value = value.slice(0, 4);
+    }
+    
+    // Insertar ':' después de los primeros 2 dígitos si hay al menos 2
+    if (value.length >= 2) {
+      target.value = `${value.slice(0, 2)}:${value.slice(2, 4)}`;
+    } else if (value.length === 1) {
+      target.value = `${value}:`;
+    } else {
+      target.value = '';
+    }
+    
+    // Si queda solo ':' eliminarlo
+    if (target.value === ':') {
+      target.value = '';
+    } else if (target.value === '') {
+      target.placeholder = originalPlaceholder === '--:--' ? placeholderValue : '';
+    }
+    
+    isWriting = false;
   });
-
-  // Limpiar resultados
-  const resultArea = document.getElementById('results-area');
-  if (resultArea) {
-    resultArea.innerHTML = '<h3 style="margin-top:0;margin-bottom:.5rem;">Resultados</h3>';
-  }
 };
 
+// Inicializar inputs al cargar
 document.addEventListener('DOMContentLoaded', () => {
+  setupTimeInputs();
   const calculateBtn = document.getElementById('calculate-weekly-btn');
   const resetBtn = document.getElementById('reset-weekly-btn');
 

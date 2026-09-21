@@ -19,6 +19,7 @@ import DailyCalculatorPreview from '../components/calculator/CalculatorPreview.a
     <meta property="og:title" content="MiA - Herramientas gratuitas para calcular horas y tiempo de trabajo" />
     <meta property="og:description" content="Calculadoras online gratuitas para jornada laboral: calculadora de horas trabajadas, cálculo de descansos, organización de turnos y más herramientas relacionadas con horarios y tiempo de trabajo." />
     <meta property="og:url" content="https://correodos.github.io/mia-proyecto/" />
+    <meta property="og:site_name" content="MiA - Herramientas de tiempo" />
     <meta property="og:locale" content="es_ES" />
 
     <!-- Twitter Cards -->
@@ -26,8 +27,8 @@ import DailyCalculatorPreview from '../components/calculator/CalculatorPreview.a
     <meta name="twitter:title" content="MiA - Herramientas gratuitas para calcular horas y tiempo de trabajo">
     <meta name="twitter:description" content="Calculadoras online gratuitas para jornada laboral: calculadora de horas trabajadas, cálculo de descansos, organización de turnos y más herramientas relacionadas con horarios y tiempo de trabajo.">
 
-    <title>MiA - Herramientas gratuitas para calcular horas y tiempo de trabajo</title>
-    <meta name="description" content="Calculadoras online gratuitas para jornada laboral: calculadora de horas trabajadas, cálculo de descansos, organización de turnos y más herramientas relacionadas con horarios y tiempo de trabajo." />
+    <title>MiA - Calculadoras de Horas Trabajadas y Tiempo Laboral</title>
+    <meta name="description" content="Calculadora de horas trabajadas, semanal y recursos para organizar tu jornada laboral con descansos. Herramientas gratuitas en español." />
   </head>
 
   <body>
@@ -39,7 +40,7 @@ import DailyCalculatorPreview from '../components/calculator/CalculatorPreview.a
 
     <main role="main">
       <section aria-labelledby="welcome-heading">
-        <h1 id="welcome-heading">Herramientas para organizar y calcular tu jornada laboral</h1>
+        <h1 id="welcome-heading">Calculadoras de Horas Trabajadas y Tiempo Laboral</h1>
         
         <p class="intro-text">Calculadoras gratuitas y sencillas para quienes trabajan por horas. Organiza tus turnos, calcula tu tiempo de trabajo real e incluso con descansos incluidos.</p>
       </section>
@@ -77,20 +78,52 @@ import DailyCalculatorPreview from '../components/calculator/CalculatorPreview.a
         <nav role="navigation" aria-label="Lista de herramientas">
           <ul role="list">
             <li>
-              <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
-                <article aria-labelledby="tool-calculator-heading">
-                  <h3 id="tool-calculator-heading">Calculadora de horas trabajadas</h3>
-                  <p>Ingresando la hora de entrada y salida, más tu descanso, obtendrás el tiempo neto trabajado.</p>
+              <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"}>
+                <article aria-labelledby="tool-weekly-calculator-heading">
+                  <h3 id="tool-weekly-calculator-heading">Calculadora semanal de horas</h3>
+                  <p>Calcula el total de horas trabajadas en tu jornada completa (lunes a domingos).</p>
                 </article>
               </a>
             </li>
-          </ul>
+             <li>
+               <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
+                 <article aria-labelledby="tool-calculator-heading">
+                   <h3 id="tool-calculator-heading">Calculadora de horas trabajadas</h3>
+                   <p>Ingresando la hora de entrada y salida, más tu descanso, obtendrás el tiempo neto trabajado.</p>
+                 </article>
+               </a>
+             </li>
+              <li>
+                <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"}>
+                  <article aria-labelledby="tool-hours-extra-calculator-heading">
+                    <h3 id="tool-hours-extra-calculator-heading">Calculadora de horas extra</h3>
+                    <p>Calcula tus horas extra respecto a la jornada prevista, incluso jornadas nocturnas.</p>
+                  </article>
+                </a>
+              </li>
+          <li>
+            <a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"}>
+              <article aria-labelledby="tool-split-shift-heading">
+                <h3 id="tool-split-shift-heading">Calculadora de jornada partida</h3>
+                <p>Para turnos divididos en dos o más tramos separados durante el día.</p>
+              </article>
+            </a>
+          </li>
+          <li>
+            <a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"}>
+              <article aria-labelledby="tool-dates-heading">
+                <h3 id="tool-dates-heading">Calculadora de tiempo entre fechas</h3>
+                <p>Calcula el tiempo transcurrido entre dos fechas con opción de incluir horas exactas.</p>
+              </article>
+            </a>
+          </li>
+            </ul>
         </nav>
       </section>
     </main>
 
-    <footer role="contentinfo">
-      <p>Herramientas gratuitas para organizar y calcular horas de trabajo</p>
-    </footer>
-  </body>
-</html>
+     <footer role="contentinfo">
+        <p>Herramientas gratuitas para organizar y calcular horas de trabajo</p>
+      </footer>
+    </body>
+  </html>

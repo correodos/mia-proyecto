@@ -1,0 +1,85 @@
+/**
+ * Estilos específicos para la guía de jornada partida
+ */
+
+.guide-section {
+    margin-bottom: 2rem;
+}
+
+h2 {
+    color: #1f2937;
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: var(--spacing-md, 1rem);
+}
+
+ul {
+    list-style: none;
+    padding-left: calc(var(--spacing-sm, 0.5rem) * 0);
+    margin-bottom: var(--spacing-md, 1rem);
+}
+
+li {
+    margin-bottom: var(--spacing-sm, 0.5rem);
+    color: #374151;
+    line-height: 1.5;
+}
+
+.example-box {
+    background-color: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    padding: var(--spacing-md, 1rem);
+    margin-top: var(--spacing-md, 1rem);
+    border-radius: 0 var(--radius, 8px) var(--radius, 8px) 0;
+}
+
+.example-box code {
+    background-color: rgba(34, 197, 94, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #16a34a;
+}
+
+.example-card {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: var(--spacing-md, 1rem);
+    border-radius: var(--radius, 8px);
+    margin-bottom: var(--spacing-sm, 0.5rem);
+}
+
+.example-card h3 {
+    font-size: 1rem;
+    color: #1f2937;
+    margin: 0 0 var(--spacing-xs, 0.25rem) 0;
+}
+
+.example-card code {
+    background-color: rgba(59, 130, 246, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.qa dt {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.qa dd {
+    margin-top: var(--spacing-xs, 0.25rem);
+    margin-bottom: 1.5rem;
+    padding-left: var(--spacing-sm, 0.5rem);
+}
+
+@media (max-width: 500px) {
+    h2 {
+        font-size: 1.1rem;
+    }
+
+    .example-box,
+    .example-card {
+        padding: var(--spacing-sm, 0.5rem);
+    }
+}

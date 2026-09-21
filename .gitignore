@@ -1,3 +1,14 @@
 node_modules/
 dist/
 .astro/
+# Archivos temporales y de salidas generadas
+*.tmp
+*.temp
+backup-*/
+test-output.txt
+INFORME_*/
+STATUS.md
+status.md
+# Logs y archivos de informe no versionados
+*.log
+reports/

@@ -1,3 +1,4 @@
+import type { Hour } from '../../types/index';
 import { minutesFromTime } from './minutesFromTime';
 
 export interface ShiftResult {

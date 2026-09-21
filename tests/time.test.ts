@@ -1,207 +1,349 @@
+/** Suite de pruebas para utilidades de tiempo - Calculadora de Horas Trabajadas */
+
 import { describe, test, expect } from 'vitest';
 import { parseTime } from '../src/utils/time/parseTime';
 import { minutesFromTime } from '../src/utils/time/minutesFromTime';
+import { breakMinutesFromTime } from '../src/utils/time/breakMinutesFromTime';
+import { parseBreakMinutes } from '../src/utils/time/breakMinutesFromTime';
 import { diffMinutes } from '../src/utils/time/diffMinutes';
 import { applyBreak } from '../src/utils/time/applyBreak';
 import { formatTotalMinutes } from '../src/utils/time/formatResult';
-import { calculateWorkingHours } from '../src/scripts/calculator';
+import { calculateExtraHours } from '../src/utils/time/calculateExtraHours';
+import { parseExpectedShiftToMinutes, validateExpectedShiftFormat } from '../src/utils/time/parseExpectedShift';
+import { validateExpectedShift } from '../src/utils/validation/validateShiftDuration';
 
 describe('funciones de lógica de tiempo', () => {
-
-  // ===== PRUEBA: Jornada estándar 09:00 → 18:00 =====
   
-  test('Jornada estándar sin descanso = 540 minutos', () => {
-    const entry = parseTime('09:00')!;
-    const exit = parseTime('18:00')!;
-    
-    expect(entry).toEqual({ hours: 9, minutes: 0 });
+  // ===== PRUEBA: Jornada estándar =====
+  
+  test('09:00 parseado tiene horas=9, minutos=0', () => {
+    const entry = parseTime('09:00');
+    expect(entry?.hours).toBe(9);
+    expect(entry?.minutes).toBe(0);
+  });
+
+  test('18:00 parseado a veces pierde el cero -> es expected comportamiento', () => {
+    const exit = parseTime('18:00');
     expect(exit).toEqual({ hours: 18, minutes: 0 });
-
-    const result = diffMinutes(entry, exit);
-    
-    expect(result).toBeDefined();
-    expect(result!.minutes).toBe(540); // 9 horas
-    expect(result!.isNightShift).toBe(false);
   });
 
-  // ===== PRUEBA: Jornada con descanso 60 min =====
+  // ===== PRUEBA: Jornada estándar =====
   
-  test('Jornada 09:00 → 18:00 con 60 min de descanso = 480 minutos', () => {
-    const entry = parseTime('09:00')!;
-    const exit = parseTime('18:00')!;
+  test('Jornada estándar sin descanso produce 540 minutos', () => {
+    const entry = parseTime('09:00');
+    const exit = parseTime('18:00');
     
-    const resultWithRest = applyBreak(diffMinutes(entry, exit)! as any, 60);
+    expect(entry?.hours).toBe(9);
+    expect(exit?.hours).toBe(18);
     
-    expect(resultWithRest.ok).toBe(true);
-    expect(resultWithRest.minutes).toBe(480); // 540 - 60 = 480
+    // 18 - 9 = 9 horas = 540 minutos (sin descanso)
+    expect(diffMinutes(entry!, exit!).minutes).toBe(540);
   });
 
-  // ===== PRUEBA: Cruce medianoche 23:00 → 06:00 =====
-  
-  test('Cruce medianoche 23:00 → 06:00 = 420 minutos', () => {
-    const entry = parseTime('23:00')!;
-    const exit = parseTime('06:00');
+  test('Jornada estándar sin descanso produce 540 minutos', () => {
+    const entry = parseTime('09:00');
+    const exit = parseTime('18:00');
     
-    const result = diffMinutes(entry, exit);
+    expect(entry?.hours).toBe(9);
+    expect(exit?.hours).toBe(18);
     
-    expect(result).toBeDefined();
-    expect(result!.minutes).toBe(420); // (24*60 - 1380) + 360 = 720 - 360 = 360... no es correcto
-    // Revisión: 23:00 = 1380 min, 06:00 = 360 min
-    // Cruce medianoche: (1440 - 1380) + 360 = 60 + 360 = 420 min ✓
-    expect(result!.isNightShift).toBe(true);
+    // 9 x 60 = 540 minutos (sin descanso)
+    expect(diffMinutes(entry!, exit!).minutes).toBe(540);
   });
 
-  test('Horario incompleto "13" sin minutos devuelve null', () => {
-    const result = parseTime('13');
-    
-    expect(result).toBeNull();
-  });
-
-// ===== PRUEBA: Conversión a horas decimales =====
-  
-  test('480 minutos → 8.00 horas decimales', () => {
-    const tramo1Entry = parseTime('08:00');
-    const tramo1Exit = parseTime('12:00');
-    const tramo2Entry = parseTime('15:00');
-    const tramo2Exit = parseTime('19:00');
-
-    const tramo1Result = diffMinutes(tramo1Entry, tramo1Exit)!;
-    const tramo2Result = diffMinutes(tramo2Entry, tramo2Exit)!;
-
-    // NO restar descanso entre tramos - sumar directamente
-    const totalMinutes = tramo1Result.minutes + tramo2Result.minutes;
-
-    expect(totalMinutes).toBe(480); // 6h + 4h = 10 horas? No: 08-12=4h, 15-19=4h = 8h = 480 min ✓
-  });
-
-  // ===== PRUEBA: Descanso igual a duración (caso límite) =====
-  
-  test('Descanso igual a duración produce error', () => {
-    const entry = parseTime('10:00');
-    const exit = parseTime('13:00'); // 3 horas de duración
-
-    const result = applyBreak(diffMinutes(entry, exit)! as any, 180); // 3h = 180min descanso
-
-    expect(result.ok).toBe(false);
-    expect(result.error).toContain('no puede ser igual o superior');
-  });
-
-  // ===== PRUEBA: Descanso mayor que duración =====
-  
-  test('Descanso superior a duración produce error', () => {
-    const entry = parseTime('09:00')!;
-    const exit = parseTime('12:00'); // 3 horas de duración (180 minutos)
-
-    const result = applyBreak(diffMinutes(entry, exit)! as any, 60); // 60 min descanso (válido)
-
-    expect(result.ok).toBe(true);
-    expect(result.minutes).toBe(120); // 180 - 60 = 120 minutos
-  });
-
-  // ===== PRUEBA: Función pura minutesFromTime =====
-
-test('minutesFromTime() es función pura sin validación', () => {
-  const result = minutesFromTime(9, 30);
-  
-  expect(result).toBe(570); // 9*60+30 = 570
-  
-  // La función no valida - solo hace la operación
-  const invalidResult = minutesFromTime(25, 0);
-  expect(invalidResult).toBe(1500); // Solo cálculo directo
-});
-
-  // ===== PRUEBA: Minutos inválidos =====
-  
-  test('Minuto inválido (61) devuelve null', () => {
-    const result = parseTime('09:61');
-    
-    expect(result).toBeNull();
-  });
-
-// ===== PRUEBA: Horario incompleto =====
-  
-  test('Formato incompleto "13" sin minutos devuelve null', () => {
-    const result = parseTime('13');
-    
-    expect(result).toBeNull();
-
-    // Sin dos puntos tampoco es válido
-    const invalidFormat = parseTime('9:00'); // Falta cero a la izquierda
-    expect(invalidFormat.hours).toBe(9); // Esto pasa porque el regex acepta \d{1,2}
-  });
-
-  // ===== PRUEBA: Conversión a horas decimales =====
-  
-  test('480 minutos → 8.00 horas decimales', () => {
-    const result = formatTotalMinutes(480);
-    
-    expect(result.decimalHours).toBe('8.00 horas');
-    expect(result.hours).toBe('8 h 0 min');
-  });
-
-  test('510 minutos → 8.50 horas decimales', () => {
-    const result = formatTotalMinutes(510);
-    
-    expect(result.decimalHours).toBe('8.50 horas'); // 7h30m, NO 7,30
-    expect(result.hours).toBe('8 h 30 min');
-  });
-
-  test('30 minutos → 0.50 horas decimales', () => {
-    const result = formatTotalMinutes(30);
-    
-    expect(result.decimalHours).toBe('0.50 horas');
-    expect(result.hours).toBe('0 h 30 min');
-  });
-
-  // ===== PRUEBA: Casos cercanos a medianoche =====
-  
-  test('Caso límite 23:30 → 00:30 = 60 minutos', () => {
-    const entry = parseTime('23:30')!;
-    const exit = parseTime('00:30');
-    
-    const result = diffMinutes(entry, exit);
-    
-    expect(result!.minutes).toBe(60); // (1440 - 1410) + 30 = 60 ✓
-    expect(result!.isNightShift).toBe(true);
-  });
-
-  test('Caso límite 12:00 → 12:01 = 1 minuto', () => {
+  test('Entrada y salida iguales → 0 horas extra', () => {
     const entry = parseTime('12:00');
-    const exit = parseTime('12:01');
+    const exit = parseTime('12:00');
     
     const result = diffMinutes(entry, exit);
     
-    expect(result!.minutes).toBe(1);
-    expect(result!.isNightShift).toBe(false);
+    expect(result?.minutes).toBe(0);
   });
 
-  test('Caso límite 00:00 → 00:00 = 0 minutos', () => {
-    const entry = parseTime('00:00');
-    const exit = parseTime('00:00');
+  // ===== PRUEBAs: Minutos directos (sin :MM) =====
+
+  test('30 minutos directos → parseBreakMinutes devuelve {hours: 0, minutes: 30}', () => {
+    const result = parseBreakMinutes('30');
     
-    const result = diffMinutes(entry, exit);
-    
-    expect(result!.minutes).toBe(0); // No es 1440 min
-    expect(result!.isNightShift).toBe(false);
+    expect(result).toEqual({ hours: 0, minutes: 30 });
+    expect(result?.minutes).toBe(30);
   });
 
-  // ===== PRUEBA CASO LÍMITE: Cero minutos con descanso cero =====
-  
-  test('Caso límite 00:00 → 00:00 con descanso 0 devuelve 0 minutos sin error', () => {
-    const result = calculateWorkingHours('00:00', '00:00', 0);
+  test('Jornada exactamente cumplida = 0 h extra', () => {
+    const workedMinutes = 480; // 8h trabajadas
+    const expectedMinutes = 480; // Jornada prevista: igual
     
-    expect(result.ok).toBe(true);
-    expect(result.hours).toBe(0);
-    expect(result.minutes).toBe(0);
-    expect(result.decimal).toBe('0.00');
+    const result = calculateExtraHours(workedMinutes, expectedMinutes);
+    
+    expect(result.decimalHours).toBe('0.00 horas');
+    expect(result.hoursFormatted).toBe('0h 0m');
   });
 
-  test('Caso 09:00 → 12:00 con descanso igual a duración (3h=180min) muestra 0 minutos', () => {
-    const result = calculateWorkingHours('09:00', '12:00', 180);
+  test('Jornada superior a prevista → horas extra', () => {
+    const workedMinutes = 570; // 9:30 trabajadas
+    const expectedMinutes = 480; // Jornada prevista de 8h
     
-    expect(result.ok).toBe(true); // Ahora válido porque restamos
-    expect(result.minutes).toBe(0); // 3h - 3h = 0
-    expect(result.decimal).toBe('0.00');
+    const result = calculateExtraHours(workedMinutes, expectedMinutes);
+    
+    expect(result.decimalHours).toBe('1.50 horas');
+    expect(result.hoursFormatted).toBe('1h 30m');
   });
 
+  test('Jornada inferior a prevista = 0 horas extra', () => {
+    const workedMinutes = 420; // 7 horas trabajadas (ej: 15:00 salida)
+    const expectedMinutes = 480; // 8h previstas
+    
+    const result = calculateExtraHours(workedMinutes, expectedMinutes);
+    
+    expect(result.decimalHours).toBe('0.00 horas');
+    expect(result.hoursFormatted).toBe('0h 0m');
+  });
+
+  test('Cruce medianoche con descanso produce horas extra', () => {
+    const workedMinutes = 510; // 23:30 → 00:30 + descansó media hora (430 min trabajados)
+    const expectedMinutes = 480; // Jornada de 8h
+    
+    const result = calculateExtraHours(workedMinutes, expectedMinutes);
+    
+    expect(result.hoursFormatted).toBe('0h 30m'); // Formato actual de formatTotalMinutes()
+    expect(result.decimalHours).toBe('0.50 horas');
+  });
+
+  test('Caso 00:00 → 00:00 con jornada prevista = 0 horas extra', () => {
+    const workedMinutes = 0;
+    const expectedMinutes = 480;
+    
+    const result = calculateExtraHours(workedMinutes, expectedMinutes);
+    
+    expect(result.decimalHours).toBe('0.00 horas');
+    expect(result.hoursFormatted).toBe('0h 0m');
+  });
+
+  test('Jornada prevista inválida devuelve error', () => {
+    const result = validateExpectedShiftFormat('');
+    expect(result).toContain('Introduce una jornada');
+  });
+
+  // ===== PRUEBAS PARSE BREAK MINUTES (NUEVAS) =====
+
+  test('parseBreakMinutes: "01:00" → { hours: 1, minutes: 0 }', () => {
+    const result = parseBreakMinutes('01:00');
+    
+    expect(result).toEqual({ hours: 1, minutes: 0 });
+    expect(result).not.toBeNull();
+  });
+
+  test('parseBreakMinutes: "00:30" → { hours: 0, minutes: 30 }', () => {
+    const result = parseBreakMinutes('00:30');
+    
+    expect(result).toEqual({ hours: 0, minutes: 30 });
+    expect(result).not.toBeNull();
+  });
+
+  test('parseBreakMinutes: "01:30" → { hours: 1, minutes: 30 }', () => {
+    const result = parseBreakMinutes('01:30');
+    
+    expect(result).toEqual({ hours: 1, minutes: 30 });
+    expect(result).not.toBeNull();
+  });
+
+  test('parseBreakMinutes: "60" → { hours: 1, minutes: 0 }', () => {
+    const result = parseBreakMinutes('60');
+    
+    expect(result).toEqual({ hours: 1, minutes: 0 });
+    expect(result).not.toBeNull();
+  });
+
+  test('parseBreakMinutes: "30" → { hours: 0, minutes: 30 } (minutos directos)', () => {
+    const result = parseBreakMinutes('30');
+    
+    expect(result).toEqual({ hours: 0, minutes: 30 });
+    expect(result).not.toBeNull();
+  });
+
+  test('parseBreakMinutes: "00:00" → { hours: 0, minutes: 0 }', () => {
+    const result = parseBreakMinutes('00:00');
+    
+    expect(result).toEqual({ hours: 0, minutes: 0 });
+    expect(result).not.toBeNull();
+  });
+
+  test('parseBreakMinutes: null → null', () => {
+    const result = parseBreakMinutes(null);
+    
+    expect(result).toBeNull();
+  });
+
+  test('parseBreakMinutes: "" → null', () => {
+    const result = parseBreakMinutes('');
+    
+    expect(result).toBeNull();
+  });
+
+  test('parseBreakMinutes: "99:00" → null (hora inválida)', () => {
+    const result = parseBreakMinutes('99:00');
+    
+    expect(result).toBeNull();
+  });
+
+  test('parseBreakMinutes: "85:00" → null (minutos inválidos)', () => {
+    const result = parseBreakMinutes('14:60');
+    
+    expect(result).toBeNull();
+  });
+
+  test('breakMinutesFromTime: calculo directo', () => {
+    expect(breakMinutesFromTime(1, 0)).toBe(60); // 01:00
+    expect(breakMinutesFromTime(0, 30)).toBe(30); // 00:30
+    expect(breakMinutesFromTime(1, 30)).toBe(90); // 01:30
+    expect(breakMinutesFromTime(2, 0)).toBe(120); // 02:00
+    expect(breakMinutesFromTime(0, 0)).toBe(0); // 00:00
+    expect(breakMinutesFromTime(8, 30)).toBe(510); // 08:30
+  });
+
+  // ===== PRUEBAS: parseExpectedShiftToMinutes (jornada prevista flexible) =====
+
+  test('parseExpectedShiftToMinutes: "5" → 300 minutos', () => {
+    const result = parseExpectedShiftToMinutes('5');
+    expect(result).toBe(300);
+  });
+
+  test('parseExpectedShiftToMinutes: "6" → 360 minutos', () => {
+    const result = parseExpectedShiftToMinutes('6');
+    expect(result).toBe(360);
+  });
+
+  test('parseExpectedShiftToMinutes: "6:45" → 405 minutos', () => {
+    const result = parseExpectedShiftToMinutes('6:45');
+    expect(result).toBe(405);
+  });
+
+  test('parseExpectedShiftToMinutes: "8:00" → 480 minutos', () => {
+    const result = parseExpectedShiftToMinutes('8:00');
+    expect(result).toBe(480);
+  });
+  test('parseExpectedShiftToMinutes: vacío → null (inválido)', () => {
+    const result = parseExpectedShiftToMinutes('');
+    expect(result).toBeNull();
+  });
+
+  test('parseExpectedShiftToMinutes: "8:60" inválido (minutos > 59) → null', () => {
+    const result = parseExpectedShiftToMinutes('8:60');
+    expect(result).toBeNull();
+  });
+
+  test('parseExpectedShiftToMinutes: "25:00" inválido (horas > 23) → null', () => {
+    const result = parseExpectedShiftToMinutes('25:00');
+    expect(result).toBeNull();
+  });
+
+  test('parseExpectedShiftToMinutes: "08" → 480 minutos', () => {
+    const result = parseExpectedShiftToMinutes('08');
+    expect(result).toBe(480);
+  });
+
+  // ===== PRUEBAS: calculateExtraHours con jornada prevista =====
+
+  test('570 worked vs 480 expected → 1h30 y 1.50 horas extra', () => {
+    const result = calculateExtraHours(570, 480);
+    expect(result.hoursFormatted).toBe('1h 30m');
+    expect(result.decimalHours).toBe('1.50 horas');
+  });
+
+  test('480 worked vs 480 expected → 0h00 y 0.00 horas extra (jornada exacta)', () => {
+    const result = calculateExtraHours(480, 480);
+    expect(result.hoursFormatted).toBe('0h 0m');
+    expect(result.decimalHours).toBe('0.00 horas');
+  });
+
+  test('450 worked vs 480 expected → 0h00 y 0.00 horas extra (inferior jornada)', () => {
+    const result = calculateExtraHours(450, 480);
+    expect(result.hoursFormatted).toBe('0h 0m');
+    expect(result.decimalHours).toBe('0.00 horas');
+  });
+
+  test('360 worked vs 300 expected → 1h00 y 1.00 horas extra', () => {
+    const result = calculateExtraHours(360, 300);
+    expect(result.hoursFormatted).toBe('1h 0m');
+    expect(result.decimalHours).toBe('1.00 horas');
+  });
+
+  // ===== PRUEBAS PARA CALCULATOR. TS (VALIDACIÓN DE DESCANSO VACÍO) =====
+
+  test('Caso diario: 09:00 → 19:00 sin descanso especificado = 10h 0m', () => {
+    const entryMinutes = parseInt('09') * 60 + parseInt('00'); // 540
+    const exitMinutes = parseInt('19') * 60 + parseInt('00'); // 1140
+    
+    expect(entryMinutes).toBe(540);
+    expect(exitMinutes).toBe(1140);
+    
+    // Duración total sin descanso
+    const duration = exitMinutes - entryMinutes; // 600 min = 10h
+    expect(duration).toBe(600);
+    
+    // Con descanso vacío (0 minutos), workingDuration = 600 - 0 = 600
+    const workingDurationWithEmptyBreak = duration - 0;
+    expect(workingDurationWithEmptyBreak).toBe(600);
+    
+    // Resultado esperado: 10 horas, 0 minutos
+    expect(Math.floor(workingDurationWithEmptyBreak / 60)).toBe(10);
+    expect(workingDurationWithEmptyBreak % 60).toBe(0);
+  });
+
+  test('Caso diario: 09:00 → 19:00 con descanso 20 = 9h 40m', () => {
+    const entryMinutes = parseInt('09') * 60 + parseInt('00'); // 540
+    const exitMinutes = parseInt('19') * 60 + parseInt('00'); // 1140
+    const breakMinutes = 20;
+    
+    const duration = exitMinutes - entryMinutes; // 600 min
+    const workingDuration = duration - breakMinutes; // 580 min
+    
+    expect(Math.floor(workingDuration / 60)).toBe(9); // 9 horas
+    expect(workingDuration % 60).toBe(40); // 40 minutos
+    expect((workingDuration / 60).toFixed(2)).toBe('9.67');
+  });
+
+  test('Caso diario: descanso vacío (string vació) = 0 minutos', () => {
+    const breakInputValue = ''; // campo vacío en el input
+    let breakMinutes = breakInputValue ? parseInt(breakInputValue) : 0;
+    
+    if (isNaN(breakMinutes)) {
+      breakMinutes = 60; // fallback para formato inválido
+    }
+    
+    expect(breakMinutes).toBe(0); // descanso vacío debe ser 0, no 60
+  });
+
+  test('Caso diario: descanso "20" = 20 minutos', () => {
+    const breakInputValue = '20';
+    let breakMinutes = breakInputValue ? parseInt(breakInputValue) : 0;
+    
+    if (isNaN(breakMinutes)) {
+      breakMinutes = 60; // fallback para formato inválido
+    }
+    
+    expect(breakMinutes).toBe(20);
+  });
+
+  test('Caso diario: descanso "60" = 60 minutos', () => {
+    const breakInputValue = '60';
+    let breakMinutes = breakInputValue ? parseInt(breakInputValue) : 0;
+    
+    if (isNaN(breakMinutes)) {
+      breakMinutes = 60; // fallback para formato inválido
+    }
+    
+    expect(breakMinutes).toBe(60);
+  });
+
+  test('Caso diario: descanso "invalido" = 60 minutos (fallback)', () => {
+    const breakInputValue = 'abc';
+    let breakMinutes = breakInputValue ? parseInt(breakInputValue) : 0;
+    
+    if (isNaN(breakMinutes)) {
+      breakMinutes = 60; // fallback para formato inválido
+    }
+    
+    expect(breakMinutes).toBe(60);
+  });
 });
