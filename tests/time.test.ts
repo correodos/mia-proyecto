@@ -2,9 +2,7 @@
 
 import { describe, test, expect } from 'vitest';
 import { parseTime } from '../src/utils/time/parseTime';
-import { minutesFromTime } from '../src/utils/time/minutesFromTime';
-import { breakMinutesFromTime } from '../src/utils/time/breakMinutesFromTime';
-import { parseBreakMinutes } from '../src/utils/time/breakMinutesFromTime';
+import { parseBreakMinutes, minutesFromTime } from '../src/utils/time/index';
 import { diffMinutes } from '../src/utils/time/diffMinutes';
 import { applyBreak } from '../src/utils/time/applyBreak';
 import { formatTotalMinutes } from '../src/utils/time/formatResult';
@@ -192,13 +190,13 @@ describe('funciones de lógica de tiempo', () => {
     expect(result).toBeNull();
   });
 
-  test('breakMinutesFromTime: calculo directo', () => {
-    expect(breakMinutesFromTime(1, 0)).toBe(60); // 01:00
-    expect(breakMinutesFromTime(0, 30)).toBe(30); // 00:30
-    expect(breakMinutesFromTime(1, 30)).toBe(90); // 01:30
-    expect(breakMinutesFromTime(2, 0)).toBe(120); // 02:00
-    expect(breakMinutesFromTime(0, 0)).toBe(0); // 00:00
-    expect(breakMinutesFromTime(8, 30)).toBe(510); // 08:30
+  test('minutesFromTime: calculo directo', () => {
+    expect(minutesFromTime(1, 0)).toBe(60); // 01:00
+    expect(minutesFromTime(0, 30)).toBe(30); // 00:30
+    expect(minutesFromTime(1, 30)).toBe(90); // 01:30
+    expect(minutesFromTime(2, 0)).toBe(120); // 02:00
+    expect(minutesFromTime(0, 0)).toBe(0); // 00:00
+    expect(minutesFromTime(8, 30)).toBe(510); // 08:30
   });
 
   // ===== PRUEBAS: parseExpectedShiftToMinutes (jornada prevista flexible) =====

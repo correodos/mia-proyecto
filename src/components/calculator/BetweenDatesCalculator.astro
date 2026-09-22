@@ -269,10 +269,33 @@ const toMinutes = (value) => {
     return hours <= 23 && minutes <= 59 ? { hours, minutes } : null;
 };
 
-// Mostrar mensaje de error
+// Mostrar mensaje de error - MANTENER h3 siempre visible + LIMPIAR contenido previo
 const showErrorMessage = (element, message) => {
   if (!element || !message) return;
-  element.innerHTML = `<p class="error-message">${message}</p>`;
+  
+  // Mantener el h3
+  let existingH3 = element.querySelector('h3#result-heading');
+  if (!existingH3) {
+    existingH3 = document.createElement('h3');
+    existingH3.id = 'result-heading';
+    existingH3.textContent = 'Resultados';
+    element.insertBefore(existingH3, element.firstChild);
+  }
+  
+  // Limpiar contenido previo manteniendo solo el h3
+  while (element.children.length > 1) {
+    element.removeChild(element.lastChild);
+  }
+  
+  // Crear nuevo contenedor para el error
+  let errorContainer = element.querySelector('.error-message');
+  if (!errorContainer) {
+    errorContainer = document.createElement('p');
+    errorContainer.className = 'error-message';
+    element.appendChild(errorContainer);
+  }
+  
+  errorContainer.textContent = message;
 };
 
 // Reiniciar la calculadora - restaura el estado inicial vacío y limpia resultados
@@ -341,7 +364,7 @@ const calculateDiff = (dateFrom, timeFromStr, dateTo, timeToStr) => {
     const toDate = new Date(`${dateTo}T${String(toHours).padStart(2,'0')}:${String(minutesToValue).padStart(2,'0')}`);
     
     if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
-      return { ok: false, error: 'Fechas fuera del rango válido (1970-2080).' };
+      return { ok: false, error: 'Fechas fuera de rango válido.' };
     }
     
     // Validar cronología

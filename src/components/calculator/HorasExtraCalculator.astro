@@ -52,16 +52,18 @@ import type { Hour } from '../../types/index.js';
       </div>
 
     <div class="form-group">
-      <label for="break-time">Descanso:</label>
+      <label for="break-time">Descanso (minutos):</label>
       <input
         id="break-time"
         name="breakTime"
-        type="text"
-        pattern="[0-9]{2}:[0-9]{2}"
-        inputmode="numeric"
-        placeholder="Ej.: 01:00 o 20 minutos"
-        aria-label="Tiempo de descanso en formato HH:MM o minutos directos"
+        type="number"
+        min="0"
+        step="1"
+        placeholder="60"
+        aria-label="Minutos de descanso"
+        aria-describedby="break-help"
       />
+      <span id="break-help" class="help-text">Ej: 30, 60, 90 minutos</span>
     </div>
   </fieldset>
 
@@ -73,7 +75,6 @@ import type { Hour } from '../../types/index.js';
   <section class="results-area" aria-live="polite" aria-labelledby="result-heading">
     <h3 id="result-heading">Resultados</h3>
     <ul class="result-list" role="list"></ul>
-    <div class="error-message" aria-live="assertive"></div>
   </section>
 
   <nav class="internal-links">

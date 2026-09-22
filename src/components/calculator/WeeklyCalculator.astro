@@ -445,115 +445,47 @@ button:active {
 </style>
 
 <script type="module">
-/**
- * Calculadora semanal de horas - Client-side logic MVP v1.0
- */
+import { calculateDailyShift } from '../../utils/calculateShift.js';
+import { formatTimeToHHMM } from '../../utils/time/formatTimeInput.js';
 
-// Names de los días
-const dayNames = [
-  'Lunes',
-  'Martes',
-  'Miércoles',
-  'Jueves',
-  'Viernes',
-  'Sábado',
-  'Domingo'
-];
-
-// Mapeo de index a prefijo del ID (lun, mar, mie, etc.)
+const dayNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 const dayPrefixes = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'];
 
-// Formato de horas y minutos - solo esta función repetida por ahora
-const formatResult = (minutes) => {
-  if (!minutes || minutes <= 0) return '0 h 0 min';
-  
-  const hrs = Math.floor(minutes / 60);
-  const fractionalMinutes = Math.round(minutes % 60);
-  
-  return `${hrs}h ${fractionalMinutes < 10 ? '0' : ''}${fractionalMinutes} min`;
-};
+// Calcular semanal - usa la función extraída
+const calculateWeekly = () => {
+  const dailyResults = [];
 
-// Calcular un día individual (sin usar utils por ahora hasta que los revisemos)
-const calculateDay = (entryVal, exitVal, breakValStr, dayIndex = 0) => {
-  const breakMinutes = breakValStr ? Number(breakValStr) || 0 : 0;
+  dayPrefixes.forEach((prefix, index) => {
+    const entryInput = document.getElementById(prefix + '-entry');
+    const exitInput = document.getElementById(prefix + '-exit');
+    const breakInput = document.getElementById(prefix + '-break');
 
-  // Día vacío - devolver null para ignorarlo
-  if (!entryVal || !exitVal) {
-    return null;
-  }
+    if (!entryInput || !exitInput) {
+      dailyResults.push(null);
+      return;
+    }
 
-  try {
-    const entryParts = entryVal.split(':');
-    const exitParts = exitVal.split(':');
-    
-    if (![2].includes(entryParts.length) || ![2].includes(exitParts.length)) {
-      return { dayName: 'Error', error: 'Formato de hora inválido' };
+    const entryVal = entryInput.value.trim();
+    const exitVal = exitInput.value.trim();
+
+    // Día vacío - devuelve null para el filtro posterior
+    if (!entryVal || !exitVal) {
+      dailyResults.push(null);
+      return;
     }
-    
-    const entryHours = parseInt(entryParts[0], 10);
-    const entryMinutes = parseInt(entryParts[1], 10);
-    const exitHours = parseInt(exitParts[0], 10);
-    const exitMinsStr = parseInt(exitParts[1], 10);
-    
-    // Validar rangos
-    if (entryHours < 0 || entryHours > 23 || entryMinutes < 0 || entryMinutes > 59) {
-      return { dayName: 'Error', error: 'Formato de hora inválido' };
-    }
-    if (exitHours < 0 || exitHours > 23 || exitMinsStr < 0 || exitMinsStr > 59) {
-      return { dayName: 'Error', error: 'Formato de hora inválido' };
-    }
-    
-    const entryTotalMinutes = entryHours * 60 + entryMinutes;
-    const exitTotalMinutes = exitHours * 60 + exitMinsStr;
-    
-    // Calcular duración (maneja cruce medianoche automáticamente)
-    let durationMin;
-    
-    if (exitTotalMinutes >= entryTotalMinutes) {
-      // Misma jornada
-      durationMin = exitTotalMinutes - entryTotalMinutes;
+
+    // Pasamos index directamente (Lunes=0, Martes=1, ..., Domingo=6)
+    const result = calculateDailyShift(index, entryVal, exitVal, breakInput?.value !== '' ? Number(breakInput.value) || 0 : 0);
+
+    if (result) {
+      dailyResults.push(result);
     } else {
-      // Cruce medianoche válido
-      durationMin = (24 * 60 - entryTotalMinutes) + exitTotalMinutes;
+      // Caso de error sin resultado válido, lo registramos como null
+      dailyResults.push(null);
     }
-    
-    // Caso: salida=entrada -> 0 minutos
-    if (durationMin === 0) {
-      return {
-        dayName: dayNames[dayIndex],
-        minutes: 0,
-        decimal: '0.00',
-        formatted: '0 h 0 min',
-        error: null
-      };
-    }
+  });
 
-    // Aplicar descanso
-    const workedMinutes = durationMin - breakMinutes;
-
-    if (workedMinutes < 0) {
-      return {
-        dayName: dayNames[dayIndex],
-        minutes: 0,
-        decimal: '0.00',
-        formatted: null,
-        error: 'Descanso superior al tiempo trabajado'
-      };
-    }
-
-    return {
-      dayName: dayNames[dayIndex],
-      minutes: workedMinutes,
-      decimal: (workedMinutes / 60).toFixed(2),
-      formatted: formatResult(workedMinutes),
-      error: null
-    };
-  } catch (e) {
-    return {
-      dayName: 'Error',
-      error: 'Cálculo de duración inválido'
-    };
-  }
+  return dailyResults;
 };
 
 // Mostrar resultados en el DOM
@@ -599,7 +531,7 @@ const displayResults = (dailyResults) => {
     } else if (dayData.formatted && typeof dayData.formatted === 'string') {
       li.textContent = `${dayData.dayName}: ${dayData.formatted}`;
     } else if (dayData.minutes > 0) {
-      const formatted = formatResult(dayData.minutes);
+      const formatted = dayData.formatted || formatCompact(dayData.minutes);
       li.textContent = `${dayData.dayName}: ${formatted}`;
     }
     
@@ -632,42 +564,16 @@ const displayResults = (dailyResults) => {
   }
 };
 
-// Calcular semanal
-const calculateWeekly = () => {
-  const dailyResults: Array<{dayName: string, minutes?: number, decimal?: string, formatted?: string, error?: string} | null> = [];
-
-  dayPrefixes.forEach((prefix, index) => {
-    const entryInput = document.getElementById(prefix + '-entry') as HTMLInputElement | null;
-    const exitInput = document.getElementById(prefix + '-exit') as HTMLInputElement | null;
-    const breakInput = document.getElementById(prefix + '-break') as HTMLInputElement | null;
-
-    if (!entryInput || !exitInput) {
-      dailyResults.push(null);
-      return;
-    }
-
-    const entryVal = entryInput.value.trim();
-    const exitVal = exitInput.value.trim();
-
-    // Día vacío - devuelve null para el filtro posterior
-    if (!entryVal || !exitVal) {
-      dailyResults.push(null);
-      return;
-    }
-
-    // Pasamos index directamente (Lunes=0, Martes=1, ..., Domingo=6)
-    const result = calculateDay(entryVal, exitVal, breakInput?.value !== '' ? breakInput.value : '', index);
-
-    if (result) {
-      dailyResults.push(result);
-    } else {
-      // Caso de error sin resultado válido, lo registramos como null
-      dailyResults.push(null);
-    }
-  });
-
-  return dailyResults;
+// Formato compacto auxiliar (conserva el mismo comportamiento que antes)
+const formatCompact = (minutes) => {
+  if (!minutes || minutes <= 0) return '0 h 0 min';
+  
+  const hrs = Math.floor(minutes / 60);
+  const fractionalMinutes = Math.round(minutes % 60);
+  
+  return `${hrs}h ${fractionalMinutes < 10 ? '0' : ''}${fractionalMinutes} min`;
 };
+
 
 // Manejar click en calcular
 const handleCalculate = () => {
@@ -689,11 +595,11 @@ const handleReset = () => {
   
   // Restaurar placeholders '--:--'
   dayPrefixes.forEach((prefix, index) => {
-    const entryInput = document.getElementById(prefix + '-entry') as HTMLInputElement | null;
-    const exitInput = document.getElementById(prefix + '-exit') as HTMLInputElement | null;
+    const entryInput = document.getElementById(prefix + '-entry')?.placeholder ?? '--:--;';
+    const exitInput = document.getElementById(prefix + '-exit')?.placeholder ?? '--:--;';
     
-    if (entryInput) entryInput.placeholder = '--:--';
-    if (exitInput) exitInput.placeholder = '--:--';
+    if (entryInput !== undefined) entryInput.placeholder = '--:--;';
+    if (exitInput !== undefined) exitInput.placeholder = '--:--;';
   });
 
   // Limpiar resultados para reiniciar completo
@@ -703,60 +609,27 @@ const handleReset = () => {
 // Función para autoformatar inputs de hora (HH:MM automático)
 const setupTimeInputs = () => {
   dayPrefixes.forEach((prefix, index) => {
-    const entryInput = document.getElementById(prefix + '-entry') as HTMLInputElement | null;
-    const exitInput = document.getElementById(prefix + '-exit') as HTMLInputElement | null;
+    const entryInput = document.getElementById(prefix + '-entry');
+    const exitInput = document.getElementById(prefix + '-exit');
 
-    if (entryInput) setupTimeInput(entryInput, '--:--');
-    if (exitInput) setupTimeInput(exitInput, '--:--');
+    if (entryInput) applyFormattoHHMM(entryInput);
+    if (exitInput) applyFormattoHHMM(exitInput);
   });
 };
 
-const setupTimeInput = (inputElement: HTMLInputElement, placeholderValue: string) => {
-  // Guardar valor inicial del placeholder
-  const originalPlaceholder = inputElement.placeholder;
+const applyFormattoHHMM = (inputElement) => {
+  if (!inputElement) return;
   
-  let isWriting = false; // Bandera para detectar si está escribiendo
+  const originalPlaceholder = inputElement.placeholder ?? '--:--;';
   
   inputElement.addEventListener('input', () => {
-    if (isWriting) return; // Evitar loops infinito
-    
-    isWriting = true;
-    
-    const target = inputElement as HTMLInputElement;
-    
-    // Si empieza a escribir, establecer placeholder --:--
-    const valueAfterWrite = target.value.trim();
-    if (valueAfterWrite.length > 0 && originalPlaceholder === '--:--') {
-      target.placeholder = placeholderValue;
-    } else if (valueAfterWrite.length === 0) {
-      target.placeholder = originalPlaceholder === '--:--' ? originalPlaceholder : '';
-    }
-    
-    // Limpiar espacios, dejar solo números
-    let value = target.value.replace(/\D/g, '');
-    
-    // Máximo 4 dígitos (HHMM)
-    if (value.length > 4) {
-      value = value.slice(0, 4);
-    }
-    
-    // Insertar ':' después de los primeros 2 dígitos si hay al menos 2
-    if (value.length >= 2) {
-      target.value = `${value.slice(0, 2)}:${value.slice(2, 4)}`;
-    } else if (value.length === 1) {
-      target.value = `${value}:`;
+    // Restaurar placeholder cuando se borra todo el valor
+    if (inputElement.value === '') {
+      inputElement.placeholder = originalPlaceholder;
     } else {
-      target.value = '';
+      // Aplicar formato compartido inmediatamente
+      inputElement.value = formatTimeToHHMM(inputElement.value);
     }
-    
-    // Si queda solo ':' eliminarlo
-    if (target.value === ':') {
-      target.value = '';
-    } else if (target.value === '') {
-      target.placeholder = originalPlaceholder === '--:--' ? placeholderValue : '';
-    }
-    
-    isWriting = false;
   });
 };
 

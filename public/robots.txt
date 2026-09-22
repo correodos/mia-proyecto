@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://correodos.github.io/mia-proyecto/sitemap-index.xml

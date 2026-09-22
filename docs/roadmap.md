@@ -179,13 +179,13 @@ Crear herramientas adicionales reutilizando la lógica y los componentes ya exis
 
 ### Orden inicial
 
-1. [ ] Calculadora de tiempo entre horas horas.
-2. [ ] Sumar y restar horas y minutos.
-3. [ ] Conversor de horas y minutos a horas decimales.
-4. [ ] Conversor de horas decimales a horas y minutos.
-5. [ ] Calculadora de hora de salida.
-6. [ ] Calculadora de jornada partida.
-7. [ ] Calculadora básica de turnos.
+1. [X] Calculadora de tiempo entre horas horas.
+2. [X] Sumar y restar horas y minutos.
+3. [X] Conversor de horas y minutos a horas decimales.
+4. [X] Conversor de horas decimales a horas y minutos.
+5. [X] Calculadora de hora de salida.
+6. [X] Calculadora de jornada partida.
+7. [X] Calculadora básica de turnos.
 
 ### Regla
 
@@ -243,17 +243,17 @@ Preparar la web para posicionamiento orgánico sin crear contenido artificial.
 
 ### Tareas
 
-- [ ] Definir URLs definitivas.
-- [ ] Definir títulos.
-- [ ] Definir meta descriptions.
-- [ ] Definir encabezados.
-- [ ] Añadir canonical.
-- [ ] Crear sitemap.
-- [ ] Crear robots.txt.
-- [ ] Configurar enlazado interno.
-- [ ] Revisar indexabilidad.
-- [ ] Revisar rendimiento.
-- [ ] Revisar Core Web Vitals cuando haya datos.
+- [X] Definir URLs definitivas.
+- [X] Definir títulos.
+- [X] Definir meta descriptions.
+- [X] Definir encabezados.
+- [X] Añadir canonical.
+- [X] Crear sitemap.
+- [X] Crear robots.txt.
+- [X] Configurar enlazado interno.
+- [X] Revisar indexabilidad.
+- [X] Revisar rendimiento.
+- [X] Revisar Core Web Vitals cuando haya datos.
 
 ### Regla
 
@@ -275,14 +275,14 @@ Crear contenido útil que complemente las herramientas y responda a preguntas re
 
 ### Primera tanda orientativa
 
-- [ ] Cómo calcular las horas trabajadas.
-- [ ] Cómo calcular el tiempo entre dos horas.
-- [ ] Cómo sumar horas y minutos.
-- [ ] Cómo convertir horas a decimal.
-- [ ] Cómo convertir horas decimales a horas y minutos.
-- [ ] Cómo calcular una jornada partida.
-- [ ] Cómo calcular un turno que termina al día siguiente.
-- [ ] Otros contenidos determinados por investigación SEO.
+- [x] Cómo calcular las horas trabajadas.
+- [X] Cómo calcular el tiempo entre dos horas.
+- [X] Cómo sumar horas y minutos.
+- [X] Cómo convertir horas a decimal.
+- [X] Cómo convertir horas decimales a horas y minutos.
+- [x] Cómo calcular una jornada partida.
+- [X] Cómo calcular un turno que termina al día siguiente.
+- [X] Otros contenidos determinados por investigación SEO.
 
 ### Principios
 

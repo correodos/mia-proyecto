@@ -5,199 +5,184 @@
  */
 
 import BetweenDatesCalculator from '../../components/calculator/BetweenDatesCalculator.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageData = {
+  title: "Calculadora de tiempo entre fechas | Calcula días y horas transcurridos",
+  description: "Calcúla el tiempo exacto entre dos fechas: días, horas y minutos. Herramienta gratuita online para calcular diferencia de fechas con horas opcionales. Útil para vacaciones, plazos o cualquier periodo temporal."
+};
+
+const { title, description } = pageData;
+const canonical = "https://correodos.github.io/mia-proyecto/calculadora-entre-fechas/";
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
+<BaseLayout 
+  title={title}
+  description={description}
+  canonical={canonical}
+>
+<header role="banner">
+  <nav role="navigation" aria-label="Principal">
+    <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
+  </nav>
+</header>
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://correodos.github.io/mia-proyecto/calculadora-entre-fechas/" />
+<main role="main">
+  <h1>Calculadora de tiempo entre dos fechas | Diferencia exacta con horas</h1>
+  
+  <section aria-labelledby="intro-heading" class="intro-section">
+    <p id="intro-heading" class="intro-text">
+      Calcula el tiempo transcurrido entre dos fechas de forma sencilla. Esta calculadora online gratuita determina exactamente cuántos días, horas y minutos han pasado desde una fecha inicial hasta una fecha final. 
+      Introduce las fechas con sus horas opcionales y obtendrás resultados precisos para calcular cualquier periodo temporal: vacaciones, plazos de entrega, diferencia entre eventos o periodos de trabajo.
+    </p>
+  </section>
+  
+  <BetweenDatesCalculator />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Calculadora de tiempo entre fechas | Calcula días y horas transcurridos" />
-    <meta property="og:description" content="Calcúla el tiempo exacto entre dos fechas: días, horas y minutos. Herramienta gratuita online para calcular diferencia de fechas con horas opcionales. Útil para vacaciones, plazos o cualquier periodo temporal." />
-    <meta property="og:url" content="https://correodos.github.io/mia-proyecto/calculadora-entre-fechas/" />
-    <meta property="og:site_name" content="MiA - Herramientas de tiempo" />
-    <meta property="og:locale" content="es_ES" />
-
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Calculadora de tiempo entre fechas | Diferencia entre dos fechas">
-    <meta name="twitter:description" content="Calcúla el tiempo exacto entre dos fechas. Herramienta gratuita para calcular días, horas y minutos transcurridos entre cualquier periodo temporal.">
-
-    <title>Calculadora de tiempo entre fechas - Calcula días y horas transcurridos | MiA</title>
-    <meta name="description" content="Calcúla el tiempo exacto entre dos fechas: días, horas y minutos transcurridos. Herramienta gratuita online para calcular la diferencia entre dos fechas opcionales, ideal para vacaciones, plazos de entrega o cualquier periodo temporal." />
-  </head>
-
-  <body>
-    <header role="banner">
-      <nav role="navigation" aria-label="Principal">
-        <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
-      </nav>
-    </header>
-
-  <main role="main">
-    <h1>Calculadora de tiempo entre dos fechas | Diferencia exacta con horas</h1>
+  <section aria-labelledby="how-to-heading" class="content-section">
+    <h2 id="how-to-heading">Cómo calcular el tiempo entre fechas paso a paso</h2>
     
-    <section aria-labelledby="intro-heading" class="intro-section">
-      <p id="intro-heading" class="intro-text">
-        Calcula el tiempo transcurrido entre dos fechas de forma sencilla. Esta calculadora online gratuita determina exactamente cuántos días, horas y minutos han pasado desde una fecha inicial hasta una fecha final. 
-        Introduce las fechas con sus horas opcionales y obtendrás resultados precisos para calcular cualquier periodo temporal: vacaciones, plazos de entrega, diferencia entre eventos o periodos de trabajo.
-      </p>
-    </section>
+    <ol class="steps">
+      <li><strong>Introduce la fecha inicial:</strong> seleccionala con el calendario nativo o escribe directamente (formato YYYY-MM-DD). El campo de hora es opcional.</li>
+      <li><strong>Añade la hora de inicio (opcional):</strong> escribe el formato HH:MM como "09:30". Déjalo vacío si no necesitas precisión horaria.</li>
+      <li><strong>Sigue con la fecha final:</strong> usa el calendario para seleccionar más fácilmente o escribe la fecha deseadamente.</li>
+      <li><strong>Especifica la hora final (opcional):</strong> formato HH:MM como en el campo anterior.</li>
+      <li><strong>Pulsa "Calcular":</strong> verás inmediatamente el tiempo exacto transcurrido expresado en días, horas y minutos.</li>
+    </ol>
+
+    <p class="help-text">Los campos de hora son opcionales. Si solo introduces las fechas sin horas, la calculadora determinará exactamente cuántos días han pasado entre dos fechas cualquiera.</p>
+  </section>
+
+  <section aria-labelledby="examples-heading" class="content-section">
+    <h2 id="examples-heading">Ejemplos prácticos de cálculo de tiempo entre fechas</h2>
     
-    <BetweenDatesCalculator />
-
-    <section aria-labelledby="how-to-heading" class="content-section">
-      <h2 id="how-to-heading">Cómo calcular el tiempo entre fechas paso a paso</h2>
-      
-      <ol class="steps">
-        <li><strong>Introduce la fecha inicial:</strong> seleccionala con el calendario nativo o escribe directamente (formato YYYY-MM-DD). El campo de hora es opcional.</li>
-        <li><strong>Añade la hora de inicio (opcional):</strong> escribe el formato HH:MM como "09:30". Déjalo vacío si no necesitas precisión horaria.</li>
-        <li><strong>Sigue con la fecha final:</strong> usa el calendario para seleccionar más fácilmente o escribe la fecha deseadamente.</li>
-        <li><strong>Especifica la hora final (opcional):</strong> formato HH:MM como en el campo anterior.</li>
-        <li><strong>Pulsa "Calcular":</strong> verás inmediatamente el tiempo exacto transcurrido expresado en días, horas y minutos.</li>
-      </ol>
-
-      <p class="help-text">Los campos de hora son opcionales. Si solo introduces las fechas sin horas, la calculadora determinará exactamente cuántos días han pasado entre dos fechas cualquiera.</p>
-    </section>
-
-    <section aria-labelledby="examples-heading" class="content-section">
-      <h2 id="examples-heading">Ejemplos prácticos de cálculo de tiempo entre fechas</h2>
-      
-      <dl class="examples-list">
-        <div class="example-item">
-          <dt>Cálculo con horas: Del 21/09/2026 07:00 al 23/09/2026 17:30</dt>
-          <dd><strong>Tiempo transcurrido:</strong> 2 días, 8 horas y 30 minutos<br>
-            <small>Total: 56,50 horas</small></dd>
-        </div>
-
-        <div class="example-item">
-          <dt>Dos fechas iguales (sin cambio): 21/09/2026 → 21/09/2026</dt>
-          <dd><strong>Tiempo transcurrido:</strong> 0 días, 0h 00 minutos<br>
-            <small>Total: 0,00 horas</small></dd>
-        </div>
-
-        <div class="example-item">
-          <dt>Transición de mes: 30/09/2026 → 01/10/2026 (diferencia de horas)</dt>
-          
-          <dd><strong>Tiempo transcurrido:</strong> solo 2 horas<br>
-            <small>Total: 2,00 horas</small></dd>
-        </div>
-
-        <div class="example-item">
-          <dt>Transición de año: 31/12/2026 → 01/01/2027 (nuevo año)</dt>
-          
-          <dd><strong>Tiempo transcurrido:</strong> solo 2 horas<br>
-            <small>Total: 2,00 horas</small></dd>
-        </div>
-
-        <div class="example-item">
-          <dt>Solo fechas (sin especificar horas): calcula días completos entre fechas</dt>
-          <dd><strong>Tiempo transcurrido:</strong> solo entre fechas<br>
-            <small>La calculadora determina el periodo completo entre los días indicados.</small></dd>
-        </div>
-      </dl>
-    </section>
-
-    <section aria-labelledby="faq-heading" class="faq-section">
-      <h2 id="faq-heading">Preguntas frecuentes sobre cálculo de tiempo entre fechas</h2>
-      
-      <div class="faq-item">
-        <h3 id="faq-1-heading">¿Cómo calcular el tiempo transcurrido entre dos fechas?</h3>
-        <p>La calculadora resta automáticamente la fecha inicial de la final. Si especificas las horas, obtendrás el resultado exacto expresado en días, horas y minutos. Es ideal para calcular diferencias precisas entre cualquier periodo temporal.</p>
+    <dl class="examples-list">
+      <div class="example-item">
+        <dt>Cálculo con horas: Del 21/09/2026 07:00 al 23/09/2026 17:30</dt>
+        <dd><strong>Tiempo transcurrido:</strong> 2 días, 8 horas y 30 minutos<br>
+          <small>Total: 56,50 horas</small></dd>
       </div>
 
-      <div class="faq-item">
-        <h3 id="faq-2-heading">¿Debo escribir obligatoriamente las horas?</h3>
-        <p>No es obligatorio. Puedes dejar los campos de hora vacíos si solo necesitas calcular cuántos días pasaron entre un día y otro, sin precisar la hora exacta.</p>
+      <div class="example-item">
+        <dt>Dos fechas iguales (sin cambio): 21/09/2026 → 21/09/2026</dt>
+        <dd><strong>Tiempo transcurrido:</strong> 0 días, 0h 00 minutos<br>
+          <small>Total: 0,00 horas</small></dd>
       </div>
 
-      <div class="faq-item">
-        <h3 id="faq-3-heading">¿Funciona para periodos que cruzan meses o años?</h3>
-        <p>Sí, calcula perfectamente el tiempo entre fechas cuando cambias de mes (por ejemplo del 28 de febrero al 1 de marzo), cruces un año completo (31/12 → 01/01) e incluso grandes diferencias temporales dentro de los límites de JavaScript.</p>
+      <div class="example-item">
+        <dt>Transición de mes: 30/09/2026 → 01/10/2026 (diferencia de horas)</dt>
+        
+        <dd><strong>Tiempo transcurrido:</strong> solo 2 horas<br>
+          <small>Total: 2,00 horas</small></dd>
       </div>
 
-      <div class="faq-item">
-        <h3 id="faq-4-heading">¿Qué formato de fecha aceptan los campos?</h3>
-        <p>Los campos usan el formato ISO 8601 (YYYY-MM-DD) como "2026-09-21", que los navegadores modernos convierten automáticamente. También puedes seleccionar directamente con el calendario nativo para mayor facilidad.</p>
+      <div class="example-item">
+        <dt>Transición de año: 31/12/2026 → 01/01/2027 (nuevo año)</dt>
+        
+        <dd><strong>Tiempo transcurrido:</strong> solo 2 horas<br>
+          <small>Total: 2,00 horas</small></dd>
       </div>
 
-      <div class="faq-item">
-        <h3 id="faq-5-heading">¿El resultado viene en horas decimales o separadas?</h3>
-        <p>Mostramos los resultados de forma clara: días completos, horas y minutos por separado. También calculamos el total expresado en horas decimales para cálculos como pago horario (ejemplo: 56,50 horas).</p>
+      <div class="example-item">
+        <dt>Solo fechas (sin especificar horas): calcula días completos entre fechas</dt>
+        <dd><strong>Tiempo transcurrido:</strong> solo entre fechas<br>
+          <small>La calculadora determina el periodo completo entre los días indicados.</small></dd>
       </div>
+    </dl>
+  </section>
 
-      <div class="faq-item">
-        <h3 id="faq-6-heading">¿Puedo calcular periodos pasados o futuros?</h3>
-        <p>Sí, introduz cualquier fecha válida del calendario gregoriano. Esta herramienta gratuita calcula diferencias tanto hacia atrás (periodos ya finalizados) como hacia adelante (futuros).</p>
-      </div>
+  <section aria-labelledby="faq-heading" class="faq-section">
+    <h2 id="faq-heading">Preguntas frecuentes sobre cálculo de tiempo entre fechas</h2>
+    
+    <div class="faq-item">
+      <h3 id="faq-1-heading">¿Cómo calcular el tiempo transcurrido entre dos fechas?</h3>
+      <p>La calculadora resta automáticamente la fecha inicial de la final. Si especificas las horas, obtendrás el resultado exacto expresado en días, horas y minutos. Es ideal para calcular diferencias precisas entre cualquier periodo temporal.</p>
+    </div>
 
-      <div class="faq-item">
-        <h3 id="faq-7-heading">¿Qué error aparece si la fecha final es anterior a la inicial?</h3>
-        <p>La calculadora mostrará un mensaje de error indicando que no puedes restar una fecha antes de la inicial. Asegúrate de colocar primero la fecha más antigua y luego la más reciente.</p>
-      </div>
+    <div class="faq-item">
+      <h3 id="faq-2-heading">¿Debo escribir obligatoriamente las horas?</h3>
+      <p>No es obligatorio. Puedes dejar los campos de hora vacíos si solo necesitas calcular cuántos días pasaron entre un día y otro, sin precisar la hora exacta.</p>
+    </div>
 
-      <div class="faq-item">
-        <h3 id="faq-8-heading">¿Esta herramienta sirve para calcular días de vacaciones?</h3>
-        <p>Sí, es perfecta para periodos vacacionales. Introduce el primer y último día de tu periodo libre (con o sin horas). El resultado te muestra exactamente cuántos días completos y fraccionarios corresponden.</p>
-      </div>
+    <div class="faq-item">
+      <h3 id="faq-3-heading">¿Funciona para periodos que cruzan meses o años?</h3>
+      <p>Sí, calcula perfectamente el tiempo entre fechas cuando cambias de mes (por ejemplo del 28 de febrero al 1 de marzo), cruces un año completo (31/12 → 01/01) e incluso grandes diferencias temporales dentro de los límites de JavaScript.</p>
+    </div>
 
-      <div class="faq-item">
-        <h3 id="faq-9-heading">¿Qué significa el placeholder "--:--" en los campos de hora?</h3>
-        <p>"--:--" solo indica que el campo está vacío. El autoformato lo convierte a "HH:MM" (ejemplo: "07:00") mientras escribes. Déjalo así si no necesitas precisión horaria.</p>
-      </div>
+    <div class="faq-item">
+      <h3 id="faq-4-heading">¿Qué formato de fecha aceptan los campos?</h3>
+      <p>Los campos usan el formato ISO 8601 (YYYY-MM-DD) como "2026-09-21", que los navegadores modernos convierten automáticamente. También puedes seleccionar directamente con el calendario nativo para mayor facilidad.</p>
+    </div>
 
-      <div class="faq-item">
-        <h3 id="faq-10-heading">¿Los resultados son iguales para todos los navegadores?</h3>
-        <p>Sí, esta calculadora funciona correctamente en Chrome, Firefox, Edge, Safari y otros navegadores modernos que soportan el formato de fecha ISO.</p>
-      </div>
-    </section>
+    <div class="faq-item">
+      <h3 id="faq-5-heading">¿El resultado viene en horas decimales o separadas?</h3>
+      <p>Mostramos los resultados de forma clara: días completos, horas y minutos por separado. También calculamos el total expresado en horas decimales para cálculos como pago horario (ejemplo: 56,50 horas).</p>
+    </div>
 
-    <section aria-labelledby="other-tools-heading" class="tools-list">
-      <h2 id="other-tools-heading">Otras herramientas relacionadas con horas y tiempo</h2>
-      
-      <nav role="navigation" aria-label="Otras herramientas">
-        <ul role="list">
-          <li>
-            <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
-              <article>
-                <h3>Calculadora de horas trabajadas</h3>
-                <p>Calcula el tiempo trabajado con entrada, salida y descansos.</p>
-              </article>
-            </a>
-          </li>
-          
-          <li>
-            <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"}>
-              <article>
-                <h3>Calculadora semanal</h3>
-                <p>Suma las horas de varias jornadas laborables de la semana.</p>
-              </article>
-            </a>
-          </li>
-          
-          <li>
-            <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"}>
-              <article>
-                <h3>Calculadora de horas extra</h3>
-                <p>Detecta automáticamente las horas adicionales sobre tu jornada normal.</p>
-              </article>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </section>
+    <div class="faq-item">
+      <h3 id="faq-6-heading">¿Puedo calcular periodos pasados o futuros?</h3>
+      <p>Sí, introducir cualquier fecha válida del calendario gregoriano. Esta herramienta gratuita calcula diferencias tanto hacia atrás (periodos ya finalizados) como hacia adelante (futuros).</p>
+    </div>
 
-     <footer role="contentinfo">
-       <p>Herramienta gratuita para calcular el tiempo entre dos fechas y horas</p>
-     </footer>
+    <div class="faq-item">
+      <h3 id="faq-7-heading">¿Qué error aparece si la fecha final es anterior a la inicial?</h3>
+      <p>La calculadora mostrará un mensaje de error indicando que no puedes restar una fecha antes de la inicial. Asegúrate de colocar primero la fecha más antigua y luego la más reciente.</p>
+    </div>
 
-   </main>
+    <div class="faq-item">
+      <h3 id="faq-8-heading">¿Esta herramienta sirve para calcular días de vacaciones?</h3>
+      <p>Sí, es perfecta para periodos vacacionales. Introduce el primer y último día de tu periodo libre (con o sin horas). El resultado te muestra exactamente cuántos días completos y fraccionarios corresponden.</p>
+    </div>
 
-</body>
-</html>
+    <div class="faq-item">
+      <h3 id="faq-9-heading">¿Qué significa el placeholder "--:--" en los campos de hora?</h3>
+      <p>"--:--" solo indica que el campo está vacío. El autoformato lo convierte a "HH:MM" (ejemplo: "07:00") mientras escribes. Déjalo así si no necesitas precisión horaria.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 id="faq-10-heading">¿Los resultados son iguales para todos los navegadores?</h3>
+      <p>Sí, esta calculadora funciona correctamente en Chrome, Firefox, Edge, Safari y otros navegadores modernos que soportan el formato de fecha ISO.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="other-tools-heading" class="tools-list">
+    <h2 id="other-tools-heading">Otras herramientas relacionadas con horas y tiempo</h2>
+    
+    <nav role="navigation" aria-label="Otras herramientas">
+      <ul role="list">
+        <li>
+          <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
+            <article>
+              <h3>Calculadora de horas trabajadas</h3>
+              <p>Calcula el tiempo trabajado con entrada, salida y descansos.</p>
+            </article>
+          </a>
+        </li>
+        
+        <li>
+          <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"}>
+            <article>
+              <h3>Calculadora semanal</h3>
+              <p>Suma las horas de varias jornadas laborables de la semana.</p>
+            </article>
+          </a>
+        </li>
+        
+        <li>
+          <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"}>
+            <article>
+              <h3>Calculadora de horas extra</h3>
+              <p>Detecta automáticamente las horas adicionales sobre tu jornada normal.</p>
+            </article>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+
+   <footer role="contentinfo">
+    <p>Herramienta gratuita para calcular el tiempo entre dos fechas y horas</p>
+  </footer>
+
+</main>
+</BaseLayout>

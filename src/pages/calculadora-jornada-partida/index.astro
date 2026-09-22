@@ -1,9 +1,6 @@
 ---
-/**
- * Calculadora de jornada partida - Página completa
- */
-
 import DailyEntry from '../../components/calculator/DailyEntry.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 interface Hour {
     hours: number;
@@ -24,127 +21,109 @@ interface DailyEntry {
     shifts: { part1: ShiftPart1; part2: ShiftPart2 };
     breakMinutes: number | null;
 }
+
+const title = "Calculadora de Jornada Partida | MiA - Herramientas de tiempo";
+const description = "Calcula horarios partidos en dos tramos. Calcula horas, minutos y descanso entre turnos con esta herramienta gratuita.";
+const canonical = "https://correodos.github.io/mia-proyecto/calculadora-jornada-partida/";
 ---
 
-<html lang="es">
-   <head>
-     <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
-     
-     <!-- Canonical -->
-     <link rel="canonical" href="https://correodos.github.io/mia-proyecto/calculadora-jornada-partida/" />
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Calculadora de Jornada Partida | MiA - Herramientas de tiempo" />
-    <meta property="og:description" content="Calcula horarios partidos en dos tramos. Calcula horas, minutos y descanso entre turnos con esta herramienta gratuita." />
-    <meta property="og:url" content="https://correodos.github.io/mia-proyecto/calculadora-jornada-partida/" />
-    <meta property="og:site_name" content="MiA - Herramientas de tiempo" />
-    <meta property="og:locale" content="es_ES" />
+<BaseLayout 
+  title={title}
+  description={description}
+  canonical={canonical}
+>
+<header role="banner">
+  <nav role="navigation" aria-label="Principal">
+    <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
+  </nav>
+</header>
 
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Calculadora de Jornada Partida | MiA">
-    <meta name="twitter:description" content="Calcula horarios partidos para jornadas en dos turnos separados. Herramienta gratuita y sencilla.">
+<main role="main">
+  <section class="content-wrapper">
+    <article>
+      <h1>Calculadora de jornada partida</h1>
+      
+      <p>Calcula el tiempo trabajado en jornadas con horario partido (dos tramos separados durante el día).</p>
 
-    <title>Calculadora de Jornada Partida | MiA</title>
-    <meta name="description" content="Calcula el tiempo trabajado en jornadas con horario partido. Escribe las horas de entrada y salida de cada tramo para ver el total, descansos y horas decimales." />
-  </head>
+      <DailyEntry></DailyEntry>
 
-  <body>
-    <header role="banner">
-      <nav role="navigation" aria-label="Principal">
-        <a href="/" aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
-      </nav>
-    </header>
-
-    <main role="main">
-      <section class="content-wrapper">
-        <article>
-        <h1>Calculadora de jornada partida</h1>
+      <section class="guide-section" aria-labelledby="how-to-calc-heading">
+        <h2 id="how-to-calc-heading">Cómo funciona esta calculadora</h2>
         
-        <p>Calcula el tiempo trabajado en jornadas con horario partido (dos tramos separados durante el día).</p>
+        <p>Introduce las horas de entrada y salida de cada tramo separately, y obtendrás:</p>
+        
+        <ul role="list">
+          <li><strong>Primer tramo:</strong> desde la primera hora de entrada hasta la primera salida</li>
+          <li><strong>Segundo tramo:</strong> desde la segunda hora de entrada hasta la segunda salida</li>
+          <li><strong>Descanso:</strong> tiempo entre el fin del primer tramo y inicio del segundo</li>
+          <li><strong>Total trabajado:</strong> suma de ambos tramos menos el descanso</li>
+        </ul>
 
-        <DailyEntry></DailyEntry>
+        <p class="example-box">
+          <strong>Ejemplo típico:</strong> Jornada de 8 horas dividida en dos partes (mañana y tarde), con un almuerzo o tiempo libre entre ellas.
+        </p>
+      </section>
 
-          <section class="guide-section" aria-labelledby="how-to-calc-heading">
-            <h2 id="how-to-calc-heading">Cómo funciona esta calculadora</h2>
-            
-            <p>Introduce las horas de entrada y salida de cada tramo separately, y obtendrás:</p>
-            
-            <ul role="list">
-              <li><strong>Primer tramo:</strong> desde la primera hora de entrada hasta la primera salida</li>
-              <li><strong>Segundo tramo:</strong> desde la segunda hora de entrada hasta la segunda salida</li>
-              <li><strong>Descanso:</strong> tiempo entre el fin del primer tramo y inicio del segundo</li>
-              <li><strong>Total trabajado:</strong> suma de ambos tramos menos el descanso</li>
-            </ul>
+      <section class="guide-section" aria-labelledby="examples-heading">
+        <h2 id="examples-heading">Ejemplos prácticos</h2>
+        
+        <div class="example-card">
+          <h3>Ejemplo 1: Jornada típica partida</h3>
+          <p><code>09:00 → 14:00</code> + <code>16:00 → 19:00</code> = <strong>8 horas trabajadas</strong></p>
+          <p>Descanso entre turnos: 2 horas</p>
+        </div>
 
-            <p class="example-box">
-              <strong>Ejemplo típico:</strong> Jornada de 8 horas dividida en dos partes (mañana y tarde), con un almuerzo o tiempo libre entre ellas.
-            </p>
-          </section>
+        <div class="example-card">
+          <h3>Ejemplo 2: Jornada parcial</h3>
+          <p><code>08:00 → 13:00</code> + <code>14:00 → 18:00</code> = <strong>9 horas trabajadas</strong></p>
+          <p>Descanso entre turnos: 1 hora</p>
+        </div>
 
-          <section class="guide-section" aria-labelledby="examples-heading">
-            <h2 id="examples-heading">Ejemplos prácticos</h2>
-            
-            <div class="example-card">
-              <h3>Ejemplo 1: Jornada típica partida</h3>
-              <p><code>09:00 → 14:00</code> + <code>16:00 → 19:00</code> = <strong>8 horas trabajadas</strong></p>
-              <p>Descanso entre turnos: 2 horas</p>
-            </div>
+        <div class="example-card">
+          <h3>Ejemplo 3: Jornada reducida</h3>
+          <p><code>09:00 → 12:00</code> + <code>16:00 → 17:00</code> = <strong>4 horas trabajadas</strong></p>
+          <p>Descanso entre turnos: 3 horas y 30 minutos</p>
+        </div>
 
-            <div class="example-card">
-              <h3>Ejemplo 2: Jornada parcial</h3>
-              <p><code>08:00 → 13:00</code> + <code>14:00 → 18:00</code> = <strong>9 horas trabajadas</strong></p>
-              <p>Descanso entre turnos: 1 hora</p>
-            </div>
+        <div class="example-card">
+          <h3>Ejemplo 4: Medianoche incluida</h3>
+          <p><code>23:00 → 01:00</code> + <code>04:00 → 07:00</code> = <strong>6 horas trabajadas</strong></p>
+          <p>La calculadora maneja automáticamente los cruces de medianoche validos.</p>
+        </div>
+      </section>
 
-            <div class="example-card">
-              <h3>Ejemplo 3: Jornada reducida</h3>
-              <p><code>09:00 → 12:00</code> + <code>16:00 → 17:00</code> = <strong>4 horas trabajadas</strong></p>
-              <p>Descanso entre turnos: 3 horas y 30 minutos</p>
-            </div>
-
-            <div class="example-card">
-              <h3>Ejemplo 4: Medianoche incluida</h3>
-              <p><code>23:00 → 01:00</code> + <code>04:00 → 07:00</code> = <strong>6 horas trabajadas</strong></p>
-              <p>La calculadora maneja automáticamente los cruces de medianoche validos.</p>
-            </div>
-          </section>
-
-          <section class="guide-section qa" aria-labelledby="faq-heading">
-            <h2 id="faq-heading">Preguntas frecuentes</h2>
+      <section class="guide-section qa" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Preguntas frecuentes</h2>
+      
+        <dl role="list">
+          <dt id="q1">¿Qué es una jornada partida?</dt>
+          <dd id="a1">Una jornada partida divide el trabajo en dos o más periodos separados durante el mismo día laboral, con descansos entre ellos. Ejemplo típico: entrada por la mañana, salida al mediodía, vuelta para trabajar hasta tarde.</dd>
           
-            <dl role="list">
-              <dt id="q1">¿Qué es una jornada partida?</dt>
-              <dd id="a1">Una jornada partida divide el trabajo en dos o más periodos separados durante el mismo día laboral, con descansos entre ellos. Ejemplo típico: entrada por la mañana, salida al mediodía, vuelta para trabajar hasta tarde.</dd>
+          <dt id="q2">¿Cómo calculo el descanso exacto?</dt>
+          <dd id="a2">El descanso se resta automáticamente entre la salida del primer tramo y la entrada del segundo. La herramienta te muestra cuánto tiempo hay de libre entre turnos.</dd>
           
-              <dt id="q2">¿Cómo calculo el descanso exacto?</dt>
-              <dd id="a2">El descanso se resta automáticamente entre la salida del primer tramo y la entrada del segundo. La herramienta te muestra cuánto tiempo hay de libre entre turnos.</dd>
+          <dt id="q3">¿Se cuenta el día que no trabajo en su totalidad?</dt>
+          <dd id="a3">Sí, una jornada partida sigue siendo jornada completa si cumples las horas mínimas requeridas por tu contrato o legislación (20-48h semanales según España).</dd>
           
-              <dt id="q3">¿Se cuenta el día que no trabajo en su totalidad?</dt>
-              <dd id="a3">Sí, una jornada partida sigue siendo jornada completa si cumples las horas mínimas requeridas por tu contrato o legislación (20-48h semanales según España).</dd>
+          <dt id="q4">¿Puedo introducir horarios con formato HH:MM?</dt>
+          <dd id="a4">Sí, la calculadora autoformatea automáticamente al escribir. Debes escribir cuatro dígitos sin separadores (0900) y aparecerá como 09:00.</dd>
           
-              <dt id="q4">¿Puedo introducir horarios con formato HH:MM?</dt>
-              <dd id="a4">Sí, la calculadora autoformatea automáticamente al escribir. Debes escribir cuatro dígitos sin separadores (0900) y aparecerá como 09:00.</dd>
+          <dt id="q5">¿La herramienta detecta errores de entrada?</dt>
+          <dd id="a5">Sí, muestra mensajes claros si los tramos están solapados (no pueden comenzar antes de terminar el anterior) o si has introducido una hora inválid.</dd>
           
-              <dt id="q5">¿La herramienta detecta errores de entrada?</dt>
-              <dd id="a5">Sí, muestra mensajes claros si los tramos están solapados (no pueden comenzar antes de terminar el anterior) o si has introducido una hora inválid.</dd>
+          <dt id="q6">¿Qué hago si solo quiero introducir un horad completo?</dt>
+          <dd id="a6">Usa la calculadora de horas trabajadas en vez de esta. Esta herramienta específica es para cuando tu jornada se divide realmente en dos partes separadas.</dd>
           
-              <dt id="q6">¿Qué hago si solo quiero introducir un horad completo?</dt>
-              <dd id="a6">Usa la calculadora de horas trabajadas en vez de esta. Esta herramienta específica es para cuando tu jornada se divide realmente en dos partes separadas.</dd>
+          <dt id="q7">¿Cómo manejo jornadas que atraviesan medianoche?</dt>
+          <dd id="a7">Solo introduce las 4 horas con tu formato habitual. Si tienes entrada a las 23:00 y salida a las 01:00, escribe <code>23:00</code> y <code>01:00</code>. La calculadora lo procesará correctamente.</dd>
           
-              <dt id="q7">¿Cómo manejo jornadas que atraviesan medianoche?</dt>
-              <dd id="a7">Solo introduce las 4 horas con tu formato habitual. Si tienes entrada a las 23:00 y salida a las 01:00, escribe <code>23:00</code> y <code>01:00</code>. La calculadora lo procesará correctamente.</dd>
+          <dt id="q8">¿Puedo tener descanso de una hora exacta?</dt>
+          <dd id="a8">Sí, introduce cualquier número entero o decimal en minutos (30, 45, 60, 90...). El cálculo será preciso.</dd>
           
-              <dt id="q8">¿Puedo tener descanso de una hora exacta?</dt>
-              <dd id="a8">Sí, introduce cualquier número entero o decimal en minutos (30, 45, 60, 90...). El cálculo será preciso.</dd>
-          
-              <dt id="q9">¿Cuál es el formato de horas decimales?</dt>
-              <dd id="a9">Se usan dos decimales por defecto (ejemplo: 8.50h = 8 horas y 30 minutos). Este formato coincide con la mayoría de sistemas de nómina en español.</dd>
-            </dl>
-          </section>
+          <dt id="q9">¿Cuál es el formato de horas decimales?</dt>
+          <dd id="a9">Se usan dos decimales por defecto (ejemplo: 8.50h = 8 horas y 30 minutos). Este formato coincide con la mayoría de sistemas de nómina en español.</dd>
+        </dl>
+      </section>
 
 
     <section aria-labelledby="other-tools-heading" class="tools-list">
@@ -153,7 +132,7 @@ interface DailyEntry {
       <nav role="navigation" aria-label="Otras herramientas">
         <ul role="list">
           <li>
-            <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
+            <a href={import.meta.env.BASE_URL + "../calculadora-horas/"}>
               <article>
                 <h3>Calculadora de horas trabajadas</h3>
                 <p>Calcula el tiempo trabajado restando los descansos en una jornada diaria.</p>
@@ -161,7 +140,7 @@ interface DailyEntry {
             </a>
           </li>
           <li>
-            <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"}>
+            <a href={import.meta.env.BASE_URL + "../calculadora-semanal-horas/"}>
               <article>
                 <h3>Calculadora semanal de horas</h3>
                 <p>Calcula el total de horas trabajadas en tu jornada completa (lunes a domingos).</p>
@@ -169,7 +148,7 @@ interface DailyEntry {
             </a>
           </li>
           <li>
-            <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"}>
+            <a href={import.meta.env.BASE_URL + "../calculadora-horas-extra/"}>
               <article>
                 <h3>Calculadora de horas extra</h3>
                 <p>Calcula tus horas extra respecto a la jornada prevista, incluso jornadas nocturnas.</p>
@@ -180,8 +159,11 @@ interface DailyEntry {
       </nav>
     </section>
 
-        </article>
-      </section>
-    </main>
-</body>
-  </html>
+  </article>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <p>Herramientas gratuitas para organizar y calcular horas de trabajo</p>
+</footer>
+</BaseLayout>

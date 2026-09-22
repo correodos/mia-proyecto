@@ -363,22 +363,7 @@ button:hover {
 </style>
 
 <script>import { attachButtonEventsForSplitShift, getBreakBetweenShifts } from '../../scripts/splitShiftCalculator.js';
-
-// Auto-formato de horas - usa event.target para obtener el input correctamente
-const formatTimeInput = (event: Event): void => {
-    const input = event.target as HTMLInputElement;
-    
-    // Extraer solo dígitos del valor actual, limitar a 4 dígitos
-    const digits = input.value.replace(/\D/g, '').slice(0, 4);
-    
-    // Añadir los dos puntos únicamente cuando hay MÁS de 2 dígitos
-    // Esto permite borrar con retroceso sin que el ":" reaparezca
-    if (digits.length > 2) {
-        input.value = `${digits.slice(0, 2)}:${digits.slice(2)}`;
-    } else {
-        input.value = digits;
-    }
-};
+import { formatTimeToHHMM } from '../../utils/time/formatTimeInput.js';
 
 // Función auxiliar para obtener elementos por ID
 const getInput = (id: string) => document.getElementById(id) as HTMLInputElement | null;
@@ -425,12 +410,19 @@ const updateBreak = (): void => {
     }
 };
 
+// Auto-formato de horas - usa utilidad compartida
+const formatInputElement = (event: Event): void => {
+    const input = event.target as HTMLInputElement;
+    const value = formatTimeToHHMM(input.value);
+    input.value = value;
+};
+
 // Registrar listeners para los 4 campos de hora
 ['part1-entry', 'part1-exit', 'part2-entry', 'part2-exit'].forEach((id) => {
     const el = document.getElementById(id);
     if (el) {
-        // Primero el listener de formato automático
-        el.addEventListener('input', formatTimeInput);
+        // Primero el listener de formato automático con utilidad compartida
+        el.addEventListener('input', formatInputElement);
         // Luego el listener para calcular descanso automático
         el.addEventListener('input', updateBreak);
     }

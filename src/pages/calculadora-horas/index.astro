@@ -3,166 +3,143 @@
  * Calculadora de horas trabajadas - Página del MVP v1.0
  */
 import DailyCalculator from '../../components/calculator/DailyCalculator.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageData = {
+  title: "Calculadora de Horas Trabajadas - Entrada, Salida y Descansos",
+  description: "Calculadora de horas trabajadas gratuita en línea. Ingresa la hora de entrada, salida y duración del descanso para calcular cuántas horas has trabajado en tu jornada laboral.",
+  canonical: "https://correodos.github.io/mia-proyecto/calculadora-horas/"
+};
+
+const { title, description, canonical } = pageData;
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+>
+<header role="banner">
+  <nav role="navigation" aria-label="Principal">
+    <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
+  </nav>
+</header>
+
+<main role="main">
+  <h1>Calculadora de horas trabajadas</h1>
+  
+  <section aria-labelledby="intro-heading" class="intro-section">
+    <p id="intro-heading" class="intro-text">
+      Esta calculadora gratuita permite determinar cuántas horas has trabajado en tu jornada laboral ingresando la hora de entrada, la hora de salida y la duración del descanso.
+      El resultado se muestra tanto en formato de horas y minutos como en horas decimales para facilitar el cálculo de salarios o facturación.
+      También soporta jornadas que comienzan antes de medianoche y terminan después (por ejemplo, desde las 22:00 hasta las 06:00).
+    </p>
+  </section>
+  
+  <DailyCalculator />
+
+  <section aria-labelledby="how-to-heading" class="content-section">
+    <h2 id="how-to-heading">Cómo calcular las horas trabajadas</h2>
     
-    <!-- Open Graph -->
-    <!-- Canonical -->
-    <link rel="canonical" href="https://correodos.github.io/mia-proyecto/calculadora-horas/" />
+    <ol class="steps">
+      <li>Introduce la hora de entrada en el campo correspondiente (formato HH:MM).</li>
+      <li>Indica la hora a la que terminas tu jornada laboral.</li>
+      <li>Añade los minutos de descanso, habitualmente 30 o 60 minutos.</li>
+      <li>Pulsa el botón "Calcular" para obtener el resultado.</li>
+      <li>Consulta las horas trabajadas totales y su equivalente decimal.</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="examples-heading" class="content-section">
+    <h2 id="examples-heading">Ejemplos de cálculo</h2>
     
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Calculadora de Horas Trabajadas - Entrada, Salida y Descansos" />
-    <meta property="og:description" content="Calculadora de horas trabajadas gratuita en línea. Ingresa la hora de entrada, salida y duración del descanso para calcular cuántas horas has trabajado en tu jornada laboral." />
-    <meta property="og:url" content="https://correodos.github.io/mia-proyecto/calculadora-horas/" />
-    <meta property="og:site_name" content="MiA - Herramientas de tiempo" />
-    <meta property="og:locale" content="es_ES" />
+    <dl class="examples-list">
+      <div class="example-item">
+        <dt>Entrada: 08:00 — Salida: 16:00 — Descanso: 30 min</dt>
+        <dd><strong>Hora trabajadas:</strong> 7 horas y 30 minutos (7,50 horas)</dd>
+      </div>
+      
+      <div class="example-item">
+        <dt>Entrada: 09:00 — Salida: 17:30 — Descanso: 60 min</dt>
+        <dd><strong>Hora trabajadas:</strong> 7 horas y 30 minutos (7,50 horas)</dd>
+      </div>
+      
+      <div class="example-item">
+        <dt>Entrada: 22:00 — Salida: 06:00 — Descanso: 30 min</dt>
+        <dd><strong>Hora trabajadas:</strong> 7 horas y 30 minutos (7,50 horas)<br>
+          <small id="midnight-example-note">La calculadora detecta automáticamente que la jornada cruza medianoche.</small></dd>
+      </div>
+    </dl>
+  </section>
 
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Calculadora de Horas Trabajadas - Entrada, Salida y Descansos">
-    <meta name="twitter:description" content="Calculadora de horas trabajadas gratuita en línea. Ingresa la hora de entrada, salida y duración del descanso para calcular cuántas horas has trabajado en tu jornada laboral.">
-
-    <title>Calculadora de Horas Trabajadas - Entrada, Salida y Descansos</title>
-    <meta name="description" content="Calculadora de horas trabajadas gratuita en línea. Ingresa la hora de entrada, salida y duración del descanso para calcular cuántas horas has trabajado en tu jornada laboral." />
-  </head>
-
-  <body>
-    <header role="banner">
-      <nav role="navigation" aria-label="Principal">
-        <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
-      </nav>
-    </header>
-
-  <main role="main">
-    <h1>Calculadora de horas trabajadas</h1>
+  <section aria-labelledby="decimal-heading" class="content-section">
+    <h2 id="decimal-heading">Horas trabajadas en formato decimal</h2>
     
-    <section aria-labelledby="intro-heading" class="intro-section">
-      <p id="intro-heading" class="intro-text">
-        Esta calculadora gratuita permite determinar cuántas horas has trabajado en tu jornada laboral ingresando la hora de entrada, la hora de salida y la duración del descanso.
-        El resultado se muestra tanto en formato de horas y minutos como en horas decimales para facilitar el cálculo de salarios o facturación.
-        También soporta jornadas que comienzan antes de medianoche y terminan después (por ejemplo, desde las 22:00 hasta las 06:00).
-      </p>
-    </section>
+    <p>Las horas decimales expresan el tiempo total trabajado como un número único con parte entera y fracción.</p>
     
-    <DailyCalculator />
+    <div class="decimal-explanation">
+      <p><strong>7 horas y 30 minutos = 7,50 horas</strong></p>
+      <p>No confundas "7,50" con el formato de hora "7:30". El número decimal representa tiempo total, no un horario.</p>
+    </div>
+  </section>
 
-    <section aria-labelledby="how-to-heading" class="content-section">
-      <h2 id="how-to-heading">Cómo calcular las horas trabajadas</h2>
-      
-      <ol class="steps">
-        <li>Introduce la hora de entrada en el campo correspondiente (formato HH:MM).</li>
-        <li>Indica la hora a la que terminas tu jornada laboral.</li>
-        <li>Añade los minutos de descanso, habitualmente 30 o 60 minutos.</li>
-        <li>Pulsa el botón "Calcular" para obtener el resultado.</li>
-        <li>Consulta las horas trabajadas totales y su equivalente decimal.</li>
-      </ol>
-    </section>
+  <section aria-labelledby="midnight-heading" class="content-section">
+    <h2 id="midnight-heading">Jornadas que cruzan medianoche</h2>
+    
+    <p>Esta herramienta permite calcular jornadas nocturnas donde la salida es posterior a la entrada pero el día cambia al medianoche.</p>
+    
+    <div class="note">
+      <strong>Ejemplo:</strong> Si trabajas desde las 22:00 hasta las 06:00 con un descanso de 30 minutos, la calculadora considera correctamente los 8 horas del día y el turno continua a través de la medianoche.
+    </div>
+  </section>
 
-    <section aria-labelledby="examples-heading" class="content-section">
-      <h2 id="examples-heading">Ejemplos de cálculo</h2>
-      
-      <dl class="examples-list">
-        <div class="example-item">
-          <dt>Entrada: 08:00 — Salida: 16:00 — Descanso: 30 min</dt>
-          <dd><strong>Hora trabajadas:</strong> 7 horas y 30 minutos (7,50 horas)</dd>
-        </div>
-        
-        <div class="example-item">
-          <dt>Entrada: 09:00 — Salida: 17:30 — Descanso: 60 min</dt>
-          <dd><strong>Hora trabajadas:</strong> 7 horas y 30 minutos (7,50 horas)</dd>
-        </div>
-        
-        <div class="example-item">
-          <dt>Entrada: 22:00 — Salida: 06:00 — Descanso: 30 min</dt>
-          <dd><strong>Hora trabajadas:</strong> 7 horas y 30 minutos (7,50 horas)<br>
-            <small id="midnight-example-note">La calculadora detecta automáticamente que la jornada cruza medianoche.</small></dd>
-        </div>
-      </dl>
-    </section>
+  <section aria-labelledby="faq-heading" class="faq-section">
+    <h2 id="faq-heading">Preguntas frecuentes</h2>
+    
+    <div class="faq-item">
+      <h3 id="faq-1-heading">¿Cómo se calculan las horas trabajadas?</h3>
+      <p>La calculadora restando la hora de entrada y salida, descontando los minutos de descanso indicados. El resultado aparece en tres formatos para tu comodidad.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h3 id="faq-2-heading">¿Puedo calcular una jornada que termina después de medianoche?</h3>
+      <p>Sí, introduce el momento inicial y final de tu turno. Por ejemplo, entrada a las 22:00 y salida a las 06:00.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h3 id="faq-3-heading">¿Qué significa el resultado en horas decimales?</h3>
+      <p>Hace referencia al tiempo total trabajado expresado como decimal. Es útil cuando tu empresa paga por horas fraccionadas o requiere formato numérico.</p>
+    </div>
+  </section>
 
-    <section aria-labelledby="decimal-heading" class="content-section">
-      <h2 id="decimal-heading">Horas trabajadas en formato decimal</h2>
-      
-      <p>Las horas decimales expresan el tiempo total trabajado como un número único con parte entera y fracción.</p>
-      
-      <div class="decimal-explanation">
-        <p><strong>7 horas y 30 minutos = 7,50 horas</strong></p>
-        <p>No confundas "7,50" con el formato de hora "7:30". El número decimal representa tiempo total, no un horario.</p>
-      </div>
-    </section>
+  <section aria-labelledby="other-tools-heading" class="tools-list">
+    <h2 id="other-tools-heading">Otras herramientas</h2>
+    
+    <nav role="navigation" aria-label="Otras herramientas">
+      <ul role="list">
+        <li>
+          <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"}>
+            <article>
+              <h3>Calculadora semanal de horas</h3>
+              <p>Calcula el total de horas trabajadas en tu jornada completa (lunes a domingos).</p>
+            </article>
+          </a>
+        </li>
+        <li>
+          <a href={import.meta.env.BASE_URL + "como-calcular-horas-trabajadas/"}>
+            <article aria-labelledby="learn-calculator-heading">
+              <h3 id="learn-calculator-heading">Cómo calcular las horas trabajadas</h3>
+              <p>Aprende paso a paso cómo calcular tu tiempo laboral con ejemplos y casos de medianoche.</p>
+            </article>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
 
-    <section aria-labelledby="midnight-heading" class="content-section">
-      <h2 id="midnight-heading">Jornadas que cruzan medianoche</h2>
-      
-      <p>Esta herramienta permite calcular jornadas nocturnas donde la salida es posterior a la entrada pero el día cambia al medianoche.</p>
-      
-      <div class="note">
-        <strong>Ejemplo:</strong> Si trabajas desde las 22:00 hasta las 06:00 con un descanso de 30 minutos, la calculadora considera correctamente los 8 horas del día y el turno continua a través de la medianoche.
-      </div>
-    </section>
+  <footer role="contentinfo">
+    <p>Herramienta gratuita para calcular horas trabajadas</p>
+  </footer>
 
-    <section aria-labelledby="faq-heading" class="faq-section">
-      <h2 id="faq-heading">Preguntas frecuentes</h2>
-      
-      <div class="faq-item">
-        <h3 id="faq-1-heading">¿Cómo se calculan las horas trabajadas?</h3>
-        <p>La calculadora restando la hora de entrada y salida, descontando los minutos de descanso indicados. El resultado aparece en tres formatos para tu comodidad.</p>
-      </div>
-      
-      <div class="faq-item">
-        <h3 id="faq-2-heading">¿Puedo calcular una jornada que termina después de medianoche?</h3>
-        <p>Sí, introduce el momento inicial y final de tu turno. Por ejemplo, entrada a las 22:00 y salida a las 06:00.</p>
-      </div>
-      
-      <div class="faq-item">
-        <h3 id="faq-3-heading">¿Qué significa el resultado en horas decimales?</h3>
-        <p>Hace referencia al tiempo total trabajado expresado como decimal. Es útil cuando tu empresa paga por horas fraccionadas o requiere formato numérico.</p>
-      </div>
-     </section>
-   </main>
-
-   <section aria-labelledby="other-tools-heading" class="tools-list">
-     <h2 id="other-tools-heading">Otras herramientas</h2>
-     
-     <nav role="navigation" aria-label="Otras herramientas">
-       <ul role="list">
-         <li>
-           <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"}>
-             <article>
-               <h3>Calculadora semanal de horas</h3>
-               <p>Calcula el total de horas trabajadas en tu jornada completa (lunes a domingos).</p>
-             </article>
-           </a>
-         </li>
-         <li>
-           <a href={import.meta.env.BASE_URL + "como-calcular-horas-trabajadas/"}>
-             <article>
-               <h3>Cómo calcular las horas trabajadas</h3>
-               <p>Aprende paso a paso cómo calcular tu tiempo laboral con ejemplos y casos de medianoche.</p>
-             </article>
-           </a>
-         </li>
-         <li>
-           <a href={import.meta.env.BASE_URL + "calcular-horas-trabajadas-con-descanso/"}>
-             <article>
-               <h3>Cómo calcular horas con descansos</h3>
-               <p>Fórmula y guía para restar correctamente los periodos de pausa en tu jornada.</p>
-             </article>
-           </a>
-         </li>
-       </ul>
-     </nav>
-   </section>
-
-    <footer role="contentinfo">
-     <p>Herramienta gratuita para calcular horas trabajadas</p>
-   </footer>
-
-</body>
-</html>
+</main>
+</BaseLayout>

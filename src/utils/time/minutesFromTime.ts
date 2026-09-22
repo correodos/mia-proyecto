@@ -1,9 +1,9 @@
 /**
  * Convierte { hours, minutes } a minutos desde 00:00 del mismo día
- * @param hour - Hora entre 0-23
- * @param minute - Minuto entre 0-59
+ * @param hours - Hora entre 0-23
+ * @param minutes - Minuto entre 0-59
  * @returns Minutos totales desde inicio de día
  */
-export function minutesFromTime(hour: number, minute: number): number {
-  return hour * 60 + minute;
+export function minutesFromTime(hours: number, minutes: number): number {
+  return hours * 60 + minutes;
 }
