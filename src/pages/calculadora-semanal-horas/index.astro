@@ -4,6 +4,7 @@
  */
 import WeeklyCalculator from '../../components/calculator/WeeklyCalculator.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
 
 const pageData = {
   title: "Calculadora semanal de horas - Jornada lunes a domingo",
@@ -47,28 +48,19 @@ const { title, description, canonical, type, locale } = pageData;
   <!-- H2: Ejemplos -->
   <section aria-labelledby="examples-weekly-heading" class="content-section">
     <h2 id="examples-weekly-heading">Ejemplos semanales</h2>
-    
-    <dl class="examples-list">
-      <div class="example-item">
-        <dt>Jornada habitual (lunes a viernes): 08:00 → 17:00, 60 min de descanso cada día</dt>
-        <dd><strong>Total semanal:</strong> 40 horas trabajadas</dd>
-      </div>
-      
-      <div class="example-item">
-        <dt>Semana con jornadas diferentes</dt>
-        <dd>
-          <ul style="margin:0;padding-left:1.2em;">
-            <li>Lunes: 08:00→16:00, descanso 30 min</li>
-            <li>Martes: 09:00→17:30, descanso 30 min</li>
-            <li>Miércoles: 08:00→16:00, descanso 30 min</li>
-            <li>Jueves: 09:00→18:00, descanso 60 min</li>
-            <li>Viernes: 08:00→15:00, descanso 30 min</li>
-          </ul>
-          <br>
-          <strong>Total semanal calculado automáticamente por la herramienta.</strong>
-        </dd>
-      </div>
-    </dl>
+    <CollapsibleExamples
+      title={false}
+      examples={[
+        {
+          summary: 'Jornada habitual (lunes a viernes): 08:00 → 17:00, 60 min de descanso cada día',
+          content: '<p><strong>Total semanal:</strong> 40 horas trabajadas</p>',
+        },
+        {
+          summary: 'Semana con jornadas diferentes',
+          content: '<ul style="margin:0;padding-left:1.2em;"><li>Lunes: 08:00→16:00, descanso 30 min</li><li>Martes: 09:00→17:30, descanso 30 min</li><li>Miércoles: 08:00→16:00, descanso 30 min</li><li>Jueves: 09:00→18:00, descanso 60 min</li><li>Viernes: 08:00→15:00, descanso 30 min</li></ul><p><strong>Total semanal calculado automáticamente por la herramienta.</strong></p>',
+        },
+      ]}
+    />
   </section>
 
    <WeeklyCalculator />

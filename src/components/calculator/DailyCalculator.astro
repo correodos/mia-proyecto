@@ -6,8 +6,8 @@
 import type { Hour } from '../../types/index.js';
 ---
 
-<div data-testid="calculator" class="calculator">
-  <h2>Calculadora de horas trabajadas</h2>
+<div data-testid="calculator" class="card">
+  <h2 id="calculator-title">Calculadora de horas trabajadas</h2>
   
   <fieldset class="entry-section">
     <legend>Horario</legend>
@@ -50,7 +50,7 @@ import type { Hour } from '../../types/index.js';
         aria-label="Minutos de descanso"
         aria-describedby="break-help"
       />
-      <span id="break-help" class="help-text">Ej: 30, 60, 90 minutos</span>
+      <span id="break-help">Ej: 30, 60, 90 minutos</span>
     </div>
   </fieldset>
 
@@ -63,143 +63,9 @@ import type { Hour } from '../../types/index.js';
     <h3 id="result-heading">Resultados</h3>
     <ul class="result-list" role="list"></ul>
   </section>
+
+  <ul class="error-message-list" role="alert" aria-label="Mensajes de error"></ul>
 </div>
-
-<style lang="css">
-:root {
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-}
-
-.calculator {
-  background-color: var(--entry-bg, #fafafa);
-  border-radius: var(--radius, 8px);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
-  max-width: 600px;
-}
-
-h2#calculator-title {
-  color: #1f2937;
-  font-size: 1.5rem;
-  margin: 0 0 var(--spacing-md) 0;
-  text-align: center;
-}
-
-.entry-section,
-.exit-section,
-.break-section {
-  margin-bottom: var(--spacing-md);
-}
-
-.form-group {
-  display: block;
-  margin-bottom: var(--spacing-sm);
-}
-
-.help-text {
-  font-size: 0.75rem;
-  color: #6b7280;
-  display: block;
-  margin-top: 4px;
-}
-
-input,
-select,
-textarea,
-button {
-  font-size: inherit;
-  line-height: inherit;
-}
-
-#entry-time,
-#exit-time,
-#break-time {
-  width: 100%;
-  padding: var(--spacing-sm);
-  border: 2px solid #e5e7eb;
-  border-radius: var(--radius);
-  background-color: #fff;
-}
-
-::placeholder {
-  color: #9ca3af;
-}
-
-.buttons {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-lg);
-}
-
-button {
-  flex: 1;
-  min-width: 120px;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-weight: 600;
-  border: none;
-  border-radius: var(--radius);
-  background-color: var(--primary, #3b82f6);
-  color: #fff;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: var(--primary-hover, #2563eb);
-}
-
-.results-area {
-  margin-top: var(--spacing-lg);
-  padding: var(--spacing-md);
-  background-color: var(--result-bg, #f0fdf4);
-  border-radius: var(--radius);
-}
-
-.result-list li {
-  padding: var(--spacing-sm);
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.result-list li:last-child {
-  border-bottom: none;
-}
-
-.error-message {
-  color: #ef4444;
-  padding: var(--spacing-sm);
-  background-color: rgba(239, 68, 68, 0.1);
-  border-radius: 4px;
-  margin-top: var(--spacing-sm);
-}
-
-@media (pointer: coarse) {
-  button {
-    min-height: 48px;
-  }
-}
-
-@media (max-width: 500px) {
-  .calculator {
-    padding: var(--spacing-md);
-  }
-  
-  h2#calculator-title {
-    font-size: 1.25rem;
-  }
-  
-  .buttons {
-    flex-direction: column;
-  }
-  
-  button {
-    width: 100%;
-  }
-}
-</style>
 
 <script>import { attachButtonEvents } from '../../scripts/calculator.js';
 

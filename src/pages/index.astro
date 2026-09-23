@@ -1,7 +1,4 @@
 ---
-/**
- * Página principal - Home de MiA Herramientas de tiempo
- */
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const pageData = {
@@ -13,97 +10,94 @@ const pageData = {
 const { title, description, canonical } = pageData;
 ---
 
-<BaseLayout 
-  title={title}
-  description={description}
-  canonical={canonical}
->
+<BaseLayout title={title} description={description} canonical={canonical}>
 <main role="main">
-  <section aria-labelledby="welcome-heading">
-    <h1 id="welcome-heading">Calculadoras de Horas Trabajadas y Tiempo Laboral</h1>
-    
-    <p class="intro-text">Calculadoras gratuitas y sencillas para quienes trabajan por horas. Organiza tus turnos, calcula tu tiempo de trabajo real e incluso con descansos incluidos.</p>
+
+  <!-- HERO -->
+  <section aria-labelledby="hero-heading" class="hero-section">
+    <h1 id="hero-heading">Calculadoras de Horas Trabajadas</h1>
+    <p class="hero-description">
+      Herramientas gratuitas en español para calcular, organizar y planificar tu jornada laboral con precisión.
+    </p>
   </section>
 
-  <section aria-labelledby="learn-heading" class="tools-list">
-    <h2 id="learn-heading">Aprende a calcular</h2>
+  <!-- CALCULADORAS -->
+  <section aria-labelledby="calculators-heading">
+    <div class="section-header">
+      <h2 id="calculators-heading">Calculadoras</h2>
+      <p>Usa estas herramientas para resolver cualquier duda sobre horas y turnos de trabajo.</p>
+    </div>
 
-    <p>Antes de usar la calculadora, te explicamos cómo funciona:</p>
+    <div class="calculators-grid">
 
-    <nav role="navigation" aria-label="Recursos de aprendizaje">
-      <ul role="list">
-        <li>
-          <a href={import.meta.env.BASE_URL + "como-calcular-horas-trabajadas/"}>
-            <article aria-labelledby="learn-calculator-heading">
-              <h3 id="learn-calculator-heading">Como calcular las horas trabajadas</h3>
-              <p>Paso a paso, con ejemplos y casos de jornada nocturna.</p>
-            </article>
-          </a>
-        </li>
-        <li>
-          <a href={import.meta.env.BASE_URL + "calcular-horas-trabajadas-con-descanso/"}>
-            <article aria-labelledby="learn-breaks-heading">
-              <h3 id="learn-breaks-heading">Cómo calcular horas trabajadas con descansos</h3>
-              <p>Aprende a restar correctamente los periodos de pausa y descansa bien sin errores.</p>
-            </article>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </section>
+      <a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="calculator-card">
+        <article aria-labelledby="card-daily-heading">
+          <div class="calculator-card-icon" aria-hidden="true">⏱️</div>
+          <h3 id="card-daily-heading">Calculadora de horas trabajadas</h3>
+          <p>Introduce la hora de entrada, salida y descanso para obtener el tiempo neto trabajado.</p>
+        </article>
+      </a>
 
-  <section aria-labelledby="tools-heading" class="tools-list">
-    <h2 id="tools-heading">Herramientas disponibles</h2>
-    
-    <nav role="navigation" aria-label="Lista de herramientas">
-      <ul role="list">
-        <li>
-          <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"}>
-            <article aria-labelledby="tool-weekly-calculator-heading">
-              <h3 id="tool-weekly-calculator-heading">Calculadora semanal de horas</h3>
-              <p>Calcula el total de horas trabajadas en tu jornada completa (lunes a domingos).</p>
-            </article>
-          </a>
-        </li>
-         <li>
-          <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
-            <article aria-labelledby="tool-calculator-heading">
-              <h3 id="tool-calculator-heading">Calculadora de horas trabajadas</h3>
-              <p>Ingresando la hora de entrada y salida, más tu descanso, obtendrás el tiempo neto trabajado.</p>
-            </article>
-          </a>
-        </li>
-         <li>
-          <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"}>
-            <article aria-labelledby="tool-hours-extra-calculator-heading">
-              <h3 id="tool-hours-extra-calculator-heading">Calculadora de horas extra</h3>
-              <p>Calcula tus horas extra respecto a la jornada prevista, incluso jornadas nocturnas.</p>
-            </article>
-          </a>
-        </li>
-    <li>
-      <a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"}>
-        <article aria-labelledby="tool-split-shift-heading">
-          <h3 id="tool-split-shift-heading">Calculadora de jornada partida</h3>
+      <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"} class="calculator-card">
+        <article aria-labelledby="card-weekly-heading">
+          <div class="calculator-card-icon" aria-hidden="true">📅</div>
+          <h3 id="card-weekly-heading">Calculadora semanal de horas</h3>
+          <p>Calcula el total de horas trabajadas en tu semana completa, de lunes a domingo.</p>
+        </article>
+      </a>
+
+      <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="calculator-card">
+        <article aria-labelledby="card-extra-heading">
+          <div class="calculator-card-icon" aria-hidden="true">➕</div>
+          <h3 id="card-extra-heading">Calculadora de horas extra</h3>
+          <p>Calcula tus horas extra respecto a la jornada prevista, incluso en jornadas nocturnas.</p>
+        </article>
+      </a>
+
+      <a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="calculator-card">
+        <article aria-labelledby="card-split-heading">
+          <div class="calculator-card-icon" aria-hidden="true">🔀</div>
+          <h3 id="card-split-heading">Calculadora de jornada partida</h3>
           <p>Para turnos divididos en dos o más tramos separados durante el día.</p>
         </article>
       </a>
-    </li>
-    <li>
-      <a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"}>
-        <article aria-labelledby="tool-dates-heading">
-          <h3 id="tool-dates-heading">Calculadora de tiempo entre fechas</h3>
+
+      <a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="calculator-card">
+        <article aria-labelledby="card-dates-heading">
+          <div class="calculator-card-icon" aria-hidden="true">📆</div>
+          <h3 id="card-dates-heading">Calculadora de tiempo entre fechas</h3>
           <p>Calcula el tiempo transcurrido entre dos fechas con opción de incluir horas exactas.</p>
         </article>
       </a>
-    </li>
-        </ul>
-    </nav>
+
+    </div>
   </section>
+
+  <!-- GUÍAS -->
+  <section aria-labelledby="guides-heading" class="guides-section">
+    <div class="section-header">
+      <h2 id="guides-heading">Guías y recursos</h2>
+      <p>Aprende a calcular correctamente y resuelve situaciones complejas.</p>
+    </div>
+
+    <div class="guides-grid">
+
+      <a href={import.meta.env.BASE_URL + "como-calcular-horas-trabajadas/"} class="guide-card">
+        <article aria-labelledby="guide-calculator-heading">
+          <h3 id="guide-calculator-heading">Cómo calcular las horas trabajadas</h3>
+          <p>Paso a paso, con ejemplos y casos de jornada nocturna.</p>
+        </article>
+      </a>
+
+      <a href={import.meta.env.BASE_URL + "calcular-horas-trabajadas-con-descanso/"} class="guide-card">
+        <article aria-labelledby="guide-breaks-heading">
+          <h3 id="guide-breaks-heading">Cómo calcular horas trabajadas con descansos</h3>
+          <p>Aprende a restar correctamente los periodos de pausa sin cometer errores.</p>
+        </article>
+      </a>
+
+    </div>
+  </section>
+
 </main>
-
-<footer role="contentinfo">
-  <p>Herramientas gratuitas para organizar y calcular horas de trabajo</p>
-</footer>
-
 </BaseLayout>

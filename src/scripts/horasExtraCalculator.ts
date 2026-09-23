@@ -6,6 +6,7 @@ import { calculateWorkingMinutes } from '../utils/calculateWorkingMinutes';
 import { formatShiftResult } from '../utils/formatShiftResult';
 import { parseExpectedShiftToMinutes } from '../utils/time/parseExpectedShift';
 import { renderSuccess, renderError, clearResultArea } from '../utils/renderResult';
+import { formatTimeToHHMM } from '../utils/time/formatTimeInput';
 
 // ─── Leer DOM ────────────────────────────────────────────────────────────────
 
@@ -79,9 +80,24 @@ function handleReset(): void {
   if (resultArea)    clearResultArea(resultArea);
 }
 
+// ─── Formato automático de horas ────────────────────────────────────────────
+
+function attachTimeFormatListeners(): void {
+  const timeInputIds = ['entry-time', 'exit-time'];
+  timeInputIds.forEach(id => {
+    const input = document.getElementById(id) as HTMLInputElement | null;
+    if (input) {
+      input.addEventListener('input', () => {
+        input.value = formatTimeToHHMM(input.value);
+      });
+    }
+  });
+}
+
 // ─── Eventos ─────────────────────────────────────────────────────────────────
 
 function attachHorasExtraCalculatorEvents(): void {
+  attachTimeFormatListeners();
   document.querySelectorAll('[data-event-calculate-hours-extra="true"]').forEach(btn => {
     btn.addEventListener('click', handleCalculate);
   });

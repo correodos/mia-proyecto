@@ -1,6 +1,7 @@
 ---
 import HorasExtraCalculator from '../../components/calculator/HorasExtraCalculator.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
 
 const { title, description } = {
   title: 'Calculadora de horas extra - Calcula tus horas extra',
@@ -53,27 +54,23 @@ const { title, description } = {
 
   <hr />
 
-  <h3>Ejemplos</h3>
-  
-  <div class="examples">
-    <details>
-      <summary>Jornada normal sin horas extra</summary>
-      <p><strong>Entrada:</strong> 08:00 | <strong>Salida:</strong> 16:00 | <strong>Descanso:</strong> 00:30 | <strong>Prevista:</strong> 08:00</p>
-      <p><em>Trabajadas: 7:30 | Horas extra: 0 horas</em></p>
-    </details>
-
-    <details>
-      <summary>Jornada con horas extra</summary>
-      <p><strong>Entrada:</strong> 22:00 | <strong>Salida:</strong> 07:30 | <strong>Descanso:</strong> 01:00 | <strong>Prevista:</strong> 08:00</p>
-      <p><em>Trabajadas: 9:30 | Horas extra: 1:30 (1.50 horas)</em></p>
-    </details>
-
-    <details>
-      <summary>Jornada nocturna cruzando medianoche</summary>
-      <p><strong>Entrada:</strong> 23:00 | <strong>Salida:</strong> 04:00 | <strong>Descanso:</strong> 00:45 | <strong>Prevista:</strong> 06:00</p>
-      <p><em>Trabajadas: 4:15 | Horas extra: 0 horas (jornada inferior a la prevista)</em></p>
-    </details>
-  </div>
+  <CollapsibleExamples
+    title="Ejemplos"
+    examples={[
+      {
+        summary: 'Jornada normal sin horas extra',
+        content: '<p><strong>Entrada:</strong> 08:00 | <strong>Salida:</strong> 16:00 | <strong>Descanso:</strong> 00:30 | <strong>Prevista:</strong> 08:00</p><p><em>Trabajadas: 7:30 | Horas extra: 0 horas</em></p>',
+      },
+      {
+        summary: 'Jornada con horas extra',
+        content: '<p><strong>Entrada:</strong> 22:00 | <strong>Salida:</strong> 07:30 | <strong>Descanso:</strong> 01:00 | <strong>Prevista:</strong> 08:00</p><p><em>Trabajadas: 9:30 | Horas extra: 1:30 (1.50 horas)</em></p>',
+      },
+      {
+        summary: 'Jornada nocturna cruzando medianoche',
+        content: '<p><strong>Entrada:</strong> 23:00 | <strong>Salida:</strong> 04:00 | <strong>Descanso:</strong> 00:45 | <strong>Prevista:</strong> 06:00</p><p><em>Trabajadas: 4:15 | Horas extra: 0 horas (jornada inferior a la prevista)</em></p>',
+      },
+    ]}
+  />
 
   <hr />
 

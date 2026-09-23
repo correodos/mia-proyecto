@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description: string;
@@ -12,28 +14,125 @@ const { title, description, canonical } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
-    
-    <!-- Canonical -->
     {canonical && <link rel="canonical" href={canonical} />}
-    
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.url.href} />
     <meta property="og:site_name" content="MiA - Herramientas de tiempo" />
     <meta property="og:locale" content="es_ES" />
-
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-
+    <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
     <title>{title}</title>
   </head>
 
   <body>
-    <slot />
+
+    <!-- HEADER -->
+    <header role="banner" aria-label="Encabezado principal" class="main-header">
+      <div class="header-inner">
+
+        <!-- Branding -->
+        <a href={import.meta.env.BASE_URL} class="brand-link" aria-label="MiA - Inicio">
+          <span class="brand-text">MiA</span>
+          <span class="brand-subtitle">Herramientas de tiempo</span>
+        </a>
+
+        <!-- Navegación desktop -->
+        <nav class="main-nav" role="navigation" aria-label="Navegación principal">
+          <ul>
+            <li><a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="nav-link">Horas trabajadas</a></li>
+            <li><a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"} class="nav-link">Semanal</a></li>
+            <li><a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="nav-link">Horas extra</a></li>
+            <li><a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="nav-link">Jornada partida</a></li>
+            <li><a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="nav-link">Entre fechas</a></li>
+          </ul>
+        </nav>
+
+        <!-- Botón hamburguesa (móvil) -->
+        <button
+          type="button"
+          class="mobile-menu-toggle"
+          id="mobile-menu-btn"
+          aria-expanded="false"
+          aria-controls="mobile-nav-menu"
+          aria-label="Abrir menú de navegación"
+        >
+          <span aria-hidden="true" id="menu-icon">☰</span>
+        </button>
+
+      </div>
+
+      <!-- Menú móvil (oculto por defecto) -->
+      <nav id="mobile-nav-menu" class="mobile-nav-menu" aria-label="Menú de navegación móvil">
+        <ul class="mobile-nav-list">
+          <li><a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="mobile-nav-link">Horas trabajadas</a></li>
+          <li><a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"} class="mobile-nav-link">Semanal</a></li>
+          <li><a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="mobile-nav-link">Horas extra</a></li>
+          <li><a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="mobile-nav-link">Jornada partida</a></li>
+          <li><a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="mobile-nav-link">Entre fechas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-container">
+      <slot />
+    </div>
+
+    <!-- FOOTER -->
+    <footer role="contentinfo" class="main-footer">
+      <div class="footer-inner">
+        <p>&copy; <time id="year"></time> MiA — Herramientas gratuitas para calcular horas de trabajo.</p>
+        <nav aria-label="Navegación secundaria">
+          <ul class="footer-nav">
+            <li><a href={import.meta.env.BASE_URL + "como-calcular-horas-trabajadas/"} class="footer-link">Cómo calcular</a></li>
+            <li><a href={import.meta.env.BASE_URL + "calcular-horas-trabajadas-con-descanso/"} class="footer-link">Con descansos</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      // Año en footer
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      // Menú móvil
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-nav-menu');
+      const icon = document.getElementById('menu-icon');
+
+      if (btn && menu) {
+        btn.addEventListener('click', () => {
+          const isOpen = menu.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', String(isOpen));
+          if (icon) icon.textContent = isOpen ? '✕' : '☰';
+        });
+
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+            menu.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+            if (icon) icon.textContent = '☰';
+            btn.focus();
+          }
+        });
+
+        // Cerrar al hacer clic fuera
+        document.addEventListener('click', (e) => {
+          const target = e.target as Node;
+          if (!btn.contains(target) && !menu.contains(target)) {
+            menu.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+            if (icon) icon.textContent = '☰';
+          }
+        });
+      }
+    </script>
+
   </body>
 </html>

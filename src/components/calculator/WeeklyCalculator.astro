@@ -168,7 +168,9 @@ import type { Hour } from '../../types/index.js';
   </div>
   
   <!-- Resultados -->
-  <section id="results-area" class="results-area"></section>
+  <section id="results-area" class="results-area">
+    <h3>Resultados</h3>
+  </section>
 
 </div>
 
@@ -498,7 +500,7 @@ const displayResults = (dailyResults) => {
   const validDays = dailyResults.filter(d => d !== null);
   const totalMinutes = validDays.reduce((sum, d) => sum + (d.minutes || 0), 0);
   
-  // Limpiar y construir contenido
+  // Limpiar y construir contenido — siempre mantener el h3 visible
   resultArea.innerHTML = '';
   
   const h3 = document.createElement('h3');
@@ -593,17 +595,11 @@ const handleReset = () => {
     if (breakInput) breakInput.value = '';
   });
   
-  // Restaurar placeholders '--:--'
-  dayPrefixes.forEach((prefix, index) => {
-    const entryInput = document.getElementById(prefix + '-entry')?.placeholder ?? '--:--;';
-    const exitInput = document.getElementById(prefix + '-exit')?.placeholder ?? '--:--;';
-    
-    if (entryInput !== undefined) entryInput.placeholder = '--:--;';
-    if (exitInput !== undefined) exitInput.placeholder = '--:--;';
-  });
-
-  // Limpiar resultados para reiniciar completo
-  displayResults([]);
+  // Restaurar el área de resultados al estado inicial (solo h3, sin datos)
+  const resultArea = document.getElementById('results-area');
+  if (resultArea) {
+    resultArea.innerHTML = '<h3 style="margin-top:0;margin-bottom:.5rem">Resultados</h3>';
+  }
 };
 
 // Función para autoformatar inputs de hora (HH:MM automático)

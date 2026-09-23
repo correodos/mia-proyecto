@@ -1,0 +1,145 @@
+---
+/**
+ * CollapsibleExamples — Componente reutilizable de ejemplos desplegables
+ *
+ * Sigue las especificaciones del sistema visual (global.css clases .collapse)
+ * y las indicaciones de las especificaciones de diseño UX:
+ *  - encabezado claro con chevron indicador de estado
+ *  - área de interacción mínima de 48px
+ *  - accesible por teclado (aria-expanded / aria-controls)
+ *  - transición suave respetando prefers-reduced-motion
+ *  - abierto/cerrado visualmente distinguibles
+ *
+ * Uso:
+ *   <CollapsibleExamples title="Ejemplos" examples={[
+ *     { summary: "Caso 1", content: "<p>Descripción...</p>" },
+ *     { summary: "Caso 2", content: "<p>Descripción...</p>" },
+ *   ]} />
+ *
+ * El campo `content` acepta HTML arbitrario.
+ * El `title` (h3 por defecto) se puede desactivar con title={false}.
+ */
+
+export interface Example {
+  /** Texto del encabezado del desplegable */
+  summary: string;
+  /** Contenido interior — acepta HTML */
+  content: string;
+  /** Si se muestra abierto inicialmente (por defecto: false) */
+  open?: boolean;
+}
+
+interface Props {
+  /** Título de la sección de ejemplos (false para no mostrar h3) */
+  title?: string | false;
+  /** Array de ejemplos */
+  examples: Example[];
+  /** id único del bloque (auto si se omite) */
+  id?: string;
+}
+
+const {
+  title = 'Ejemplos',
+  examples = [],
+  id = `collapsible-examples-${Math.random().toString(36).slice(2, 7)}`,
+} = Astro.props;
+---
+
+<div class="collapsible-examples" id={id}>
+  {title !== false && <h3 class="collapsible-examples__title">{title}</h3>}
+
+  {examples.map((example, index) => {
+    const bodyId = `${id}-body-${index}`;
+    const headerId = `${id}-header-${index}`;
+    return (
+      <div class={`collapse${example.open ? ' is-open' : ''}`} data-collapse>
+        <button
+          id={headerId}
+          class="collapse-header"
+          aria-expanded={example.open ? 'true' : 'false'}
+          aria-controls={bodyId}
+          type="button"
+        >
+          <span>{example.summary}</span>
+          <span class="collapse-icon" aria-hidden="true">▾</span>
+        </button>
+        <div
+          id={bodyId}
+          class="collapse-body"
+          role="region"
+          aria-labelledby={headerId}
+          hidden={!example.open}
+        >
+          <Fragment set:html={example.content} />
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<style>
+/* Estilos propios del componente — complementan las clases collapse de global.css */
+.collapsible-examples {
+  margin: 0;
+}
+
+.collapsible-examples__title {
+  margin: 0 0 var(--sp-3, 0.75rem) 0;
+  font-size: 1.125rem;
+  color: var(--text, #1f2937);
+}
+
+/* Animar la apertura/cierre del cuerpo */
+.collapse-body {
+  animation: collapse-open var(--t-base, 0.2s) ease;
+}
+
+@keyframes collapse-open {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collapse-body {
+    animation: none;
+  }
+  .collapse-icon {
+    transition: none !important;
+  }
+}
+</style>
+
+<script>
+/**
+ * Inicializa todos los bloques [data-collapse] de la página.
+ * Funciona con múltiples instancias del componente en la misma página.
+ */
+function initCollapseBlocks(): void {
+  document.querySelectorAll<HTMLElement>('[data-collapse]').forEach((block) => {
+    const header = block.querySelector<HTMLButtonElement>('.collapse-header');
+    const body   = block.querySelector<HTMLElement>('.collapse-body');
+    if (!header || !body) return;
+
+    // Evitar doble inicialización
+    if (header.dataset.collapseInit) return;
+    header.dataset.collapseInit = '1';
+
+    header.addEventListener('click', () => {
+      const isExpanded = header.getAttribute('aria-expanded') === 'true';
+      header.setAttribute('aria-expanded', String(!isExpanded));
+      block.classList.toggle('is-open', !isExpanded);
+      if (isExpanded) {
+        body.setAttribute('hidden', '');
+      } else {
+        body.removeAttribute('hidden');
+      }
+    });
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCollapseBlocks);
+} else {
+  initCollapseBlocks();
+}
+</script>

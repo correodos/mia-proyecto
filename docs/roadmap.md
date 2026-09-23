@@ -302,13 +302,13 @@ Asegurar que la primera versión está lista para publicarse.
 
 ### Funcionalidad
 
-- [ ] Probar todas las calculadoras.
-- [ ] Revisar cálculos.
-- [ ] Revisar errores.
-- [ ] Revisar casos límite.
-- [ ] Revisar medianoche.
-- [ ] Revisar jornadas partidas.
-- [ ] Revisar modo semanal.
+- [x] Probar todas las calculadoras.
+- [x] Revisar cálculos.
+- [x] Revisar errores.
+- [x] Revisar casos límite.
+- [x] Revisar medianoche.
+- [x] Revisar jornadas partidas.
+- [x] Revisar modo semanal.
 
 ### UX
 

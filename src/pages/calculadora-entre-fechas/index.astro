@@ -6,6 +6,7 @@
 
 import BetweenDatesCalculator from '../../components/calculator/BetweenDatesCalculator.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
 
 const pageData = {
   title: "Calculadora de tiempo entre fechas | Calcula días y horas transcurridos",
@@ -55,40 +56,31 @@ const { title, description, canonical } = pageData;
 
   <section aria-labelledby="examples-heading" class="content-section">
     <h2 id="examples-heading">Ejemplos prácticos de cálculo de tiempo entre fechas</h2>
-    
-    <dl class="examples-list">
-      <div class="example-item">
-        <dt>Cálculo con horas: Del 21/09/2026 07:00 al 23/09/2026 17:30</dt>
-        <dd><strong>Tiempo transcurrido:</strong> 2 días, 8 horas y 30 minutos<br>
-          <small>Total: 56,50 horas</small></dd>
-      </div>
-
-      <div class="example-item">
-        <dt>Dos fechas iguales (sin cambio): 21/09/2026 → 21/09/2026</dt>
-        <dd><strong>Tiempo transcurrido:</strong> 0 días, 0h 00 minutos<br>
-          <small>Total: 0,00 horas</small></dd>
-      </div>
-
-      <div class="example-item">
-        <dt>Transición de mes: 30/09/2026 → 01/10/2026 (diferencia de horas)</dt>
-        
-        <dd><strong>Tiempo transcurrido:</strong> solo 2 horas<br>
-          <small>Total: 2,00 horas</small></dd>
-      </div>
-
-      <div class="example-item">
-        <dt>Transición de año: 31/12/2026 → 01/01/2027 (nuevo año)</dt>
-        
-        <dd><strong>Tiempo transcurrido:</strong> solo 2 horas<br>
-          <small>Total: 2,00 horas</small></dd>
-      </div>
-
-      <div class="example-item">
-        <dt>Solo fechas (sin especificar horas): calcula días completos entre fechas</dt>
-        <dd><strong>Tiempo transcurrido:</strong> solo entre fechas<br>
-          <small>La calculadora determina el periodo completo entre los días indicados.</small></dd>
-      </div>
-    </dl>
+    <CollapsibleExamples
+      title={false}
+      examples={[
+        {
+          summary: 'Cálculo con horas: Del 21/09/2026 07:00 al 23/09/2026 17:30',
+          content: '<p><strong>Tiempo transcurrido:</strong> 2 días, 8 horas y 30 minutos<br><small>Total: 56,50 horas</small></p>',
+        },
+        {
+          summary: 'Dos fechas iguales (sin cambio): 21/09/2026 → 21/09/2026',
+          content: '<p><strong>Tiempo transcurrido:</strong> 0 días, 0h 00 minutos<br><small>Total: 0,00 horas</small></p>',
+        },
+        {
+          summary: 'Transición de mes: 30/09/2026 → 01/10/2026 (diferencia de horas)',
+          content: '<p><strong>Tiempo transcurrido:</strong> solo 2 horas<br><small>Total: 2,00 horas</small></p>',
+        },
+        {
+          summary: 'Transición de año: 31/12/2026 → 01/01/2027 (nuevo año)',
+          content: '<p><strong>Tiempo transcurrido:</strong> solo 2 horas<br><small>Total: 2,00 horas</small></p>',
+        },
+        {
+          summary: 'Solo fechas (sin especificar horas): calcula días completos entre fechas',
+          content: '<p><strong>Tiempo transcurrido:</strong> solo entre fechas<br><small>La calculadora determina el periodo completo entre los días indicados.</small></p>',
+        },
+      ]}
+    />
   </section>
 
   <section aria-labelledby="faq-heading" class="faq-section">
