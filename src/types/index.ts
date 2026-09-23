@@ -4,6 +4,8 @@ export interface Hour {
   minutes: number;   // 0-59
 }
 
+// ParsedTimeResult eliminado - usar Hour | null en su lugar
+
 export interface Shift {
   entry: Hour;
   exit: Hour;

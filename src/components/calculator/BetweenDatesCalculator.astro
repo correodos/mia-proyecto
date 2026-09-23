@@ -1,6 +1,8 @@
+---
+
 /**
  * Calculadora de tiempo entre dos fechas - Componente independiente con calendario nativo
- * MVP v2.1 - Horas opcionales con formato automático HHMM → HH:MM
+ * MVP v2.1 - Optimizado: usa utilitarios compartidos para parsing y formatteo
  */
 ---
 
@@ -232,7 +234,8 @@ button:hover {
 }
 </style>
 
-<script>// Convertir fecha ISO a español
+<script>import { formatTimeToHHMM } from '../../utils/time/formatTimeInput.js';import { parseTime as parseTimeString } from '../../utils/time/parseTime.js';
+// Convertir fecha ISO a español
 const formatDateES = (isoDate) => {
   if (!isoDate) return '';
   const parts = isoDate.split('-');
@@ -240,79 +243,39 @@ const formatDateES = (isoDate) => {
   return `${String(parts[2]).padStart(2, '0')}/${String(parts[1]).padStart(2, '0')}/${parts[0]}`;
 };
 
-
-// Auto-formato de horas - igual que en jornada partida (DailyEntry)
+// Auto-formato de horas - usar utilitario compartido en vez de implementar localmente
 const formatTimeInput = (event) => {
-    const input = event.target;
-    
-    // Extraer solo dígitos, limitar a 4 caracteres
-    const digits = input.value.replace(/\D/g, '').slice(0, 4);
-    
-    // Añadir dos puntos cuando hay más de 2 dígitos
-    if (digits.length > 2) {
-        input.value = `${digits.slice(0, 2)}:${digits.slice(2)}`;
-    } else {
-        input.value = digits;
-    }
+  event.target.value = formatTimeToHHMM(event.target.value);
 };
 
-// Función auxiliar para obtener elementos por ID
+/** Función auxiliar para obtener elementos por ID */
 const getInput = (id) => document.getElementById(id);
 
-// Convertir HH:MM a horas/minutos o null si inválido
-const toMinutes = (value) => {
-    const match = /^(\d{2}):(\d{2})$/.exec(value);
-    if (!match) return null;
-    const hours = Number(match[1]);
-    const minutes = Number(match[2]);
-    // Validar rango correcto de horas (0-23) y minutos (0-59)
-    return hours <= 23 && minutes <= 59 ? { hours, minutes } : null;
-};
-
-// Mostrar mensaje de error - MANTENER h3 siempre visible + LIMPIAR contenido previo
+/** Mostrar mensaje de error - MANTENER h3 siempre visible + LIMPIAR contenido previo */
 const showErrorMessage = (element, message) => {
   if (!element || !message) return;
-  
-  // Mantener el h3
-  let existingH3 = element.querySelector('h3#result-heading');
-  if (!existingH3) {
-    existingH3 = document.createElement('h3');
-    existingH3.id = 'result-heading';
-    existingH3.textContent = 'Resultados';
-    element.insertBefore(existingH3, element.firstChild);
-  }
-  
-  // Limpiar contenido previo manteniendo solo el h3
-  while (element.children.length > 1) {
-    element.removeChild(element.lastChild);
-  }
-  
-  // Crear nuevo contenedor para el error
-  let errorContainer = element.querySelector('.error-message');
-  if (!errorContainer) {
-    errorContainer = document.createElement('p');
-    errorContainer.className = 'error-message';
-    element.appendChild(errorContainer);
-  }
-  
-  errorContainer.textContent = message;
+
+  element.innerHTML = `
+    <h3 id="result-heading">Resultados</h3>
+    <p class="error-message">${message}</p>
+  `;
 };
 
-// Reiniciar la calculadora - restaura el estado inicial vacío y limpia resultados
+/** Reiniciar la calculadora - restaura el estado inicial vacío y limpia resultados */
 const resetCalculator = () => {
-  const d1 = document.getElementById('date-from');
-  const d2 = document.getElementById('date-to');
-  
-  if (d1) d1.value = '';
-  if (d2) d2.value = '';
-  
-  const t1 = document.getElementById('time-from');
-  const t2 = document.getElementById('time-to');
-  
-  if (t1) t1.value = '--:--';
-  if (t2) t2.value = '--:--';
-  
-  /* Restaurar el estado inicial del área de resultados */
+  const dateFrom = document.getElementById('date-from');
+  const dateTo = document.getElementById('date-to');
+
+  if (dateFrom) dateFrom.value = '';
+  if (dateTo) dateTo.value = '';
+
+  const timeFrom = document.getElementById('time-from');
+  const timeTo = document.getElementById('time-to');
+
+  if (timeFrom) timeFrom.value = '';
+  if (timeTo) timeTo.value = '';
+
+  // Restaurar área de resultados al estado inicial
   const resultArea = document.querySelector('.between-dates-results-area');
   if (resultArea) {
     resultArea.innerHTML = `
@@ -322,79 +285,78 @@ const resetCalculator = () => {
   }
 };
 
-// Calcular diferencia entre fechas y horas
+/** Calcular diferencia entre dos fechas/horas */
 const calculateDiff = (dateFrom, timeFromStr, dateTo, timeToStr) => {
   try {
-    // Validar que haya al menos una fecha o hora
-    if (!dateFrom && !timeFromStr) {
+    // Validar que haya al menos una fecha
+    if (!dateFrom) {
       return { ok: false, error: 'Selecciona una fecha inicial.' };
     }
-    
-    if (!dateTo && !timeToStr) {
+
+    if (!dateTo) {
       return { ok: false, error: 'Selecciona una fecha final.' };
     }
-    
-    // Parsear horas: si el valor es '00:00' (default), parsearlo directamente
+
+    // Parsear horas usando el utilitario compartido
     let fromParsed, toParsed;
-    
+
     if (timeFromStr === '00:00') {
-      fromParsed = { hours: 0, minutes: 0 }; // Default
+      fromParsed = { hours: 0, minutes: 0 };
     } else {
-      fromParsed = toMinutes(timeFromStr);
+      fromParsed = parseTimeString(timeFromStr);
     }
-    
+
     if (timeToStr === '00:00') {
-      toParsed = { hours: 0, minutes: 0 }; // Default
+      toParsed = { hours: 0, minutes: 0 };
     } else {
-      toParsed = toMinutes(timeToStr);
+      toParsed = parseTimeString(timeToStr);
     }
-    
+
     // Validar rangos después de parsear
     if (!fromParsed || !toParsed) {
       return { ok: false, error: 'Formato de hora inválido. Usa HH:MM con horas entre 00 y 23.' };
     }
-    
+
     const fromHours = fromParsed.hours;
     const minutesFrom = fromParsed.minutes;
     const toHours = toParsed.hours;
     const minutesToValue = toParsed.minutes;
-    
+
     // Crear objetos Date con horas ya validadas
     const fromDate = new Date(`${dateFrom}T${String(fromHours).padStart(2,'0')}:${String(minutesFrom).padStart(2,'0')}`);
     const toDate = new Date(`${dateTo}T${String(toHours).padStart(2,'0')}:${String(minutesToValue).padStart(2,'0')}`);
-    
+
     if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
       return { ok: false, error: 'Fechas fuera de rango válido.' };
     }
-    
+
     // Validar cronología
     if (toDate.getTime() < fromDate.getTime()) {
       return { ok: false, error: 'La fecha/hora final no puede ser anterior a la inicial.' };
     }
-    
+
     // Calcular diferencia en minutos totales
     const diffMs = toDate.getTime() - fromDate.getTime();
     const totalMinutes = Math.floor(diffMs / 1000 / 60);
-    
+
     const days = Math.floor(totalMinutes / (24 * 60));
     const remainingAfterDays = totalMinutes % (24 * 60);
     const hours = Math.floor(remainingAfterDays / 60);
     const minutesLeft = remainingAfterDays % 60;
-    
-    const totalHoursDecimal = ((days * 24 + hours + minutesLeft / 60)).toFixed(2);
-    
+
+    const totalHoursDecimal = (days * 24 + hours + minutesLeft / 60).toFixed(2);
+
     return { ok: true, days, hours, minutes: minutesLeft, totalMinutes, totalHours: totalHoursDecimal };
   } catch (error) {
     console.error('Error en cálculo entre fechas:', error);
-    return { ok: false, error: 'Error en el cálculo'};
+    return { ok: false, error: 'Error en el cálculo' };
   }
 };
 
-// Función auxiliar para mostrar resultados de cálculo - reemplaza contenido actual
+/** Mostrar resultado de cálculo en el área de resultados */
 const showCalculationResult = (resultArea, result) => {
   const totalHoursString = `${result.days} día${result.days !== 1 ? 's' : ''}, ${result.hours}h ${result.minutes.toString().padStart(2, '0')} min`;
-  
-  // Reemplaza TODO el contenido con título + resultado
+
   resultArea.innerHTML = `
     <h3 id="result-heading">Resultados</h3>
     <div class="time-spent-label">Tiempo transcurrido: <strong>${totalHoursString}</strong></div>
@@ -402,24 +364,24 @@ const showCalculationResult = (resultArea, result) => {
   `;
 };
 
-// Vincular listeners de autoformato
+/** Vincular listeners de autoformato */
 const attachTimeInputListeners = () => {
   const fromInput = document.getElementById('time-from');
   const toInput = document.getElementById('time-to');
-  
+
   if (fromInput) {
     fromInput.addEventListener('input', formatTimeInput);
   }
-  
+
   if (toInput) {
     toInput.addEventListener('input', formatTimeInput);
   }
 };
 
-// Calcular botón
+/** Vincular listeners de cálculo */
 const attachCalculateListeners = () => {
   const calculateBtns = document.querySelectorAll('[data-event-calculate-fdates="true"]');
-  
+
   calculateBtns.forEach(button => {
     button.addEventListener('click', () => {
       const dateFromInput = document.getElementById('date-from');
@@ -435,28 +397,25 @@ const attachCalculateListeners = () => {
       const fromHoursRaw = timeFromInput?.value || '';
       const toHoursRaw = timeToInput?.value || '';
 
-      /* Verificar si campo de hora está vacío (placeholder). */
-      /** @type {(v: string) => boolean} - true si el input está vacío o tiene placeholder '--:--' */
+      /** true si el input está vacío o tiene placeholder '--:--' */
       const isEmptyTime = (v) => !v || v === '--:--';
 
-      /* Validar formato solo si el campo no está vacío. */
-      if (!isEmptyTime(fromHoursRaw) && !toMinutes(fromHoursRaw)) {
+      // Validar formato solo si el campo no está vacío
+      if (!isEmptyTime(fromHoursRaw) && !parseTimeString(fromHoursRaw)) {
         showErrorMessage(resultArea, 'Formato de hora inicial inválido.');
         return;
       }
 
-      if (!isEmptyTime(toHoursRaw) && !toMinutes(toHoursRaw)) {
+      if (!isEmptyTime(toHoursRaw) && !parseTimeString(toHoursRaw)) {
         showErrorMessage(resultArea, 'Formato de hora final inválido.');
         return;
       }
 
-      /* Normalizar: placeholder → 00:00. */
-      /** @type {string} - Hora inicial normalizada (00:00 si está vacío) */
+      // Normalizar: placeholder → 00:00
       const fromHoursEffective = isEmptyTime(fromHoursRaw) ? '00:00' : fromHoursRaw;
-      /** @type {string} - Hora final normalizada (00:00 si está vacío) */
       const toHoursEffective = isEmptyTime(toHoursRaw) ? '00:00' : toHoursRaw;
 
-      /* Calcular con fechas en formato ISO directo (YYYY-MM-DD). */
+      // Calcular con fechas en formato ISO directo (YYYY-MM-DD)
       const result = calculateDiff(fromDateISO, fromHoursEffective, toDateISO, toHoursEffective);
 
       if (result.ok) {
@@ -468,18 +427,17 @@ const attachCalculateListeners = () => {
   });
 };
 
-// Botón Reiniciar
+/** Vincular listener del botón Reiniciar */
 const attachResetListener = () => {
   const resetBtn = document.getElementById('reset-btn-betweendates');
-  
+
   if (resetBtn) {
     resetBtn.addEventListener('click', resetCalculator);
   }
 };
 
-// Inicializar al cargar la página - restablece el área de resultados antes de añadir listeners
+// Inicializar al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-  resetCalculator();
   attachTimeInputListeners();
   attachCalculateListeners();
   attachResetListener();

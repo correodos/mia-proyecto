@@ -1,0 +1,529 @@
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged
+import type { ParsedTimeResult } from '../types/index';
+import { parseTime as sharedParseTime } from '../utils/time/parseTime';
+
+export interface SplitShiftResult {
+    ok: boolean;
+    part1Hours: number | null;
+    part1Minutes: number | null;
+    part2Hours: number | null;
+    part2Minutes: number | null;
+    breakMinutes: number;
+    duration1Minutes: number;
+    duration2Minutes: number;
+    error?: string;
+}
+
+export const parseTime = sharedParseTime;
+
+const toTotalMinutes = (parsed: ParsedTimeResult): number | null => {
+    if (!parsed.isValid || parsed.hours === null) return null;
+    return parsed.hours * 60 + (parsed.getMinutes() ?? parsed.minutes);
+};
+
+// ... rest unchanged

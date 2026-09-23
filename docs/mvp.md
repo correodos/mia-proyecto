@@ -10,12 +10,6 @@ Definición de las funcionalidades principales para el lanzamiento inicial.
 2. Rendimiento básico
 3. Experiencia de usuario esencial
 
-## Métricas de Éxito
-
-- [ ] Métrica 1
-- [ ] Métrica 2
-- [ ] Métrica 3
-
 ## Alcance legal
 
 El MVP se limita a cálculos matemáticos de tiempo.

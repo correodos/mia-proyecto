@@ -5,5 +5,9 @@ export default defineConfig({
   output: 'static',
   site: 'https://correodos.github.io/mia-proyecto/',
   base: '/mia-proyecto/',
-  integrations: [sitemap()],
+  integrations: [sitemap({
+    customPages: [
+      'https://correodos.github.io/mia-proyecto/calculadora-entre-fechas/',
+    ],
+  })],
 });
