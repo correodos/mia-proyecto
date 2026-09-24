@@ -1,15 +1,23 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GuideSteps from '../../../components/GuideSteps.astro';
 
 const pageData = {
   title: 'Cómo calcular las horas extra: guía completa',
   description: 'Aprende a calcular tus horas extra respecto a la jornada prevista. Fórmula, ejemplos, jornadas nocturnas, medianoche y errores comunes.',
-  canonical: 'https://mia-proyecto.pages.dev/guias/calcular-horas-extra/',
+  canonical: 'https://miaherramienta.com/guias/calcular-horas-extra/',
   lastUpdated: '2026-09-24',
   readingTime: '5 min'
 };
 
 const { title, description, canonical, lastUpdated, readingTime } = pageData;
+
+const extraHoursSteps = [
+  'Calcula tus <strong>horas trabajadas reales</strong> (entrada, salida, descansos).',
+  'Identifica tu <strong>jornada laboral prevista</strong> (ej. 8 h, 7.5 h, 7 h 30 min).',
+  'Resta: <strong>Horas trabajadas − Jornada prevista</strong>.',
+  'Si el resultado es <strong>positivo</strong>, son tus horas extra. Si es 0 o negativo, no hay extra.',
+];
 ---
 
 <BaseLayout title={title} description={description} canonical={canonical}>
@@ -60,16 +68,7 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
       Si el resultado es <strong>≤ 0</strong>, no hay horas extra (jornada cumplida o incompleta).
     </div>
 
-    <!-- Pasos -->
-    <section aria-labelledby="steps-heading">
-      <h2 id="steps-heading">Pasos para calcular</h2>
-      <ol class="steps">
-        <li>Calcula tus <strong>horas trabajadas reales</strong> (entrada, salida, descansos).</li>
-        <li>Identifica tu <strong>jornada laboral prevista</strong> (ej. 8 h, 7.5 h, 7 h 30 min).</li>
-        <li>Resta: <strong>Horas trabajadas − Jornada prevista</strong>.</li>
-        <li>Si el resultado es <strong>positivo</strong>, son tus horas extra. Si es 0 o negativo, no hay extra.</li>
-      </ol>
-    </section>
+    <GuideSteps steps={extraHoursSteps} />
 
     <!-- Ejemplos - cards estáticas -->
     <section aria-labelledby="examples-heading">

@@ -1,15 +1,24 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GuideSteps from '../../../components/GuideSteps.astro';
 
 const pageData = {
   title: 'Cómo calcular el tiempo entre dos fechas: guía completa',
   description: 'Aprende a calcular días, horas y minutos entre dos fechas. Guía con fórmula, ejemplos (cruce mes, año, solo fechas), casos especiales y errores comunes.',
-  canonical: 'https://mia-proyecto.pages.dev/guias/calcular-entre-fechas/',
+  canonical: 'https://miaherramienta.com/guias/calcular-entre-fechas/',
   lastUpdated: '2026-09-24',
   readingTime: '5 min'
 };
 
 const { title, description, canonical, lastUpdated, readingTime } = pageData;
+
+const betweenDatesSteps = [
+  'Selecciona o escribe la <strong>fecha inicial</strong> (formato YYYY-MM-DD).',
+  'Opcional: añade la <strong>hora inicial</strong> (HH:MM). Si la dejas vacía, se usa 00:00.',
+  'Selecciona o escribe la <strong>fecha final</strong> (YYYY-MM-DD).',
+  'Opcional: añade la <strong>hora final</strong> (HH:MM). Si la dejas vacía, se usa 00:00.',
+  'Pulsa calcular: obtendrás <strong>días, horas, minutos</strong> y <strong>total en horas decimales</strong>.',
+];
 ---
 
 <BaseLayout title={title} description={description} canonical={canonical}>
@@ -60,17 +69,7 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
       Resultado en: <strong>días, horas, minutos</strong> y <strong>total en horas decimales</strong>
     </div>
 
-    <!-- Pasos -->
-    <section aria-labelledby="steps-heading">
-      <h2 id="steps-heading">Pasos para calcular</h2>
-      <ol class="steps">
-        <li>Selecciona o escribe la <strong>fecha inicial</strong> (formato YYYY-MM-DD).</li>
-        <li>Opcional: añade la <strong>hora inicial</strong> (HH:MM). Si la dejas vacía, se usa 00:00.</li>
-        <li>Selecciona o escribe la <strong>fecha final</strong> (YYYY-MM-DD).</li>
-        <li>Opcional: añade la <strong>hora final</strong> (HH:MM). Si la dejas vacía, se usa 00:00.</li>
-        <li>Pulsa calcular: obtendrás <strong>días, horas, minutos</strong> y <strong>total en horas decimales</strong>.</li>
-      </ol>
-    </section>
+    <GuideSteps steps={betweenDatesSteps} />
 
     <!-- Ejemplos - cards estáticas -->
     <section aria-labelledby="examples-heading">

@@ -1,0 +1,56 @@
+---
+/**
+ * GuideSteps — Componente reutilizable para "Pasos para calcular" en guías
+ *
+ * Uso:
+ *   <GuideSteps steps={[
+ *     "Selecciona la <strong>fecha inicial</strong> (YYYY-MM-DD).",
+ *     "Opcional: añade la <strong>hora inicial</strong> (HH:MM).",
+ *     "Selecciona la <strong>fecha final</strong> (YYYY-MM-DD).",
+ *     "Pulsa calcular: obtendrás <strong>días, horas, minutos</strong> y <strong>total en horas decimales</strong>."
+ *   ]} />
+ *
+ * Características:
+ * - Usa .alert.alert-success (verde) para diferenciarse de alert-info (azul) y alert-warning (ámbar)
+ * - Numeración automática (1., 2., 3...)
+ * - Accesible: lista ordenada semántica para screen readers
+ * - Responsive: se adapta a móvil y desktop
+ */
+
+export interface Props {
+  /** Array de pasos — cada string acepta HTML */
+  steps: string[];
+  /** id único para aria-labelledby (opcional) */
+  id?: string;
+  /** Título de la sección (por defecto: "Pasos para calcular") */
+  title?: string;
+}
+
+const {
+  steps = [],
+  id = `guide-steps-${Math.random().toString(36).slice(2, 7)}`,
+  title = 'Pasos para calcular',
+} = Astro.props;
+---
+
+<section aria-labelledby={`${id}-heading`} class="guide-steps">
+  <h2 id={`${id}-heading`}>{title}</h2>
+
+  {steps.map((step, index) => (
+    <div class="alert alert-success" role="listitem">
+      <strong>{index + 1}.</strong> <Fragment set:html={step} />
+    </div>
+  ))}
+</section>
+
+<style>
+  .guide-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .guide-steps .alert {
+    margin-bottom: 0; /* reset del margen por defecto de .alert */
+  }
+</style>

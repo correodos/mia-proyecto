@@ -6,7 +6,7 @@ import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
 const pageData = {
   title: "Calculadora de Horas Extra",
   description: "Calculadora gratuita de horas extra. Calcula horas trabajadas y detecta horas extra respecto a tu jornada prevista.",
-  canonical: "https://mia-proyecto.pages.dev/calculadora-horas-extra/"
+  canonical: "https://miaherramienta.com/calculadora-horas-extra/"
 };
 
 const { title, description, canonical } = pageData;
@@ -33,11 +33,15 @@ const { title, description, canonical } = pageData;
     
     <p>Introduce los datos de tu jornada:</p>
     
-    <ol class="steps">
-      <li><strong>Entrada y salida:</strong> hora de inicio y fin de tu turno (ej: 08:00 / 18:00).</li>
-      <li><strong>Jornada prevista y descanso:</strong> horas que debes trabajar y minutos de pausa (ej: 08:00 / 60).</li>
-      <li>Pulsa <kbd>Calcular</kbd> para ver horas trabajadas y horas extra.</li>
-    </ol>
+    <div class="alert alert-info">
+      <strong>1. Entrada y salida:</strong> hora de inicio y fin de tu turno (ej: 08:00 / 18:00).
+    </div>
+    <div class="alert alert-info">
+      <strong>2. Jornada prevista y descanso:</strong> horas que debes trabajar y minutos de pausa (ej: 08:00 / 60).
+    </div>
+    <div class="alert alert-info">
+      <strong>3. Pulsa <kbd>Calcular</kbd></strong> para ver horas trabajadas y horas extra.
+    </div>
     
     <p>Usa <kbd>Reiniciar</kbd> para limpiar los campos.</p>
   </section>

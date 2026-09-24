@@ -825,6 +825,14 @@ button:focus-visible,
 .alert-error   { background: var(--error-bg);       border-color: var(--error);    color: #991b1b; }
 .alert-warning { background: var(--warning-bg);     border-color: var(--warning);  color: #92400e; }
 
+.alert kbd {
+  background: var(--bg-muted);
+  padding: 0.125em 0.375em;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
 
 /* ============================================
    14. DESPLEGABLES (details/summary o JS)
@@ -933,17 +941,35 @@ button:focus-visible,
   line-height: 1.7;
 }
 
-/* Listas de pasos (pasos numerados) */
-.steps {
-  padding-left: var(--sp-5);
+/* Listas de pasos (pasos numerados) — calculadoras */
+.content-section .steps,
+.tools-list .steps {
+  padding-left: var(--sp-6);
 }
 
-.steps li {
-  margin-bottom: var(--sp-3);
+.content-section .steps li,
+.tools-list .steps li {
+  margin-bottom: var(--sp-4);
   line-height: 1.7;
+  padding-left: var(--sp-3);
+  border-left: 2px solid var(--primary-light);
+  list-style-position: outside;
+  text-indent: 0;
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
 }
 
-/* Ajuste responsive para tablet/desktop */
+.content-section .steps li::marker,
+.tools-list .steps li::marker {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  width: 1.5rem;
+  text-align: right;
+}
+
 @media (min-width: 640px) {
   .content-section ul,
   .content-section ol,
@@ -954,8 +980,15 @@ button:focus-visible,
     padding-left: var(--sp-6);
   }
   
-  .steps {
-    padding-left: var(--sp-6);
+  .content-section .steps,
+  .tools-list .steps {
+    padding-left: var(--sp-7);
+  }
+  
+  .content-section .steps li,
+  .tools-list .steps li {
+    padding-left: var(--sp-4);
+    border-left-width: 3px;
   }
 }
 
@@ -1277,8 +1310,6 @@ button:focus-visible,
   .guide-article { padding: var(--sp-6) var(--sp-4); }
   .formula-box { padding: var(--sp-4); font-size: 0.875rem; }
   .steps { padding-left: var(--sp-4); }
-  .steps li { padding-left: var(--sp-6); }
-  .steps li::before { width: 1.25rem; height: 1.25rem; font-size: 0.6875rem; }
-  .guide-cta { padding: var(--sp-4); }
-  .guide-cta .btn-primary { width: 100%; }
+  .steps li { padding-left: var(--sp-6); min-width: 0; }
+  .steps li::before { width: 1.25rem; height: 1.25rem; font-size: 0.6875rem; flex-shrink: 0; }
 }

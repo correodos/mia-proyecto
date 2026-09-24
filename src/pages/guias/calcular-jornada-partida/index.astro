@@ -1,15 +1,25 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GuideSteps from '../../../components/GuideSteps.astro';
 
 const pageData = {
   title: 'Cómo calcular una jornada partida: guía completa',
   description: 'Aprende a calcular tus horas en jornadas partidas (dos tramos). Fórmula, ejemplos, descanso automático entre tramos y casos especiales como medianoche.',
-  canonical: 'https://mia-proyecto.pages.dev/guias/calcular-jornada-partida/',
+  canonical: 'https://miaherramienta.com/guias/calcular-jornada-partida/',
   lastUpdated: '2026-09-24',
   readingTime: '5 min'
 };
 
 const { title, description, canonical, lastUpdated, readingTime } = pageData;
+
+const splitShiftSteps = [
+  'Anota <strong>Entrada 1</strong> y <strong>Salida 1</strong> del primer tramo (HH:MM).',
+  'Anota <strong>Entrada 2</strong> y <strong>Salida 2</strong> del segundo tramo (HH:MM).',
+  'Calcula <strong>duración del tramo 1</strong> (Salida 1 − Entrada 1).',
+  'Calcula <strong>duración del tramo 2</strong> (Salida 2 − Entrada 2).',
+  'El <strong>descanso entre tramos</strong> = Entrada 2 − Salida 1 (la calculadora lo hace automáticamente).',
+  '<strong>Total trabajado</strong> = Tramo 1 + Tramo 2 − Descanso entre tramos.',
+];
 ---
 
 <BaseLayout title={title} description={description} canonical={canonical}>
@@ -60,18 +70,7 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
       Donde: <strong>Descanso entre tramos = Entrada 2 − Salida 1</strong> (siempre positivo)
     </div>
 
-    <!-- Pasos -->
-    <section aria-labelledby="steps-heading">
-      <h2 id="steps-heading">Pasos para calcular</h2>
-      <ol class="steps">
-        <li>Anota <strong>Entrada 1</strong> y <strong>Salida 1</strong> del primer tramo (HH:MM).</li>
-        <li>Anota <strong>Entrada 2</strong> y <strong>Salida 2</strong> del segundo tramo (HH:MM).</li>
-        <li>Calcula <strong>duración del tramo 1</strong> (Salida 1 − Entrada 1).</li>
-        <li>Calcula <strong>duración del tramo 2</strong> (Salida 2 − Entrada 2).</li>
-        <li>El <strong>descanso entre tramos</strong> = Entrada 2 − Salida 1 (la calculadora lo hace automáticamente).</li>
-        <li><strong>Total trabajado</strong> = Tramo 1 + Tramo 2 − Descanso entre tramos.</li>
-      </ol>
-    </section>
+    <GuideSteps steps={splitShiftSteps} />
 
     <!-- Ejemplos - cards estáticas -->
     <section aria-labelledby="examples-heading">

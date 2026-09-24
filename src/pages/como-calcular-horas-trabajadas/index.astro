@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const pageData = {
   title: 'Cómo calcular las horas trabajadas - Paso a paso con ejemplos',
   description: 'Aprende a calcular tus horas trabajadas restando los descansos al tiempo total entre entrada y salida. Ejemplos prácticos, casos de medianoche y la fórmula correcta.',
-  canonical: 'https://mia-proyecto.pages.dev/como-calcular-horas-trabajadas/',
+  canonical: 'https://miaherramienta.com/como-calcular-horas-trabajadas/',
   lastUpdated: '2026-09-24',
   readingTime: '5 min'
 };
@@ -68,13 +68,21 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
     <!-- Pasos -->
     <section aria-labelledby="steps-heading">
       <h2 id="steps-heading">Pasos para calcular</h2>
-      <ol class="steps">
-        <li>Anota la <strong>hora de entrada</strong> (formato HH:MM).</li>
-        <li>Anota la <strong>hora de salida</strong>.</li>
-        <li>Calcula el <strong>tiempo total</strong> entre ambas horas.</li>
-        <li>Suma <strong>todos los descansos</strong> en minutos (si hay varios, suma todos <em>antes</em> de restar).</li>
-        <li>Resta el total de descansos al tiempo total. El resultado son tus <strong>horas netas trabajadas</strong>.</li>
-      </ol>
+      <div class="alert alert-success">
+        <strong>1.</strong> Anota la <strong>hora de entrada</strong> (formato HH:MM).
+      </div>
+      <div class="alert alert-success">
+        <strong>2.</strong> Anota la <strong>hora de salida</strong>.
+      </div>
+      <div class="alert alert-success">
+        <strong>3.</strong> Calcula el <strong>tiempo total</strong> entre ambas horas.
+      </div>
+      <div class="alert alert-success">
+        <strong>4.</strong> Suma <strong>todos los descansos</strong> en minutos (si hay varios, suma todos <em>antes</em> de restar).
+      </div>
+      <div class="alert alert-success">
+        <strong>5.</strong> Resta el total de descansos al tiempo total. El resultado son tus <strong>horas netas trabajadas</strong>.
+      </div>
     </section>
 
     <!-- Ejemplos - cards estáticas -->

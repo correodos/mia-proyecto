@@ -3,6 +3,6 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://mia-proyecto.pages.dev',
+  site: 'https://miaherramienta.com',
   integrations: [sitemap()],
 });

@@ -1,15 +1,24 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GuideSteps from '../../../components/GuideSteps.astro';
 
 const pageData = {
   title: 'Cómo calcular horas semanales: guía completa',
   description: 'Aprende a sumar tus horas de lunes a domingo. Guía con fórmula, ejemplos de jornadas variables, descansos por día y conversión a decimal.',
-  canonical: 'https://mia-proyecto.pages.dev/guias/calcular-semanal-horas/',
+  canonical: 'https://miaherramienta.com/guias/calcular-semanal-horas/',
   lastUpdated: '2026-09-24',
   readingTime: '5 min'
 };
 
 const { title, description, canonical, lastUpdated, readingTime } = pageData;
+
+const weeklySteps = [
+  'Para cada día (Lun–Dom), anota <strong>Entrada</strong>, <strong>Salida</strong> y <strong>Descanso (min)</strong>.',
+  'Si un día no trabajas, déjalo <strong>vacío</strong> (cuenta como 0).',
+  'Calcula cada día: <strong>Horas día = Salida − Entrada − Descanso</strong>.',
+  'Suma las horas netas de los 7 días: <strong>Total semanal = Σ Horas día</strong>.',
+  'Resultado en <strong>horas:min</strong>, <strong>minutos totales</strong> y <strong>horas decimales</strong>.',
+];
 ---
 
 <BaseLayout title={title} description={description} canonical={canonical}>
@@ -60,17 +69,7 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
       Para cada día: <strong>Horas día = Salida − Entrada − Descanso</strong> → Luego suma los 7 días.
     </div>
 
-    <!-- Pasos -->
-    <section aria-labelledby="steps-heading">
-      <h2 id="steps-heading">Pasos para calcular</h2>
-      <ol class="steps">
-        <li>Para cada día (Lun–Dom), anota <strong>Entrada</strong>, <strong>Salida</strong> y <strong>Descanso (min)</strong>.</li>
-        <li>Si un día no trabajas, déjalo <strong>vacío</strong> (cuenta como 0).</li>
-        <li>Calcula cada día: <strong>Horas día = Salida − Entrada − Descanso</strong>.</li>
-        <li>Suma las horas netas de los 7 días: <strong>Total semanal = Σ Horas día</strong>.</li>
-        <li>Resultado en <strong>horas:min</strong>, <strong>minutos totales</strong> y <strong>horas decimales</strong>.</li>
-      </ol>
-    </section>
+    <GuideSteps steps={weeklySteps} />
 
     <!-- Ejemplos - cards estáticas -->
     <section aria-labelledby="examples-heading">
