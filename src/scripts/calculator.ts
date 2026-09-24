@@ -12,12 +12,17 @@ let _lastDecimal = '0.00';
 
 // ─── Leer DOM ────────────────────────────────────────────────────────────────
 
-function getInputs() {
+function getInputs(): {
+  entry: HTMLInputElement | null;
+  exit: HTMLInputElement | null;
+  breakEl: HTMLInputElement | null;
+  resultArea: HTMLElement | null;
+} {
   return {
-    entry:     document.getElementById('entry-time')  as HTMLInputElement | null,
-    exit:      document.getElementById('exit-time')   as HTMLInputElement | null,
-    breakEl:   document.getElementById('break-time')  as HTMLInputElement | null,
-    resultArea: document.querySelector('.results-area') as HTMLElement | null,
+    entry:     document.getElementById('entry-time'),
+    exit:      document.getElementById('exit-time'),
+    breakEl:   document.getElementById('break-time'),
+    resultArea: document.querySelector('.results-area'),
   };
 }
 
@@ -65,8 +70,8 @@ function attachEvents(): void {
 }
 
 function setupTimeInputs(): void {
-  const entry = document.getElementById('entry-time') as HTMLInputElement | null;
-  const exit  = document.getElementById('exit-time')  as HTMLInputElement | null;
+  const entry = document.getElementById('entry-time');
+  const exit  = document.getElementById('exit-time');
   if (entry) entry.addEventListener('input', () => { entry.value = formatTimeToHHMM(entry.value); });
   if (exit)  exit.addEventListener('input',  () => { exit.value  = formatTimeToHHMM(exit.value);  });
 }

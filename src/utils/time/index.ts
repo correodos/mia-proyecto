@@ -9,3 +9,4 @@ export * from './calculateExtraHours';
 export * from './parseExpectedShift';
 export * from './parseBreakMinutes';
 export * from './formatTimeInput';
+export * from './dateDiffMinutes';

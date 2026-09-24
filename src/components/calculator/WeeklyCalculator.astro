@@ -1,17 +1,12 @@
 ---
-/**
- * Calculadora semanal de horas - Componente Astro del MVP v1.0
- */
-import type { Hour } from '../../types/index.js';
 ---
-
-<div data-testid="weekly-calculator" class="calculator weekly">
+<div data-testid="weekly-calculator" class="card weekly-calculator">
 
   <h2>Calculadora semanal de horas</h2>
 
   <!-- Lunes -->
-  <fieldset class="day-section lunes">
-    <legend><span>Lunes</span></legend>
+  <fieldset class="day-section">
+    <legend class="day-legend lunes"><span>Lunes</span></legend>
     
     <div class="form-group">
       <label for="lun-entry">Entrada:</label>
@@ -24,15 +19,15 @@ import type { Hour } from '../../types/index.js';
     </div>
     
     <div class="form-group">
-      <label for="lun-breaking">Descanso (min, opcional):</label>
+      <label for="lun-break">Descanso (min, opcional):</label>
       <input id="lun-break" name="weeklyBreak[0]" type="number" min="0" max="480">
-      <span id="lun-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
+      <span id="lun-break-help" class="form-help">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
   </fieldset>
 
   <!-- Martes -->
-  <fieldset class="day-section martes">
-    <legend><span>Martes</span></legend>
+  <fieldset class="day-section">
+    <legend class="day-legend martes"><span>Martes</span></legend>
     
     <div class="form-group">
       <label for="mar-entry">Entrada:</label>
@@ -45,15 +40,15 @@ import type { Hour } from '../../types/index.js';
     </div>
 
     <div class="form-group">
-      <label for="mar-breaking">Descanso (min, opcional):</label>
+      <label for="mar-break">Descanso (min, opcional):</label>
       <input id="mar-break" name="weeklyBreak[1]" type="number" min="0" max="480">
-      <span id="mar-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
+      <span id="mar-break-help" class="form-help">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-    </fieldset>
+  </fieldset>
 
   <!-- Miércoles -->
-  <fieldset class="day-section miércoles">
-    <legend><span>Miércoles</span></legend>
+  <fieldset class="day-section">
+    <legend class="day-legend miércoles"><span>Miércoles</span></legend>
     
     <div class="form-group">
       <label for="mie-entry">Entrada:</label>
@@ -66,16 +61,15 @@ import type { Hour } from '../../types/index.js';
     </div>
 
     <div class="form-group">
-      <label for="mie-breaking">Descanso (min, opcional):</label>
+      <label for="mie-break">Descanso (min, opcional):</label>
       <input id="mie-break" name="weeklyBreak[2]" type="number" min="0" max="480">
-      <span id="mie-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
+      <span id="mie-break-help" class="form-help">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-    </fieldset>
-
+  </fieldset>
 
   <!-- Jueves -->
-  <fieldset class="day-section jueves">
-    <legend><span>Jueves</span></legend>
+  <fieldset class="day-section">
+    <legend class="day-legend jueves"><span>Jueves</span></legend>
     
     <div class="form-group">
       <label for="jue-entry">Entrada:</label>
@@ -88,16 +82,15 @@ import type { Hour } from '../../types/index.js';
     </div>
 
     <div class="form-group">
-      <label for="jue-breaking">Descanso (min, opcional):</label>
+      <label for="jue-break">Descanso (min, opcional):</label>
       <input id="jue-break" name="weeklyBreak[3]" type="number" min="0" max="480">
-      <span id="jue-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
+      <span id="jue-break-help" class="form-help">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-
   </fieldset>
 
   <!-- Viernes -->
-  <fieldset class="day-section viernes">
-    <legend><span>Viernes</span></legend>
+  <fieldset class="day-section">
+    <legend class="day-legend viernes"><span>Viernes</span></legend>
     
     <div class="form-group">
       <label for="vie-entry">Entrada:</label>
@@ -110,17 +103,15 @@ import type { Hour } from '../../types/index.js';
     </div>
 
     <div class="form-group">
-      <label for="vie-breaking">Descanso (min, opcional):</label>
+      <label for="vie-break">Descanso (min, opcional):</label>
       <input id="vie-break" name="weeklyBreak[4]" type="number" min="0" max="480">
-      <span id="vie-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
+      <span id="vie-break-help" class="form-help">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-    </fieldset>
-
-
+  </fieldset>
 
   <!-- Sábado -->
-  <fieldset class="day-section sábado">
-    <legend><span>Sábado</span></legend>
+  <fieldset class="day-section">
+    <legend class="day-legend sábado"><span>Sábado</span></legend>
     
     <div class="form-group">
       <label for="sab-entry">Entrada:</label>
@@ -133,16 +124,15 @@ import type { Hour } from '../../types/index.js';
     </div>
 
     <div class="form-group">
-      <label for="sab-breaking">Descanso (min, opcional):</label>
+      <label for="sab-break">Descanso (min, opcional):</label>
       <input id="sab-break" name="weeklyBreak[5]" type="number" min="0" max="480">
-      <span id="sab-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
+      <span id="sab-break-help" class="form-help">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-    </fieldset>
-
+  </fieldset>
 
   <!-- Domingo -->
-  <fieldset class="day-section domingo">
-    <legend><span>Domingo</span></legend>
+  <fieldset class="day-section">
+    <legend class="day-legend domingo"><span>Domingo</span></legend>
     
     <div class="form-group">
       <label for="dom-entry">Entrada:</label>
@@ -155,93 +145,65 @@ import type { Hour } from '../../types/index.js';
     </div>
 
     <div class="form-group">
-      <label for="dom-breaking">Descanso (min, opcional):</label>
+      <label for="dom-break">Descanso (min, opcional):</label>
       <input id="dom-break" name="weeklyBreak[6]" type="number" min="0" max="480">
-      <span id="dom-break-help" class="help-text">Deja vacío para 0 min o pon: 30, 60 minutos</span>
+      <span id="dom-break-help" class="form-help">Deja vacío para 0 min o pon: 30, 60 minutos</span>
     </div>
-    </fieldset>
+  </fieldset>
 
   <!-- Botones -->
   <div class="buttons">
-    <button id="calculate-weekly-btn" type="button">Calcular</button>
-    <button id="reset-weekly-btn" type="button">Reiniciar</button>
+    <button id="calculate-weekly-btn" type="button" class="btn-primary">Calcular</button>
+    <button id="reset-weekly-btn" type="button" class="btn-secondary">Reiniciar</button>
   </div>
   
   <!-- Resultados -->
-  <section id="results-area" class="results-area">
-    <h3>Resultados</h3>
+  <section id="results-area" class="results-area" aria-live="polite" aria-labelledby="result-heading">
+    <h3 id="result-heading">Resultados</h3>
+    <ul class="result-list" role="list"></ul>
   </section>
 
 </div>
 
-<style lang="css">
-:root {
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-}
-
-.calculator {
-  background-color: var(--entry-bg, #fafafa);
-  border-radius: var(--radius, 8px);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+<style>
+/* Estilos específicos del componente weekly-calculator (no en global.css) */
+.weekly-calculator {
   max-width: 100%;
   overflow-x: auto;
 }
 
-.calculator h2 {
-  color: #1f2937;
-  font-size: 1.5rem;
-  margin: 0 0 var(--spacing-md) 0;
-  text-align: center;
-}
-
 .day-section {
-  background-color: var(--entry-bg, #fff);
+  background-color: var(--bg);
   border: none;
   border-radius: 0;
   padding: 0;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--sp-2);
 }
-
-/* Colores por día */
-legend.lunes { color: #ef4444; font-weight: 700; }
-legend.martes { color: #f97316; font-weight: 700; }
-legend.miércoles { color: #22c55e; font-weight: 700; }
-legend.jueves { color: #3b82f6; font-weight: 700; }
-legend.viernes { color: #a855f7; font-weight: 700; }
-legend.sábado { color: #ec4899; font-weight: 700; }
-legend.domingo { color: #1e293b; font-weight: 800; }
 
 .day-section > .form-group:last-child {
   margin-bottom: 0;
 }
 
 .form-group {
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--sp-1);
   padding: 0;
 }
 
-legend {
+.day-legend {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: inherit !important;
   font-weight: 700;
-  font-size: 1.1rem !important;
-  text-align: left !important;
-  padding-bottom: var(--spacing-sm);
-  margin-bottom: var(--spacing-xs);
+  font-size: 1.1rem;
+  text-align: left;
+  padding-bottom: var(--sp-2);
+  margin-bottom: var(--sp-1);
   border-bottom: 3px solid currentColor;
   position: relative;
-  transition: all 0.2s ease;
+  transition: all var(--t-base);
 }
 
-legend::before {
+.day-legend::before {
   content: '';
   display: block;
   width: 24px;
@@ -251,115 +213,58 @@ legend::before {
   opacity: 0.8;
 }
 
+/* Colores por día */
+.day-legend.lunes { color: #ef4444; }
+.day-legend.martes { color: #f97316; }
+.day-legend.miércoles { color: #22c55e; }
+.day-legend.jueves { color: #3b82f6; }
+.day-legend.viernes { color: #a855f7; }
+.day-legend.sábado { color: #ec4899; }
+.day-legend.domingo { color: #1e293b; font-weight: 800; }
+
 label {
   display: block;
   font-weight: 500;
-  color: #374151;
-  margin-bottom: 6px;
-  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: var(--sp-1);
+  font-size: 0.875rem;
 }
 
-input[type="time"],
+input[type="text"],
 input[type="number"] {
   font-size: inherit;
   line-height: inherit;
   width: 140px;
-  padding: var(--spacing-sm);
-  border: 2px solid #e5e7eb;
+  padding: var(--sp-2) var(--sp-2);
+  border: 1.5px solid var(--input-border);
   border-radius: var(--radius);
-  background-color: #fff;
+  background-color: var(--input-bg);
   box-sizing: border-box;
+  min-height: 44px;
 }
 
-input[type="time"]::placeholder,
-input[type="number"]::placeholder {
-  color: #9ca3af;
-}
-
-.help-text {
-  display: block;
-  font-size: 0.7rem;
-  color: #6b7280;
-  margin-top: 4px;
+input[type="text"]::placeholder,
+input[type"]number"]::placeholder {
+  color: var(--text-muted);
 }
 
 #results-area {
-  margin-top: var(--spacing-lg);
-  padding: var(--spacing-md);
-  background-color: var(--result-bg, #f0fdf4);
-  border-radius: var(--radius);
+  margin-top: var(--sp-6);
+  padding: var(--sp-4);
   max-width: none;
-}
-
-#results-area h3 {
-  color: #1f2937;
-  font-size: 1.25rem;
-  margin: 0 0 1rem 0;
-  text-align: center;
-}
-
-#error-message {
-  color: #ef4444;
-  padding: var(--spacing-sm);
-  background-color: rgba(239, 68, 68, 0.1);
-  border-radius: 4px;
-  margin-top: var(--spacing-sm);
-}
-
-.buttons {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-lg);
-  justify-content: center;
-  padding: 0 var(--spacing-sm);
-  flex-wrap: wrap;
-}
-
-button {
-  padding: var(--spacing-sm) calc(var(--spacing-lg) * 1.5);
-  font-weight: 600;
-  border: none;
-  border-radius: var(--radius);
-  background-color: var(--primary, #3b82f6);
-  color: #fff;
-  cursor: pointer;
-  min-width: 140px;
-  font-size: 1rem;
-  text-align: center;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-button:hover {
-  background-color: var(--primary-hover, #2563eb);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-#reset-weekly-btn {
-  background-color: #6b7280;
-}
-
-#reset-weekly-btn:hover {
-  background-color: #4b5563;
 }
 
 /* Layout responsivo para tablet y desktop */
 @media (min-width: 768px) {
-  .calculator {
+  .weekly-calculator {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    gap: var(--sp-4);
     max-width: 900px;
     margin: 0 auto;
   }
 
-  h2 {
+  .weekly-calculator h2 {
     grid-column: 1 / -1;
   }
 
@@ -370,50 +275,50 @@ button:active {
 }
 
 @media (min-width: 1024px) {
-  .calculator {
+  .weekly-calculator {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 /* Layout columna única para móvil estrecho */
 @media (max-width: 767px) {
-  .calculator {
-    padding: var(--spacing-md);
+  .weekly-calculator {
+    padding: var(--sp-4);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--sp-2);
   }
 
-  h2 {
+  .weekly-calculator h2 {
     font-size: 1.3rem;
   }
 
-  legend {
+  .day-legend {
     font-size: 0.9rem;
   }
 
   .form-group {
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: var(--sp-1);
   }
 
   label {
     font-size: 0.8rem;
   }
 
-  input[type="time"],
+  input[type="text"],
   input[type="number"] {
     width: max-content;
     min-width: 120px;
-    padding: var(--spacing-sm);
+    padding: var(--sp-2);
   }
 
   .buttons {
     flex-direction: column;
-    gap: var(--spacing-xs);
-    margin-top: var(--spacing-md);
+    gap: var(--sp-1);
+    margin-top: var(--sp-4);
   }
 
-  button {
+  .buttons button {
     width: 100%;
     max-width: none;
     min-width: auto;
@@ -422,15 +327,15 @@ button:active {
 
 /* Ajustes mínimos para móviles muy estrechos (menor que 375px) */
 @media (max-width: 374px) {
-  .calculator {
-    padding: var(--spacing-sm);
+  .weekly-calculator {
+    padding: var(--sp-2);
   }
 
-  h2 {
+  .weekly-calculator h2 {
     font-size: 1.1rem;
   }
 
-  legend {
+  .day-legend {
     font-size: 0.85rem;
   }
 
@@ -438,209 +343,16 @@ button:active {
     font-size: 0.75rem;
   }
 
-  input[type="time"],
+  input[type="text"],
   input[type="number"] {
     min-width: 100px;
-    padding: var(--spacing-xs);
+    padding: var(--sp-1);
   }
 }
 </style>
 
 <script type="module">
-import { calculateDailyShift } from '../../utils/calculateShift.js';
-import { formatTimeToHHMM } from '../../utils/time/formatTimeInput.js';
+import { initWeeklyCalculator } from '../../scripts/weeklyCalculator.js';
 
-const dayNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-const dayPrefixes = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'];
-
-// Calcular semanal - usa la función extraída
-const calculateWeekly = () => {
-  const dailyResults = [];
-
-  dayPrefixes.forEach((prefix, index) => {
-    const entryInput = document.getElementById(prefix + '-entry');
-    const exitInput = document.getElementById(prefix + '-exit');
-    const breakInput = document.getElementById(prefix + '-break');
-
-    if (!entryInput || !exitInput) {
-      dailyResults.push(null);
-      return;
-    }
-
-    const entryVal = entryInput.value.trim();
-    const exitVal = exitInput.value.trim();
-
-    // Día vacío - devuelve null para el filtro posterior
-    if (!entryVal || !exitVal) {
-      dailyResults.push(null);
-      return;
-    }
-
-    // Pasamos index directamente (Lunes=0, Martes=1, ..., Domingo=6)
-    const result = calculateDailyShift(index, entryVal, exitVal, breakInput?.value !== '' ? Number(breakInput.value) || 0 : 0);
-
-    if (result) {
-      dailyResults.push(result);
-    } else {
-      // Caso de error sin resultado válido, lo registramos como null
-      dailyResults.push(null);
-    }
-  });
-
-  return dailyResults;
-};
-
-// Mostrar resultados en el DOM
-const displayResults = (dailyResults) => {
-  const resultArea = document.getElementById('results-area');
-  
-  if (!resultArea) return;
-
-  // Calcular totales y filtrar nulls
-  const validDays = dailyResults.filter(d => d !== null);
-  const totalMinutes = validDays.reduce((sum, d) => sum + (d.minutes || 0), 0);
-  
-  // Limpiar y construir contenido — siempre mantener el h3 visible
-  resultArea.innerHTML = '';
-  
-  const h3 = document.createElement('h3');
-  h3.style.marginTop = '0';
-  h3.style.marginBottom = '.5rem';
-  h3.textContent = 'Resultados';
-  resultArea.appendChild(h3);
-  
-  // Mostrar semana vacía si no hay datos ni errores
-  if (totalMinutes === 0 && validDays.length === 0) {
-    const p = document.createElement('p');
-    p.style.margin = '0.5rem auto';
-    p.textContent = '0 h 0 min (0.00 horas)';
-    resultArea.appendChild(p);
-    return;
-  }
-
-  // Construir lista de resultados
-  const ul = document.createElement('ul');
-  ul.id = 'result-list';
-  
-  validDays.forEach((dayData) => {
-    if (!dayData) return;
-    
-    const li = document.createElement('li');
-    
-    if (dayData.error) {
-      li.style.color = '#ef4444';
-      li.textContent = `${dayData.dayName}: ${dayData.error}`;
-    } else if (dayData.formatted && typeof dayData.formatted === 'string') {
-      li.textContent = `${dayData.dayName}: ${dayData.formatted}`;
-    } else if (dayData.minutes > 0) {
-      const formatted = dayData.formatted || formatCompact(dayData.minutes);
-      li.textContent = `${dayData.dayName}: ${formatted}`;
-    }
-    
-    ul.appendChild(li);
-  });
-  
-  resultArea.appendChild(ul);
-
-  // Mostrar total semanal si hay datos válidos
-  if (totalMinutes > 0) {
-    const summary = document.createElement('p');
-    summary.style.marginTop = '1rem';
-    summary.style.fontWeight = 'bold';
-    
-    const hoursTotal = Math.floor(totalMinutes / 60);
-    const fractionalTotal = totalMinutes % 60;
-    
-    summary.textContent = `Total semanal: ${hoursTotal}h ${fractionalTotal < 10 ? '0' : ''}${fractionalTotal} min`;
-    resultArea.appendChild(summary);
-  } else if (validDays.length > 0) {
-    // Mostrar todos los errores o casos con error
-    const errors = validDays.filter(d => d.error);
-    if (errors.length === validDays.length) {
-      const pAllErrors = document.createElement('p');
-      pAllErrors.style.marginTop = '1rem';
-      pAllErrors.style.color = '#ef4444';
-      pAllErrors.textContent = `Días con errores:`;
-      resultArea.appendChild(pAllErrors);
-    }
-  }
-};
-
-// Formato compacto auxiliar (conserva el mismo comportamiento que antes)
-const formatCompact = (minutes) => {
-  if (!minutes || minutes <= 0) return '0 h 0 min';
-  
-  const hrs = Math.floor(minutes / 60);
-  const fractionalMinutes = Math.round(minutes % 60);
-  
-  return `${hrs}h ${fractionalMinutes < 10 ? '0' : ''}${fractionalMinutes} min`;
-};
-
-
-// Manejar click en calcular
-const handleCalculate = () => {
-  const dailyResults = calculateWeekly();
-  displayResults(dailyResults);
-};
-
-// Manejar click en reiniciar
-const handleReset = () => {
-  dayPrefixes.forEach((prefix) => {
-    const entryInput = document.getElementById(prefix + '-entry');
-    const exitInput = document.getElementById(prefix + '-exit');
-    const breakInput = document.getElementById(prefix + '-break');
-
-    if (entryInput) entryInput.value = '';
-    if (exitInput) exitInput.value = '';
-    if (breakInput) breakInput.value = '';
-  });
-  
-  // Restaurar el área de resultados al estado inicial (solo h3, sin datos)
-  const resultArea = document.getElementById('results-area');
-  if (resultArea) {
-    resultArea.innerHTML = '<h3 style="margin-top:0;margin-bottom:.5rem">Resultados</h3>';
-  }
-};
-
-// Función para autoformatar inputs de hora (HH:MM automático)
-const setupTimeInputs = () => {
-  dayPrefixes.forEach((prefix, index) => {
-    const entryInput = document.getElementById(prefix + '-entry');
-    const exitInput = document.getElementById(prefix + '-exit');
-
-    if (entryInput) applyFormattoHHMM(entryInput);
-    if (exitInput) applyFormattoHHMM(exitInput);
-  });
-};
-
-const applyFormattoHHMM = (inputElement) => {
-  if (!inputElement) return;
-  
-  const originalPlaceholder = inputElement.placeholder ?? '--:--;';
-  
-  inputElement.addEventListener('input', () => {
-    // Restaurar placeholder cuando se borra todo el valor
-    if (inputElement.value === '') {
-      inputElement.placeholder = originalPlaceholder;
-    } else {
-      // Aplicar formato compartido inmediatamente
-      inputElement.value = formatTimeToHHMM(inputElement.value);
-    }
-  });
-};
-
-// Inicializar inputs al cargar
-document.addEventListener('DOMContentLoaded', () => {
-  setupTimeInputs();
-  const calculateBtn = document.getElementById('calculate-weekly-btn');
-  const resetBtn = document.getElementById('reset-weekly-btn');
-
-  if (calculateBtn) {
-    calculateBtn.addEventListener('click', handleCalculate);
-  }
-
-  if (resetBtn) {
-    resetBtn.addEventListener('click', handleReset);
-  }
-});
+initWeeklyCalculator();
 </script>

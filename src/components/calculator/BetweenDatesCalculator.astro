@@ -1,15 +1,10 @@
 ---
-
-/**
- * Calculadora de tiempo entre dos fechas - Componente independiente con calendario nativo
- * MVP v2.1 - Optimizado: usa utilitarios compartidos para parsing y formatteo
- */
 ---
+<div data-testid="between-dates-calculator" class="card between-dates-calculator">
 
-<div data-testid="between-dates-calculator" class="calculator between-dates">
   <h2>Calculadora de tiempo entre fechas</h2>
   
-  <fieldset class="entry-section">
+  <fieldset>
     <legend>Periodo de tiempo</legend>
     
     <div class="form-group">
@@ -33,7 +28,7 @@
     </div>
 
     <div class="form-group">
-      <span class="help-text">
+      <span class="form-help">
         Las horas son opcionales. Déjalas vacías si solo necesitas calcular entre fechas.<br/>
         Usa el calendario nativo para seleccionar más fácilmente
       </span>
@@ -41,406 +36,65 @@
   </fieldset>
 
   <div class="buttons">
-    <button type="button" data-event-calculate-fdates="true">Calcular</button>
-    <button type="button" id="reset-btn-betweendates" data-event-reset-fdates="true">Reiniciar</button>
+    <button type="button" class="btn-primary" data-event-calculate-fdates="true">Calcular</button>
+    <button type="button" class="btn-secondary" id="reset-btn-betweendates" data-event-reset-fdates="true">Reiniciar</button>
   </div>
 
-  <section class="between-dates-results-area" aria-live="polite">
+  <section class="results-area between-dates-results-area" aria-live="polite" aria-labelledby="result-heading">
     <h3 id="result-heading">Resultados</h3>
     <p class="empty-state placeholder-text">Selecciona las fechas para calcular el tiempo transcurrido.</p>
   </section>
 </div>
 
-<style lang="css">:root {
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --radius: 8px;
-}
-
-.calculator.between-dates {
-  background-color: var(--entry-bg, #fafafa);
-  border-radius: var(--radius);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+<style>
+/* Estilos mínimos específicos del componente */
+.between-dates-calculator {
   max-width: 600px;
 }
 
-.calculator.between-dates h2 {
-  color: #1f2937;
-  font-size: 1.5rem;
-  margin: 0 0 var(--spacing-md) 0;
-  text-align: center;
-}
-
-.form-group {
-  margin-bottom: var(--spacing-sm);
-}
-
-label {
-  display: block;
-  margin-bottom: 4px;
-  color: #374151;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-input[type="text"],
-input[type="date"] {
-  width: 100%;
-  height: calc(2.25rem + 4px);
-  padding: var(--spacing-sm) var(--spacing-xs);
-  border: 2px solid #e5e7eb;
-  border-radius: var(--radius);
-  background-color: #fff;
-  font-size: 1rem;
-  font-family: inherit;
-  line-height: 2.25rem;
-}
-
-.help-text,
-.calculator.between-dates .help-text {
-  font-size: 0.75rem;
-  color: #6b7280;
-  display: block;
-  margin-top: var(--spacing-xs);
-  padding-left: var(--spacing-md);
-  border-left: 2px solid #e5e7eb;
-}
-
-.buttons {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-lg);
-}
-
-button {
-  flex: 1;
-  min-width: 120px;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-weight: 600;
-  border: none;
-  border-radius: var(--radius);
-  background-color: var(--primary, #3b82f6);
-  color: #fff;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: var(--primary-hover, #2563eb);
-}
-
 .between-dates-results-area {
-  margin-top: var(--spacing-lg);
-  padding: var(--spacing-md);
-  background-color: var(--result-bg, #f0fdf4);
-  border-radius: var(--radius);
-}
-
-.empty-state {
-  color: #6b7280;
-  font-size: 0.875rem;
-  text-align: center;
-  line-height: 1.6;
+  margin-top: var(--sp-6);
 }
 
 .time-spent-label,
 .total-hours-label {
-  padding: var(--spacing-xs) 0;
-  color: #1f2937;
+  padding: var(--sp-1) 0;
+  color: var(--text);
   font-size: 1rem;
   line-height: 1.5;
 }
 
 .time-spent-label {
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: var(--spacing-xs);
-  margin-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--sp-1);
+  margin-bottom: var(--sp-1);
 }
 
 .total-hours-label {
-  border-top: 1px solid #e5e7eb;
-  padding-top: var(--spacing-xs);
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-1);
 }
 
-.error-message {
-  color: #ef4444;
-  padding: var(--spacing-sm);
-  background-color: rgba(239, 68, 68, 0.1);
-  border-radius: 4px;
-  margin-top: var(--spacing-sm);
-}
-
-@media (pointer: coarse) {
-  button {
-    min-height: 48px;
-  }
+.empty-state {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  text-align: center;
+  line-height: 1.6;
 }
 
 @media (max-width: 500px) {
-  .calculator {
-    padding: var(--spacing-md);
+  .between-dates-calculator {
+    padding: var(--sp-4);
   }
   
-  .calculator h2 {
+  .between-dates-calculator h2 {
     font-size: 1.25rem;
-  }
-  
-  .buttons {
-    flex-direction: column;
-  }
-  
-  button {
-    width: 100%;
-  }
-  
-  input[type="text"],
-  input[type="date"] {
-    padding: var(--spacing-xs);
-    font-size: 0.875rem;
-  }
-}
-
-@media (max-width: 375px) {
-  .calculator h2 {
-    font-size: 1.1rem;
-  }
-  
-  label {
-    font-size: 0.8rem;
-  }
-  
-  input[type="text"],
-  input[type="date"] {
-    font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 320px) {
-  .calculator h2 {
-    font-size: 1rem;
-  }
-  
-  label {
-    font-size: 0.75rem;
-  }
-  
-  input[type="text"],
-  input[type="date"] {
-    font-size: 0.8rem;
   }
 }
 </style>
 
-<script>import { formatTimeToHHMM } from '../../utils/time/formatTimeInput.js';import { parseTime as parseTimeString } from '../../utils/time/parseTime.js';
-// Convertir fecha ISO a español
-const formatDateES = (isoDate) => {
-  if (!isoDate) return '';
-  const parts = isoDate.split('-');
-  if (parts.length !== 3) return '';
-  return `${String(parts[2]).padStart(2, '0')}/${String(parts[1]).padStart(2, '0')}/${parts[0]}`;
-};
+<script type="module">
+import { initBetweenDatesCalculator } from '../../scripts/betweenDatesCalculator.js';
 
-// Auto-formato de horas - usar utilitario compartido en vez de implementar localmente
-const formatTimeInput = (event) => {
-  event.target.value = formatTimeToHHMM(event.target.value);
-};
-
-/** Función auxiliar para obtener elementos por ID */
-const getInput = (id) => document.getElementById(id);
-
-/** Mostrar mensaje de error - MANTENER h3 siempre visible + LIMPIAR contenido previo */
-const showErrorMessage = (element, message) => {
-  if (!element || !message) return;
-
-  element.innerHTML = `
-    <h3 id="result-heading">Resultados</h3>
-    <p class="error-message">${message}</p>
-  `;
-};
-
-/** Reiniciar la calculadora - restaura el estado inicial vacío y limpia resultados */
-const resetCalculator = () => {
-  const dateFrom = document.getElementById('date-from');
-  const dateTo = document.getElementById('date-to');
-
-  if (dateFrom) dateFrom.value = '';
-  if (dateTo) dateTo.value = '';
-
-  const timeFrom = document.getElementById('time-from');
-  const timeTo = document.getElementById('time-to');
-
-  if (timeFrom) timeFrom.value = '';
-  if (timeTo) timeTo.value = '';
-
-  // Restaurar área de resultados al estado inicial
-  const resultArea = document.querySelector('.between-dates-results-area');
-  if (resultArea) {
-    resultArea.innerHTML = `
-      <h3 id="result-heading">Resultados</h3>
-      <p class="empty-state placeholder-text">Selecciona las fechas para calcular el tiempo transcurrido.</p>
-    `;
-  }
-};
-
-/** Calcular diferencia entre dos fechas/horas */
-const calculateDiff = (dateFrom, timeFromStr, dateTo, timeToStr) => {
-  try {
-    // Validar que haya al menos una fecha
-    if (!dateFrom) {
-      return { ok: false, error: 'Selecciona una fecha inicial.' };
-    }
-
-    if (!dateTo) {
-      return { ok: false, error: 'Selecciona una fecha final.' };
-    }
-
-    // Parsear horas usando el utilitario compartido
-    let fromParsed, toParsed;
-
-    if (timeFromStr === '00:00') {
-      fromParsed = { hours: 0, minutes: 0 };
-    } else {
-      fromParsed = parseTimeString(timeFromStr);
-    }
-
-    if (timeToStr === '00:00') {
-      toParsed = { hours: 0, minutes: 0 };
-    } else {
-      toParsed = parseTimeString(timeToStr);
-    }
-
-    // Validar rangos después de parsear
-    if (!fromParsed || !toParsed) {
-      return { ok: false, error: 'Formato de hora inválido. Usa HH:MM con horas entre 00 y 23.' };
-    }
-
-    const fromHours = fromParsed.hours;
-    const minutesFrom = fromParsed.minutes;
-    const toHours = toParsed.hours;
-    const minutesToValue = toParsed.minutes;
-
-    // Crear objetos Date con horas ya validadas
-    const fromDate = new Date(`${dateFrom}T${String(fromHours).padStart(2,'0')}:${String(minutesFrom).padStart(2,'0')}`);
-    const toDate = new Date(`${dateTo}T${String(toHours).padStart(2,'0')}:${String(minutesToValue).padStart(2,'0')}`);
-
-    if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
-      return { ok: false, error: 'Fechas fuera de rango válido.' };
-    }
-
-    // Validar cronología
-    if (toDate.getTime() < fromDate.getTime()) {
-      return { ok: false, error: 'La fecha/hora final no puede ser anterior a la inicial.' };
-    }
-
-    // Calcular diferencia en minutos totales
-    const diffMs = toDate.getTime() - fromDate.getTime();
-    const totalMinutes = Math.floor(diffMs / 1000 / 60);
-
-    const days = Math.floor(totalMinutes / (24 * 60));
-    const remainingAfterDays = totalMinutes % (24 * 60);
-    const hours = Math.floor(remainingAfterDays / 60);
-    const minutesLeft = remainingAfterDays % 60;
-
-    const totalHoursDecimal = (days * 24 + hours + minutesLeft / 60).toFixed(2);
-
-    return { ok: true, days, hours, minutes: minutesLeft, totalMinutes, totalHours: totalHoursDecimal };
-  } catch (error) {
-    console.error('Error en cálculo entre fechas:', error);
-    return { ok: false, error: 'Error en el cálculo' };
-  }
-};
-
-/** Mostrar resultado de cálculo en el área de resultados */
-const showCalculationResult = (resultArea, result) => {
-  const totalHoursString = `${result.days} día${result.days !== 1 ? 's' : ''}, ${result.hours}h ${result.minutes.toString().padStart(2, '0')} min`;
-
-  resultArea.innerHTML = `
-    <h3 id="result-heading">Resultados</h3>
-    <div class="time-spent-label">Tiempo transcurrido: <strong>${totalHoursString}</strong></div>
-    <div class="total-hours-label">Total: <strong>${result.totalHours} horas</strong></div>
-  `;
-};
-
-/** Vincular listeners de autoformato */
-const attachTimeInputListeners = () => {
-  const fromInput = document.getElementById('time-from');
-  const toInput = document.getElementById('time-to');
-
-  if (fromInput) {
-    fromInput.addEventListener('input', formatTimeInput);
-  }
-
-  if (toInput) {
-    toInput.addEventListener('input', formatTimeInput);
-  }
-};
-
-/** Vincular listeners de cálculo */
-const attachCalculateListeners = () => {
-  const calculateBtns = document.querySelectorAll('[data-event-calculate-fdates="true"]');
-
-  calculateBtns.forEach(button => {
-    button.addEventListener('click', () => {
-      const dateFromInput = document.getElementById('date-from');
-      const timeFromInput = document.getElementById('time-from');
-      const dateToInput = document.getElementById('date-to');
-      const timeToInput = document.getElementById('time-to');
-      const resultArea = document.querySelector('.between-dates-results-area');
-
-      if (!resultArea) return;
-
-      const fromDateISO = dateFromInput?.value || '';
-      const toDateISO = dateToInput?.value || '';
-      const fromHoursRaw = timeFromInput?.value || '';
-      const toHoursRaw = timeToInput?.value || '';
-
-      /** true si el input está vacío o tiene placeholder '--:--' */
-      const isEmptyTime = (v) => !v || v === '--:--';
-
-      // Validar formato solo si el campo no está vacío
-      if (!isEmptyTime(fromHoursRaw) && !parseTimeString(fromHoursRaw)) {
-        showErrorMessage(resultArea, 'Formato de hora inicial inválido.');
-        return;
-      }
-
-      if (!isEmptyTime(toHoursRaw) && !parseTimeString(toHoursRaw)) {
-        showErrorMessage(resultArea, 'Formato de hora final inválido.');
-        return;
-      }
-
-      // Normalizar: placeholder → 00:00
-      const fromHoursEffective = isEmptyTime(fromHoursRaw) ? '00:00' : fromHoursRaw;
-      const toHoursEffective = isEmptyTime(toHoursRaw) ? '00:00' : toHoursRaw;
-
-      // Calcular con fechas en formato ISO directo (YYYY-MM-DD)
-      const result = calculateDiff(fromDateISO, fromHoursEffective, toDateISO, toHoursEffective);
-
-      if (result.ok) {
-        showCalculationResult(resultArea, result);
-      } else {
-        showErrorMessage(resultArea, result.error || 'Error en el cálculo');
-      }
-    });
-  });
-};
-
-/** Vincular listener del botón Reiniciar */
-const attachResetListener = () => {
-  const resetBtn = document.getElementById('reset-btn-betweendates');
-
-  if (resetBtn) {
-    resetBtn.addEventListener('click', resetCalculator);
-  }
-};
-
-// Inicializar al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-  attachTimeInputListeners();
-  attachCalculateListeners();
-  attachResetListener();
-});
+initBetweenDatesCalculator();
 </script>

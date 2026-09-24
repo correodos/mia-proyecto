@@ -1,0 +1,41 @@
+<nav id="mobile-nav-menu" class="mobile-nav-menu" aria-label="Menú de navegación móvil">
+  <ul class="mobile-nav-list">
+    <li><a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="mobile-nav-link">Horas trabajadas</a></li>
+    <li><a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"} class="mobile-nav-link">Semanal</a></li>
+    <li><a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="mobile-nav-link">Horas extra</a></li>
+    <li><a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="mobile-nav-link">Jornada partida</a></li>
+    <li><a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="mobile-nav-link">Entre fechas</a></li>
+  </ul>
+</nav>
+
+<script is:inline>
+const btn = document.getElementById('mobile-menu-btn');
+const menu = document.getElementById('mobile-nav-menu');
+const icon = document.getElementById('menu-icon');
+
+if (btn && menu) {
+  btn.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+    if (icon) icon.textContent = isOpen ? '✕' : '☰';
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (icon) icon.textContent = '☰';
+      btn.focus();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!btn.contains(target) && !menu.contains(target)) {
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (icon) icon.textContent = '☰';
+    }
+  });
+}
+</script>

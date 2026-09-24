@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const pageData = {
+  title: 'Cómo calcular horas semanales: guía completa',
+  description: 'Aprende a sumar tus horas de lunes a domingo. Guía con fórmula, ejemplos de jornadas variables, descansos por día y conversión a decimal.',
+  canonical: 'https://correodos.github.io/mia-proyecto/guias/calcular-semanal-horas/',
+  lastUpdated: '2026-09-24',
+  readingTime: '5 min'
+};
+
+const { title, description, canonical, lastUpdated, readingTime } = pageData;
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+<main role="main">
+  
+  <!-- Breadcrumb -->
+  <nav class="page-back" aria-label="Navegación">
+    <a href={import.meta.env.BASE_URL} class="page-back">← Inicio</a>
+    <span aria-hidden="true">/</span>
+    <a href={import.meta.env.BASE_URL + "guias/"} class="page-back">Guías</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">Calcular horas semanales</span>
+  </nav>
+
+  <article class="guide-article" itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="name" content={title} />
+    <meta itemprop="description" content={description} />
+    <link itemprop="url" href={canonical} />
+
+    <!-- Meta -->
+    <header class="guide-meta">
+      <time itemprop="dateModified" datetime={lastUpdated} class="guide-meta-item">
+        Actualizado: {new Date(lastUpdated).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <span class="guide-meta-item" aria-label="Tiempo de lectura estimado">
+        📖 {readingTime} de lectura
+      </span>
+    </header>
+
+    <!-- H1 -->
+    <h1 itemprop="headline">Cómo calcular tus horas semanales: guía completa</h1>
+
+    <!-- Lead -->
+    <p class="guide-lead" itemprop="description">
+      Calcular el total semanal es sumar las horas netas de cada día (lunes a domingo). La clave: calcular cada día por separado y luego sumar.
+    </p>
+    <ul>
+      <li>Fórmula visual y 5 pasos claros</li>
+      <li>Ejemplos: jornada fija, jornadas variables, días sin trabajar</li>
+      <li>Descansos por día: suma antes de restar</li>
+      <li>Resultado en horas:min, minutos totales y decimal</li>
+    </ul>
+
+    <!-- Fórmula visual -->
+    <div class="formula-box" role="img" aria-label="Fórmula: Total semanal = Suma de (Salida − Entrada − Descanso) de cada día">
+      <strong>Total semanal = Σ (Salida día − Entrada día − Descanso día)</strong>
+      <br><br>
+      Para cada día: <strong>Horas día = Salida − Entrada − Descanso</strong> → Luego suma los 7 días.
+    </div>
+
+    <!-- Pasos -->
+    <section aria-labelledby="steps-heading">
+      <h2 id="steps-heading">Pasos para calcular</h2>
+      <ol class="steps">
+        <li>Para cada día (Lun–Dom), anota <strong>Entrada</strong>, <strong>Salida</strong> y <strong>Descanso (min)</strong>.</li>
+        <li>Si un día no trabajas, déjalo <strong>vacío</strong> (cuenta como 0).</li>
+        <li>Calcula cada día: <strong>Horas día = Salida − Entrada − Descanso</strong>.</li>
+        <li>Suma las horas netas de los 7 días: <strong>Total semanal = Σ Horas día</strong>.</li>
+        <li>Resultado en <strong>horas:min</strong>, <strong>minutos totales</strong> y <strong>horas decimales</strong>.</li>
+      </ol>
+    </section>
+
+    <!-- Ejemplos - cards estáticas -->
+    <section aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Ejemplos prácticos</h2>
+
+      <article class="example-card">
+        <header>📅 Jornada fija L-V: 08:00 → 17:00, 60 min descanso cada día</header>
+        <p><strong>Día laborable:</strong> 08:00 → 17:00 = 9 h − 1 h descanso = 8 h netas</p>
+        <p><strong>Lunes a Viernes:</strong> 5 × 8 h = 40 h</p>
+        <p><strong>Sábado y Domingo:</strong> 0 h (no se trabaja)</p>
+        <p><strong>Total semanal:</strong> <strong>40 h (40,00 h decimal)</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>📊 Semana con jornadas variables</header>
+        <p><strong>Lun:</strong> 08:00→16:00, 30 min = 7,5 h</p>
+        <p><strong>Mar:</strong> 09:00→17:30, 30 min = 8 h</p>
+        <p><strong>Mié:</strong> 08:00→16:00, 30 min = 7,5 h</p>
+        <p><strong>Jue:</strong> 09:00→18:00, 60 min = 8 h</p>
+        <p><strong>Vie:</strong> 08:00→15:00, 30 min = 6,5 h</p>
+        <p><strong>Sáb/Dom:</strong> 0 h</p>
+        <p><strong>Total semanal:</strong> 7,5+8+7,5+8+6,5 = <strong>38 h (38,00 h)</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>🌙 Semana con turno nocturno: Lun 22:00→06:00 (30 min), Mar 08:00→16:00 (30 min)</header>
+        <p><strong>Lunes (nocturno):</strong> 22:00→06:00 = 8 h − 0,5 h = 7,5 h</p>
+        <p><strong>Martes (diurno):</strong> 08:00→16:00 = 8 h − 0,5 h = 7,5 h</p>
+        <p><strong>Mié-Vie:</strong> 08:00→17:00, 60 min = 8 h × 3 = 24 h</p>
+        <p><strong>Total semanal:</strong> 7,5+7,5+24 = <strong>39 h (39,00 h)</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>📉 Semana con días libres: Lun 8 h, Mar 8 h, Mié 0 h, Jue 8 h, Vie 6 h</header>
+        <p><strong>Lunes:</strong> 8 h</p>
+        <p><strong>Martes:</strong> 8 h</p>
+        <p><strong>Miércoles:</strong> 0 h (libre)</p>
+        <p><strong>Jueves:</strong> 8 h</p>
+        <p><strong>Viernes:</strong> 6 h (media jornada)</p>
+        <p><strong>Total semanal:</strong> 8+8+0+8+6 = <strong>30 h (30,00 h)</strong></p>
+      </article>
+    </section>
+
+    <!-- Casos especiales -->
+    <section aria-labelledby="special-heading">
+      <h2 id="special-heading">Casos especiales</h2>
+      <div class="alert alert-info">
+        <strong>Días sin trabajar:</strong> Deja los campos vacíos para ese día. La calculadora lo ignora (suma 0).
+      </div>
+      <div class="alert alert-info">
+        <strong>Jornadas que cruzan medianoche:</strong> La calculadora detecta turnos como 22:00→06:00 y calcula 8 h correctamente.
+      </div>
+      <div class="alert alert-info">
+        <strong>Descansos diferentes por día:</strong> Puedes poner 30 min el lunes, 60 min el martes, 0 el miércoles, etc. Cada día es independiente.
+      </div>
+      <div class="alert alert-info">
+        <strong>Semana incompleta (empiezas miércoles):</strong> Deja Lun/Mar vacíos. La suma solo cuenta desde el miércoles.
+      </div>
+      <div class="alert alert-info">
+        <strong>Resultado en decimal:</strong> 38 h 30 min = 38,50 h. Útil para nómina: multiplica por tarifa hora.
+      </div>
+    </section>
+
+    <!-- Errores comunes -->
+    <section aria-labelledby="errors-heading">
+      <h2 id="errors-heading">Errores comunes y cómo evitarlos</h2>
+      
+      <div class="alert alert-warning">
+        <strong>Sumar horas de entrada/salida sin restar descansos:</strong> "Trabajo 08:00-17:00 = 9 h × 5 = 45 h" → <em>Incorrecto</em>. Son 8 h netas × 5 = 40 h.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Olvidar días que no se trabajan:</strong> Si no trabajas sábado/domingo, déjalos vacíos. Poner 00:00→00:00 suma 0 pero confunde.
+      </div>
+      <div class="alert alert-warning">
+        <strong>No convertir descansos a minutos antes de restar:</strong> "Trabajo 8 h, descanso 1 h → 7 h" ✓. Pero si descanso es 45 min: 8 h = 480 min; 480 − 45 = 435 min = 7 h 15 min.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Confundir decimal con horario:</strong> 7,50 h = 7 h 30 min. No es "7:30" (hora del reloj). El decimal sirve para multiplicar por tarifa.
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="guide-cta" role="region" aria-label="Calculadora recomendada">
+      <h3>Calcula tu semana al instante</h3>
+      <p>Introduce entrada, salida y descanso de cada día (Lun-Dom). Obtén total semanal en horas:min, minutos y decimal al instante.
+      </p>
+      <p><a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"} class="btn-primary">Abrir calculadora semanal</a></p>
+    </div>
+
+    <!-- Enlaces relacionados -->
+    <nav class="guide-related" aria-labelledby="related-heading">
+      <h2 id="related-heading">Te puede interesar</h2>
+      <div class="guide-related-grid">
+        <a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="guide-related-card">
+          <h3>Calculadora de horas trabajadas</h3>
+          <p>Jornada diaria simple: entrada, salida, descanso.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="guide-related-card">
+          <h3>Jornada partida</h3>
+          <p>Dos tramos en un día con descanso automático.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="guide-related-card">
+          <h3>Horas extra</h3>
+          <p>Detecta extra sobre tu jornada prevista diaria.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="guide-related-card">
+          <h3>Entre fechas</h3>
+          <p>Días, horas entre dos fechas con horas opcionales.</p>
+        </a>
+      </div>
+    </nav>
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": ["Article", "HowTo"],
+      "name": title,
+      "description": description,
+      "totalTime": "PT5M",
+      "step": [
+        { "@type": "HowToStep", "name": "Anota entrada, salida, descanso por día", "text": "Lun a Dom, vacío si no trabajas" },
+        { "@type": "HowToStep", "name": "Calcula horas netas por día", "text": "Salida − Entrada − Descanso" },
+        { "@type": "HowToStep", "name": "Suma los 7 días", "text": "Total semanal = suma diaria" },
+        { "@type": "HowToStep", "name": "Convierte a decimal si necesitas", "text": "Minutos ÷ 60 = decimal" }
+      ]
+    })} />
+  </article>
+</main>
+</BaseLayout>

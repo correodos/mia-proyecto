@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const pageData = {
+  title: 'Cómo calcular las horas extra: guía completa',
+  description: 'Aprende a calcular tus horas extra respecto a la jornada prevista. Fórmula, ejemplos, jornadas nocturnas, medianoche y errores comunes.',
+  canonical: 'https://correodos.github.io/mia-proyecto/guias/calcular-horas-extra/',
+  lastUpdated: '2026-09-24',
+  readingTime: '5 min'
+};
+
+const { title, description, canonical, lastUpdated, readingTime } = pageData;
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+<main role="main">
+  
+  <!-- Breadcrumb -->
+  <nav class="page-back" aria-label="Navegación">
+    <a href={import.meta.env.BASE_URL} class="page-back">← Inicio</a>
+    <span aria-hidden="true">/</span>
+    <a href={import.meta.env.BASE_URL + "guias/"} class="page-back">Guías</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">Calcular horas extra</span>
+  </nav>
+
+  <article class="guide-article" itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="name" content={title} />
+    <meta itemprop="description" content={description} />
+    <link itemprop="url" href={canonical} />
+
+    <!-- Meta -->
+    <header class="guide-meta">
+      <time itemprop="dateModified" datetime={lastUpdated} class="guide-meta-item">
+        Actualizado: {new Date(lastUpdated).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <span class="guide-meta-item" aria-label="Tiempo de lectura estimado">
+        📖 {readingTime} de lectura
+      </span>
+    </header>
+
+    <!-- H1 -->
+    <h1 itemprop="headline">Cómo calcular las horas extra: guía completa</h1>
+
+    <!-- Lead -->
+    <p class="guide-lead" itemprop="description">
+      Las horas extra son el tiempo que trabajas <strong>por encima de tu jornada laboral prevista</strong>. La fórmula es simple: horas trabajadas reales − jornada prevista = horas extra.
+    </p>
+    <ul>
+      <li>Fórmula visual y 4 pasos claros</li>
+      <li>Ejemplos: sin extra, con extra, jornada nocturna, jornada corta</li>
+      <li>Jornadas que cruzan medianoche</li>
+      <li>Errores comunes y casos especiales</li>
+    </ul>
+
+    <!-- Fórmula visual -->
+    <div class="formula-box" role="img" aria-label="Fórmula: Horas extra = Horas trabajadas − Jornada prevista">
+      <strong>Horas extra = Horas trabajadas totales − Jornada laboral prevista</strong>
+      <br><br>
+      Si el resultado es <strong>≤ 0</strong>, no hay horas extra (jornada cumplida o incompleta).
+    </div>
+
+    <!-- Pasos -->
+    <section aria-labelledby="steps-heading">
+      <h2 id="steps-heading">Pasos para calcular</h2>
+      <ol class="steps">
+        <li>Calcula tus <strong>horas trabajadas reales</strong> (entrada, salida, descansos).</li>
+        <li>Identifica tu <strong>jornada laboral prevista</strong> (ej. 8 h, 7.5 h, 7 h 30 min).</li>
+        <li>Resta: <strong>Horas trabajadas − Jornada prevista</strong>.</li>
+        <li>Si el resultado es <strong>positivo</strong>, son tus horas extra. Si es 0 o negativo, no hay extra.</li>
+      </ol>
+    </section>
+
+    <!-- Ejemplos - cards estáticas -->
+    <section aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Ejemplos prácticos</h2>
+
+      <article class="example-card">
+        <header>✅ Jornada normal sin horas extra: 08:00 → 16:00, descanso 30 min, prevista 8 h</header>
+        <p><strong>Horas trabajadas:</strong> 7 h 30 min (7,50 h)</p>
+        <p><strong>Jornada prevista:</strong> 8 h (8,00 h)</p>
+        <p><strong>Cálculo:</strong> 7,50 − 8,00 = <strong>−0,50 h → 0 h extra (jornada no completada)</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>➕ Jornada con horas extra: 08:00 → 18:30, descanso 60 min, prevista 8 h</header>
+        <p><strong>Horas trabajadas:</strong> 9 h 30 min (9,50 h)</p>
+        <p><strong>Jornada prevista:</strong> 8 h (8,00 h)</p>
+        <p><strong>Cálculo:</strong> 9,50 − 8,00 = <strong>1,50 h extra (1 h 30 min)</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>🌙 Jornada nocturna con extra: 22:00 → 07:30, descanso 60 min, prevista 8 h</header>
+        <p><strong>Horas trabajadas:</strong> 8 h 30 min (8,50 h) — cruza medianoche</p>
+        <p><strong>Jornada prevista:</strong> 8 h (8,00 h)</p>
+        <p><strong>Cálculo:</strong> 8,50 − 8,00 = <strong>0,50 h extra (30 min)</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>📉 Jornada inferior a la prevista: 09:00 → 14:00, descanso 30 min, prevista 8 h</header>
+        <p><strong>Horas trabajadas:</strong> 4 h 30 min (4,50 h)</p>
+        <p><strong>Jornada prevista:</strong> 8 h (8,00 h)</p>
+        <p><strong>Cálculo:</strong> 4,50 − 8,00 = <strong>−3,50 h → 0 h extra (faltan 3 h 30 min para completar la jornada)</strong></p>
+      </article>
+    </section>
+
+    <!-- Casos especiales -->
+    <section aria-labelledby="special-heading">
+      <h2 id="special-heading">Casos especiales</h2>
+      <div class="alert alert-info">
+        <strong>Jornada prevista en formato decimal:</strong> Puedes introducir 8, 7.5, 7.75, etc. La calculadora acepta tanto "8" como "08:00" o "7:30".
+      </div>
+      <div class="alert alert-info">
+        <strong>Jornadas que cruzan medianoche:</strong> Si trabajas de 22:00 a 06:00, la calculadora detecta el cruce y calcula 8 h trabajadas correctamente.
+      </div>
+      <div class="alert alert-info">
+        <strong>Jornada prevista en formato horas:minutos:</strong> Puedes poner "07:30" para 7 h 30 min de jornada prevista.
+      </div>
+      <div class="alert alert-info">
+        <strong>Resultado negativo = 0 horas extra:</strong> Si no completas tu jornada, no tienes horas extra (ni deuda de horas en la mayoría de convenios).
+      </div>
+    </section>
+
+    <!-- Errores comunes -->
+    <section aria-labelledby="errors-heading">
+      <h2 id="errors-heading">Errores comunes y cómo evitarlos</h2>
+      
+      <div class="alert alert-warning">
+        <strong>No restar los descansos de las horas trabajadas:</strong> Si trabajas 9 h con 1 h de descanso, tus horas reales son 8 h. Restar la jornada prevista a 9 h da 1 h extra falsa.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Confundir jornada prevista con horas de contrato:</strong> La jornada prevista es la de ese día (puede ser 7 h, 7.5 h, 8 h según convenio/turno), no necesariamente la del contrato anual.
+      </div>
+      <div class="alert alert-warning">
+        <strong>No convertir a la misma unidad antes de restar:</strong> "Trabajé 8 h 30 min, mi jornada es 8 h → 30 min extra" ✓. Pero "Trabajé 8.5 h, mi jornada es 8 h → 0.5 h extra" también ✓. No mezcles formatos.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Pensar que "faltan horas" genera horas extra negativas:</strong> Si faltan 2 h para completar la jornada, no tienes "−2 h extra". Simplemente no has completado la jornada (0 h extra).
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="guide-cta" role="region" aria-label="Calculadora recomendada">
+      <h3>Calcula tus horas extra al instante</h3>
+      <p>Introduce entrada, salida, descanso y jornada prevista. Obtén horas trabajadas, horas extra (o faltantes) en horas:min y decimal al instante.
+      </p>
+      <p><a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="btn-primary">Abrir calculadora de horas extra</a></p>
+    </div>
+
+    <!-- Enlaces relacionados -->
+    <nav class="guide-related" aria-labelledby="related-heading">
+      <h2 id="related-heading">Te puede interesar</h2>
+      <div class="guide-related-grid">
+        <a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="guide-related-card">
+          <h3>Calculadora de horas trabajadas</h3>
+          <p>Calcula horas netas con entrada, salida y descanso.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="guide-related-card">
+          <h3>Jornada partida</h3>
+          <p>Dos tramos con descanso automático entre tramos.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"} class="guide-related-card">
+          <h3>Calculadora semanal</h3>
+          <p>Suma horas extra de toda la semana.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="guide-related-card">
+          <h3>Entre fechas</h3>
+          <p>Diferencia exacta entre dos fechas con horas.</p>
+        </a>
+      </div>
+    </nav>
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": ["Article", "HowTo"],
+      "name": title,
+      "description": description,
+      "totalTime": "PT5M",
+      "step": [
+        { "@type": "HowToStep", "name": "Calcula horas trabajadas", "text": "Entrada, salida, descansos" },
+        { "@type": "HowToStep", "name": "Define jornada prevista", "text": "En horas, decimal o HH:MM" },
+        { "@type": "HowToStep", "name": "Resta jornada prevista a trabajadas", "text": "Trabajadas − Prevista = Extra" },
+        { "@type": "HowToStep", "name": "Interpreta resultado", "text": "Positivo = extra, ≤ 0 = sin extra" }
+      ]
+    })} />
+  </article>
+</main>
+</BaseLayout>

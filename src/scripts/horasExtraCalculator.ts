@@ -12,11 +12,11 @@ import { formatTimeToHHMM } from '../utils/time/formatTimeInput';
 
 function getInputs() {
   return {
-    entry:         document.getElementById('entry-time')      as HTMLInputElement | null,
-    exit:          document.getElementById('exit-time')       as HTMLInputElement | null,
-    breakEl:       document.getElementById('break-time')      as HTMLInputElement | null,
-    expectedShift: document.getElementById('expected-shift')  as HTMLInputElement | null,
-    resultArea:    document.querySelector('.results-area')    as HTMLElement | null,
+    entry:         document.getElementById('entry-time'),
+    exit:          document.getElementById('exit-time'),
+    breakEl:       document.getElementById('break-time'),
+    expectedShift: document.getElementById('expected-shift'),
+    resultArea:    document.querySelector('.results-area'),
   };
 }
 
@@ -85,7 +85,7 @@ function handleReset(): void {
 function attachTimeFormatListeners(): void {
   const timeInputIds = ['entry-time', 'exit-time'];
   timeInputIds.forEach(id => {
-    const input = document.getElementById(id) as HTMLInputElement | null;
+    const input = document.getElementById(id);
     if (input) {
       input.addEventListener('input', () => {
         input.value = formatTimeToHHMM(input.value);

@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const pageData = {
+  title: 'Cómo calcular una jornada partida: guía completa',
+  description: 'Aprende a calcular tus horas en jornadas partidas (dos tramos). Fórmula, ejemplos, descanso automático entre tramos y casos especiales como medianoche.',
+  canonical: 'https://correodos.github.io/mia-proyecto/guias/calcular-jornada-partida/',
+  lastUpdated: '2026-09-24',
+  readingTime: '5 min'
+};
+
+const { title, description, canonical, lastUpdated, readingTime } = pageData;
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+<main role="main">
+  
+  <!-- Breadcrumb -->
+  <nav class="page-back" aria-label="Navegación">
+    <a href={import.meta.env.BASE_URL} class="page-back">← Inicio</a>
+    <span aria-hidden="true">/</span>
+    <a href={import.meta.env.BASE_URL + "guias/"} class="page-back">Guías</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">Calcular jornada partida</span>
+  </nav>
+
+  <article class="guide-article" itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="name" content={title} />
+    <meta itemprop="description" content={description} />
+    <link itemprop="url" href={canonical} />
+
+    <!-- Meta -->
+    <header class="guide-meta">
+      <time itemprop="dateModified" datetime={lastUpdated} class="guide-meta-item">
+        Actualizado: {new Date(lastUpdated).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <span class="guide-meta-item" aria-label="Tiempo de lectura estimado">
+        📖 {readingTime} de lectura
+      </span>
+    </header>
+
+    <!-- H1 -->
+    <h1 itemprop="headline">Cómo calcular una jornada partida: guía completa</h1>
+
+    <!-- Lead -->
+    <p class="guide-lead" itemprop="description">
+      Una jornada partida divide el trabajo en <strong>dos tramos separados</strong> con un descanso largo entre ellos. La clave: sumar ambos tramos y restar el descanso entre turnos.
+    </p>
+    <ul>
+      <li>Fórmula visual y 5 pasos claros</li>
+      <li>Ejemplos: jornada típica, parcial, reducida y con medianoche</li>
+      <li>Descanso entre tramos: cálculo automático</li>
+      <li>Casos especiales: solapamiento, medianoche, tramos desiguales</li>
+    </ul>
+
+    <!-- Fórmula visual -->
+    <div class="formula-box" role="img" aria-label="Fórmula: Total trabajado = Tramo 1 + Tramo 2 − Descanso entre tramos">
+      <strong>Total trabajado = (Salida 1 − Entrada 1) + (Salida 2 − Entrada 2) − Descanso entre tramos</strong>
+      <br><br>
+      Donde: <strong>Descanso entre tramos = Entrada 2 − Salida 1</strong> (siempre positivo)
+    </div>
+
+    <!-- Pasos -->
+    <section aria-labelledby="steps-heading">
+      <h2 id="steps-heading">Pasos para calcular</h2>
+      <ol class="steps">
+        <li>Anota <strong>Entrada 1</strong> y <strong>Salida 1</strong> del primer tramo (HH:MM).</li>
+        <li>Anota <strong>Entrada 2</strong> y <strong>Salida 2</strong> del segundo tramo (HH:MM).</li>
+        <li>Calcula <strong>duración del tramo 1</strong> (Salida 1 − Entrada 1).</li>
+        <li>Calcula <strong>duración del tramo 2</strong> (Salida 2 − Entrada 2).</li>
+        <li>El <strong>descanso entre tramos</strong> = Entrada 2 − Salida 1 (la calculadora lo hace automáticamente).</li>
+        <li><strong>Total trabajado</strong> = Tramo 1 + Tramo 2 − Descanso entre tramos.</li>
+      </ol>
+    </section>
+
+    <!-- Ejemplos - cards estáticas -->
+    <section aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Ejemplos prácticos</h2>
+
+      <article class="example-card">
+        <header>📅 Jornada típica partida: 09:00–14:00 + 16:00–19:00</header>
+        <p><strong>Tramo 1:</strong> 09:00 → 14:00 = 5 h (300 min)</p>
+        <p><strong>Tramo 2:</strong> 16:00 → 19:00 = 3 h (180 min)</p>
+        <p><strong>Descanso entre tramos:</strong> 16:00 − 14:00 = 2 h (120 min)</p>
+        <p><strong>Cálculo:</strong> (300 + 180) − 120 = <strong>360 min = 6 h trabajadas</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>⏰ Jornada parcial: 08:00–13:00 + 14:00–18:00</header>
+        <p><strong>Tramo 1:</strong> 08:00 → 13:00 = 5 h (300 min)</p>
+        <p><strong>Tramo 2:</strong> 14:00 → 18:00 = 4 h (240 min)</p>
+        <p><strong>Descanso entre tramos:</strong> 14:00 − 13:00 = 1 h (60 min)</p>
+        <p><strong>Cálculo:</strong> (300 + 240) − 60 = <strong>480 min = 8 h trabajadas</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>🌙 Jornada con medianoche: 23:00–01:00 + 04:00–07:00</header>
+        <p><strong>Tramo 1:</strong> 23:00 → 01:00 = 2 h (120 min) — cruza medianoche</p>
+        <p><strong>Tramo 2:</strong> 04:00 → 07:00 = 3 h (180 min)</p>
+        <p><strong>Descanso entre tramos:</strong> 04:00 − 01:00 = 3 h (180 min)</p>
+        <p><strong>Cálculo:</strong> (120 + 180) − 180 = <strong>120 min = 2 h trabajadas</strong></p>
+      </article>
+    </section>
+
+    <!-- Casos especiales -->
+    <section aria-labelledby="special-heading">
+      <h2 id="special-heading">Casos especiales</h2>
+      <div class="alert alert-info">
+        <strong>Tramos que cruzan medianoche:</strong> Si un tramo tiene salida anterior a la entrada (ej. 23:00 → 01:00), la calculadora detecta el cruce de medianoche y calcula la duración correcta.
+      </div>
+      <div class="alert alert-info">
+        <strong>Solape entre tramos (error):</strong> Si Entrada 2 es anterior a Salida 1, los tramos se solapan. La calculadora muestra error: "El segundo tramo comienza antes del final del primer tramo".
+      </div>
+      <div class="alert alert-info">
+        <strong>Descanso = 0:</strong> Si Salida 1 = Entrada 2, no hay descanso entre tramos. El total es simplemente la suma de ambos tramos.
+      </div>
+      <div class="alert alert-info">
+        <strong>Tramos desiguales:</strong> No importa si un tramo dura 2h y el otro 6h. La fórmula funciona igual: suma duraciones y resta el descanso entre tramos.
+      </div>
+    </section>
+
+    <!-- Errores comunes -->
+    <section aria-labelledby="errors-heading">
+      <h2 id="errors-heading">Errores comunes y cómo evitarlos</h2>
+      
+      <div class="alert alert-warning">
+        <strong>Sumar Entrada 2 + Salida 1 en lugar de restar:</strong> El descanso es <strong>Entrada 2 − Salida 1</strong>, no la suma. Si haces la suma, el descanso sale inflado y el total trabajado sale menor.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Olvidar el descanso entre tramos:</strong> Sumar solo Tramo 1 + Tramo 2 sin restar el descanso da un total inflado. El descanso NO es tiempo trabajado.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Confundir descanso "entre tramos" con descansos "dentro" de un tramo:</strong> Si en el primer tramo tomas 30 min de café, eso ya está descontado en la duración del tramo (Salida 1 − Entrada 1). El descanso entre tramos es SOLO el tiempo libre entre Salida 1 y Entrada 2.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Introducir horarios en orden incorrecto:</strong> El orden debe ser: Entrada 1 → Salida 1 → Entrada 2 → Salida 2. Si los intercambias, la calculadora dará error o resultado incorrecto.
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="guide-cta" role="region" aria-label="Calculadora recomendada">
+      <h3>Calcula tu jornada partida sin errores</h3>
+      <p>Introduce las 4 horas y obtén: duración de cada tramo, descanso entre tramos automático y total trabajado en horas:min y decimal.
+      </p>
+      <p><a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="btn-primary">Abrir calculadora de jornada partida</a></p>
+    </div>
+
+    <!-- Enlaces relacionados -->
+    <nav class="guide-related" aria-labelledby="related-heading">
+      <h2 id="related-heading">Te puede interesar</h2>
+      <div class="guide-related-grid">
+        <a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="guide-related-card">
+          <h3>Calculadora de horas trabajadas</h3>
+          <p>Jornada simple: entrada, salida y un solo descanso.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="guide-related-card">
+          <h3>Calculadora de horas extra</h3>
+          <p>Detecta horas extra respecto a tu jornada prevista.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"} class="guide-related-card">
+          <h3>Calculadora semanal</h3>
+          <p>Suma varias jornadas (incluye partidas) de lunes a domingo.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="guide-related-card">
+          <h3>Entre fechas</h3>
+          <p>Diferencia exacta entre dos fechas con horas opcionales.</p>
+        </a>
+      </div>
+    </nav>
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": ["Article", "HowTo"],
+      "name": title,
+      "description": description,
+      "totalTime": "PT5M",
+      "step": [
+        { "@type": "HowToStep", "name": "Anota Entrada 1 y Salida 1", "text": "Formato HH:MM del primer tramo" },
+        { "@type": "HowToStep", "name": "Anota Entrada 2 y Salida 2", "text": "Formato HH:MM del segundo tramo" },
+        { "@type": "HowToStep", "name": "Calcula duración del tramo 1", "text": "Salida 1 − Entrada 1" },
+        { "@type": "HowToStep", "name": "Calcula duración del tramo 2", "text": "Salida 2 − Entrada 2" },
+        { "@type": "HowToStep", "name": "Resta descanso entre tramos", "text": "Entrada 2 − Salida 1" },
+        { "@type": "HowToStep", "name": "Suma tramos y resta descanso", "text": "Tramo 1 + Tramo 2 − Descanso = Total trabajado" }
+      ]
+    })} />
+  </article>
+</main>
+</BaseLayout>

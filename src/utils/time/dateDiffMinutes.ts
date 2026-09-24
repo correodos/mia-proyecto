@@ -1,89 +1,89 @@
-/**
- * Calcula la diferencia en minutos entre dos fechas y horas.
- */
+import type { Hour } from '../../types/index';
 
-interface DateWithTime {
-    date: Date;
-    hour: number;
-    minute: number;
-    second?: number;
+export interface DateDiffResult {
+  ok: true;
+  days: number;
+  hours: number;
+  minutes: number;
+  totalMinutes: number;
+  totalHours: string;
 }
 
-/**
- * Convierte una fecha/hora a total de minutos desde epoch
- */
-const minutesFromDateTime = (dt: DateWithTime): number => {
-    const year = dt.date.getFullYear();
-    const month = dt.date.getMonth() + 1; // 0-based
-    const day = dt.date.getDate();
-    
-    const dateStr = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-    const timeMinutes = dt.hour * 60 + dt.minute;
-    
-    return new Date(dateStr).getTime() / (1000 * 60) + timeMinutes;
-};
+export interface DateDiffError {
+  ok: false;
+  error: string;
+}
+
+export type DateDiffReturn = DateDiffResult | DateDiffError;
 
 /**
- * Parsea un string de fecha YYYY-MM-DD HH:MM a objeto DateWithTime
+ * Calcula la diferencia entre dos fechas con horas opcionales
+ * @param dateFromStr - Fecha inicial en formato YYYY-MM-DD
+ * @param timeFromStr - Hora inicial en formato HH:MM (opcional, default 00:00)
+ * @param dateToStr - Fecha final en formato YYYY-MM-DD
+ * @param timeToStr - Hora final en formato HH:MM (opcional, default 00:00)
+ * @returns DateDiffResult con días, horas, minutos y total en horas decimales, o DateDiffError
  */
-const parseDateTimeStr = (str: string): DateWithTime | null => {
-    if (!str || typeof str !== 'string') return null;
-    
-    const match = str.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{1,2}):?(\d{2}?)(?::(\d{2})?)?$/);
-    if (!match) return null;
-    
-    const [, year, month, day, hour, minute, second] = match;
-    
-    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-    if (isNaN(date.getTime())) return null;
-    
-    return {
-        date,
-        hour: parseInt(hour),
-        minute: parseInt(minute),
-        second: second ? parseInt(second) : 0
-    };
-};
-
-export const diffDateTimeMinutes = (fromStr: string, toStr: string): 
-    | { ok: false; error: string } 
-    | { ok: true; minutes: number; days: number; hours: number; minutesLeft: number } => {
-    
-    try {
-        const from = parseDateTimeStr(fromStr);
-        const to = parseDateTimeStr(toStr);
-        
-        if (!from || !to) {
-            throw new Error('Formato de fecha/hora inválido');
-        }
-        
-        // Validar fecha final no anterior a inicial
-        const fromTimestamp = from.date.getTime() * 1000 + (from.hour * 3600000) + (from.minute * 60000) + (from.second * 1000);
-        const toTimestamp = to.date.getTime() * 1000 + (to.hour * 3600000) + (to.minute * 60000) + (to.second * 1000);
-        
-        if (toTimestamp < fromTimestamp) {
-            throw new Error('La fecha/hora final no puede ser anterior a la inicial');
-        }
-        
-        const totalMinutes = Math.floor((toTimestamp - fromTimestamp) / 60000);
-        
-        const days = Math.floor(totalMinutes / (24 * 60));
-        const remainingMinutes = totalMinutes % (24 * 60);
-        const hours = Math.floor(remainingMinutes / 60);
-        const minutesLeft = remainingMinutes % 60;
-        
-        return {
-            ok: true,
-            minutes: totalMinutes,
-            days,
-            hours,
-            minutesLeft
-        };
-    } catch (error) {
-        console.error('Error en diffDateTimeMinutes:', error);
-        return {
-            ok: false,
-            error: error instanceof Error ? error.message : 'Error en el cálculo'
-        };
+export function calculateDateDiff(
+  dateFromStr: string,
+  timeFromStr: string,
+  dateToStr: string,
+  timeToStr: string
+): DateDiffReturn {
+  try {
+    if (!dateFromStr) {
+      return { ok: false, error: 'Selecciona una fecha inicial.' };
     }
-};
+
+    if (!dateToStr) {
+      return { ok: false, error: 'Selecciona una fecha final.' };
+    }
+
+    // Parsear horas
+    const parseTime = (timeStr: string): Hour | null => {
+      if (!timeStr || timeStr === '00:00') return { hours: 0, minutes: 0 };
+      const match = timeStr.trim().match(/^(\d{1,2}):(\d{2})$/);
+      if (!match) return null;
+      const hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return null;
+      return { hours, minutes };
+    };
+
+    const fromTime = parseTime(timeFromStr);
+    const toTime = parseTime(timeToStr);
+
+    if (!fromTime || !toTime) {
+      return { ok: false, error: 'Formato de hora inválido. Usa HH:MM con horas entre 00 y 23.' };
+    }
+
+    // Crear objetos Date
+    const fromDate = new Date(`${dateFromStr}T${String(fromTime.hours).padStart(2, '0')}:${String(fromTime.minutes).padStart(2, '0')}`);
+    const toDate = new Date(`${dateToStr}T${String(toTime.hours).padStart(2, '0')}:${String(toTime.minutes).padStart(2, '0')}`);
+
+    if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
+      return { ok: false, error: 'Fechas fuera de rango válido.' };
+    }
+
+    // Validar cronología
+    if (toDate.getTime() < fromDate.getTime()) {
+      return { ok: false, error: 'La fecha/hora final no puede ser anterior a la inicial.' };
+    }
+
+    // Calcular diferencia en minutos totales
+    const diffMs = toDate.getTime() - fromDate.getTime();
+    const totalMinutes = Math.floor(diffMs / 1000 / 60);
+
+    const days = Math.floor(totalMinutes / (24 * 60));
+    const remainingAfterDays = totalMinutes % (24 * 60);
+    const hours = Math.floor(remainingAfterDays / 60);
+    const minutes = remainingAfterDays % 60;
+
+    const totalHoursDecimal = (days * 24 + hours + minutes / 60).toFixed(2);
+
+    return { ok: true, days, hours, minutes, totalMinutes, totalHours: totalHoursDecimal };
+  } catch (error) {
+    console.error('Error en cálculo entre fechas:', error);
+    return { ok: false, error: 'Error en el cálculo' };
+  }
+}

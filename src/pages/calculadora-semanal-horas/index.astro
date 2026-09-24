@@ -1,14 +1,11 @@
 ---
-/**
- * Calculadora semanal de horas - Jornada lunes a domingo
- */
 import WeeklyCalculator from '../../components/calculator/WeeklyCalculator.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
 
 const pageData = {
-  title: "Calculadora semanal de horas - Jornada lunes a domingo",
-  description: "Calculadora online gratuita para calcular las horas trabajadas de lunes a domingo. Introduce tus horarios y descansos y obtén el total semanal y las horas decimales.",
+  title: "Calculadora Semanal de Horas",
+  description: "Calculadora gratuita semanal. Suma horas de lunes a domingo restando descansos. Total en horas/minutos y decimal.",
   canonical: "https://correodos.github.io/mia-proyecto/calculadora-semanal-horas/",
   type: "website",
   locale: "es_ES"
@@ -22,84 +19,93 @@ const { title, description, canonical, type, locale } = pageData;
   description={description}
   canonical={canonical}
 >
-<header role="banner">
-  <nav role="navigation" aria-label="Principal">
-    <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
-  </nav>
-</header>
-
 <main>
   <h1>Calculadora semanal de horas</h1>
   
-  <!-- Párrafo introductorio -->
   <section class="intro-section">
     <p class="intro-text">
-      Esta calculadora semanal de horas suma el tiempo trabajado de lunes a domingo y resta los descansos diarios.
-      Puedes consultar el total de la semana también en horas decimales.
+      Suma tus horas de lunes a domingo restando descansos diarios. Total en horas:minutos y decimal.
     </p>
   </section>
 
-  <!-- H2: Cómo calcular -->
+  <WeeklyCalculator />
+
   <section aria-labelledby="how-to-weekly-heading" class="content-section">
     <h2 id="how-to-weekly-heading">Cómo calcular horas semanales</h2>
     <p>Introduce la hora de entrada, salida y duración del descanso para cada día. Pulsa "Calcular" para sumar toda tu jornada semanal.</p>
   </section>
 
-  <!-- H2: Ejemplos -->
   <section aria-labelledby="examples-weekly-heading" class="content-section">
-    <h2 id="examples-weekly-heading">Ejemplos semanales</h2>
     <CollapsibleExamples
-      title={false}
+      title="Ejemplos"
       examples={[
         {
-          summary: 'Jornada habitual (lunes a viernes): 08:00 → 17:00, 60 min de descanso cada día',
-          content: '<p><strong>Total semanal:</strong> 40 horas trabajadas</p>',
+          summary: 'Jornada fija L-V: 08:00 → 17:00, 60 min descanso',
+          content: '<p><strong>Total semanal:</strong> 40 horas (5 × 8h netas)</p>',
         },
         {
-          summary: 'Semana con jornadas diferentes',
-          content: '<ul style="margin:0;padding-left:1.2em;"><li>Lunes: 08:00→16:00, descanso 30 min</li><li>Martes: 09:00→17:30, descanso 30 min</li><li>Miércoles: 08:00→16:00, descanso 30 min</li><li>Jueves: 09:00→18:00, descanso 60 min</li><li>Viernes: 08:00→15:00, descanso 30 min</li></ul><p><strong>Total semanal calculado automáticamente por la herramienta.</strong></p>',
+          summary: 'Semana variable con días libres',
+          content: '<ul style="margin:0;padding-left:1.2em;"><li>Lun: 08:00→16:00, 30 min = 7,5 h</li><li>Mar: 09:00→17:30, 30 min = 8 h</li><li>Mié: libre (0 h)</li><li>Jue: 09:00→18:00, 60 min = 8 h</li><li>Vie: 08:00→15:00, 30 min = 6,5 h</li><li>Sáb/Dom: 0 h</li></ul><p><strong>Total semanal: 30 h (30,00 h decimal)</strong></p>',
         },
       ]}
     />
   </section>
 
-   <WeeklyCalculator />
+  <section aria-labelledby="faq-weekly-heading" class="content-section">
+    <CollapsibleExamples
+      title="Preguntas frecuentes"
+      examples={[
+        {
+          summary: '¿Puedo dejar días sin datos?',
+          content: '<p>Sí. Los días sin entrada ni salida se ignoran en el total semanal. El descanso es opcional: deja el campo vacío o pon 0 si no hubo pausa.</p>',
+        },
+        {
+          summary: '¿Funciona con jornadas que cruzan medianoche?',
+          content: '<p>Sí. La calculadora detecta automáticamente turnos nocturnos (ej. 22:00 → 06:00).</p>',
+        },
+        {
+          summary: '¿Cómo se muestra el total semanal?',
+          content: '<p>En horas y minutos (ej. 38h 30m) y en horas decimales (ej. 38,50h).</p>',
+        },
+      ]}
+    />
+  </section>
+
+  <section aria-labelledby="other-tools-heading" class="tools-list">
+    <h2 id="other-tools-heading">Otras herramientas</h2>
+    
+    <nav role="navigation" aria-label="Otras herramientas">
+      <ul role="list">
+        <li>
+          <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
+            <article>
+              <h3>Calculadora de horas trabajadas</h3>
+              <p>Calcula el tiempo trabajado restando los descansos en una jornada diaria.</p>
+            </article>
+          </a>
+        </li>
+        <li>
+          <a href={import.meta.env.BASE_URL + "como-calcular-horas-trabajadas/"}>
+            <article>
+              <h3>Cómo calcular las horas trabajadas</h3>
+              <p>Aprende paso a paso cómo calcular tu tiempo laboral con ejemplos y casos de medianoche.</p>
+            </article>
+          </a>
+        </li>
+        <li>
+          <a href={import.meta.env.BASE_URL + "calcular-horas-trabajadas-con-descanso/"}>
+            <article>
+              <h3>Cómo calcular horas con descansos</h3>
+              <p>Fórmula y guía para restar correctamente los periodos de pausa en tu jornada.</p>
+            </article>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+
+  <footer>
+    <p>Herramienta gratuita</p>
+  </footer>
 </main>
-
-<section aria-labelledby="other-tools-heading" class="tools-list">
-  <h2 id="other-tools-heading">Otras herramientas</h2>
-  
-  <nav role="navigation" aria-label="Otras herramientas">
-    <ul role="list">
-      <li>
-        <a href={import.meta.env.BASE_URL + "calculadora-horas/"}>
-          <article>
-            <h3>Calculadora de horas trabajadas</h3>
-            <p>Calcula el tiempo trabajado restando los descansos en una jornada diaria.</p>
-          </article>
-        </a>
-      </li>
-      <li>
-        <a href={import.meta.env.BASE_URL + "como-calcular-horas-trabajadas/"}>
-          <article>
-            <h3>Cómo calcular las horas trabajadas</h3>
-            <p>Aprende paso a paso cómo calcular tu tiempo laboral con ejemplos y casos de medianoche.</p>
-          </article>
-        </a>
-      </li>
-      <li>
-        <a href={import.meta.env.BASE_URL + "calcular-horas-trabajadas-con-descanso/"}>
-          <article>
-            <h3>Cómo calcular horas con descansos</h3>
-            <p>Fórmula y guía para restar correctamente los periodos de pausa en tu jornada.</p>
-          </article>
-        </a>
-      </li>
-    </ul>
-  </nav>
-</section>
-
-<footer>
-  <p>Herramienta gratuita</p>
-</footer>
 </BaseLayout>

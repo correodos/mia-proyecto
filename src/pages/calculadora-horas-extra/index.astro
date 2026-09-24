@@ -3,99 +3,83 @@ import HorasExtraCalculator from '../../components/calculator/HorasExtraCalculat
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
 
-const { title, description } = {
-  title: 'Calculadora de horas extra - Calcula tus horas extra',
-  description: 'Calcula las horas trabajadas y las horas extra de tu jornada con esta calculadora online gratuita. Incluye descansos y jornadas que cruzan la medianoche.',
+const pageData = {
+  title: "Calculadora de Horas Extra",
+  description: "Calculadora gratuita de horas extra. Calcula horas trabajadas y detecta horas extra respecto a tu jornada prevista.",
+  canonical: "https://correodos.github.io/mia-proyecto/calculadora-horas-extra/"
 };
+
+const { title, description, canonical } = pageData;
 ---
 
 <BaseLayout 
   title={title}
   description={description}
+  canonical={canonical}
 >
-<header role="banner">
-  <nav role="navigation" aria-label="Principal">
-    <a href={import.meta.env.BASE_URL} aria-label="Ir al inicio" class="header-link">MiA - Herramientas de tiempo</a>
-  </nav>
-</header>
-
 <main role="main">
-  <HorasExtraCalculator />
-  
   <h1>Calculadora de horas extra</h1>
   
-  <section class="description">
-    Calcula las horas trabajadas por día y determina cuántas horas extra has realizado respecto a tu jornada laboral prevista.
-    
-    <ul>
-      <li>Cruce de medianoche (jornadas de 22:00 a 06:00)</li>
-      <li>Incluir descansos en la jornada</li>
-      <li>Jornadas partidas o completas</li>
-      <li>Resultado en horas decimales y formato Xh Ym</li>
-    </ul>
+  <section class="intro-section">
+    <p class="intro-text">
+      Calcula horas trabajadas y detecta horas extra respecto a tu jornada prevista. Incluye turnos nocturnos y descansos.
+    </p>
   </section>
 
-  <section class="usage">
-    <h2>Cómo usarla</h2>
+  <HorasExtraCalculator />
+
+  <section aria-labelledby="how-to-heading" class="content-section">
+    <h2 id="how-to-heading">Cómo usarla</h2>
     
     <p>Introduce los datos de tu jornada:</p>
     
-    <ol>
-      <li><strong>Hora de entrada:</strong> A qué hora comienzas tu turno (ej: 08:00)</li>
-      <li><strong>Hora de salida:</strong> A qué hora terminas tu turno (ej: 18:00)</li>
-      <li><strong>Jornada prevista:</strong> Cuántas horas debes trabajar al día (ej: 08:00)</li>
-      <li><strong>Descanso:</strong> Tiempo de pausa durante la jornada (ej: 01:00)</li>
+    <ol class="steps">
+      <li><strong>Entrada y salida:</strong> hora de inicio y fin de tu turno (ej: 08:00 / 18:00).</li>
+      <li><strong>Jornada prevista y descanso:</strong> horas que debes trabajar y minutos de pausa (ej: 08:00 / 60).</li>
+      <li>Pulsa <kbd>Calcular</kbd> para ver horas trabajadas y horas extra.</li>
     </ol>
     
-    <p>Pulsa <kbd>Calcular</kbd> para ver tus horas trabajadas y horas extra.</p>
-    
-    <p>O usa el botón <kbd>Reiniciar</kbd> para limpiar los campos.</p>
+    <p>Usa <kbd>Reiniciar</kbd> para limpiar los campos.</p>
   </section>
 
-  <hr />
+  <section aria-labelledby="examples-heading" class="content-section">
+    <CollapsibleExamples
+      title="Ejemplos"
+      examples={[
+        {
+          summary: 'Sin horas extra: 08:00 → 16:00, descanso 30 min, prevista 8 h',
+          content: '<p><strong>Trabajadas:</strong> 7:30 | <strong>Extra:</strong> 0 h (jornada no completada)</p>',
+        },
+        {
+          summary: 'Con horas extra: 08:00 → 18:30, descanso 60 min, prevista 8 h',
+          content: '<p><strong>Trabajadas:</strong> 9:30 | <strong>Extra:</strong> 1:30 (1,50 h)</p>',
+        },
+        {
+          summary: 'Nocturna con extra: 22:00 → 07:30, descanso 60 min, prevista 8 h',
+          content: '<p><strong>Trabajadas:</strong> 8:30 | <strong>Extra:</strong> 0:30 (0,50 h)</p>',
+        },
+      ]}
+    />
+  </section>
 
-  <CollapsibleExamples
-    title="Ejemplos"
-    examples={[
-      {
-        summary: 'Jornada normal sin horas extra',
-        content: '<p><strong>Entrada:</strong> 08:00 | <strong>Salida:</strong> 16:00 | <strong>Descanso:</strong> 00:30 | <strong>Prevista:</strong> 08:00</p><p><em>Trabajadas: 7:30 | Horas extra: 0 horas</em></p>',
-      },
-      {
-        summary: 'Jornada con horas extra',
-        content: '<p><strong>Entrada:</strong> 22:00 | <strong>Salida:</strong> 07:30 | <strong>Descanso:</strong> 01:00 | <strong>Prevista:</strong> 08:00</p><p><em>Trabajadas: 9:30 | Horas extra: 1:30 (1.50 horas)</em></p>',
-      },
-      {
-        summary: 'Jornada nocturna cruzando medianoche',
-        content: '<p><strong>Entrada:</strong> 23:00 | <strong>Salida:</strong> 04:00 | <strong>Descanso:</strong> 00:45 | <strong>Prevista:</strong> 06:00</p><p><em>Trabajadas: 4:15 | Horas extra: 0 horas (jornada inferior a la prevista)</em></p>',
-      },
-    ]}
-  />
-
-  <hr />
-
-  <section class="faq">
-    <h2>Preguntas frecuentes</h2>
-    
-    <div class="faq-item">
-      <h3>¿La calculadora funciona si trabajo toda la noche?</h3>
-      <p>Sí. Puedes introducir una entrada (ej: 22:00) y salida anterior (ej: 06:00), lo que indica que la jornada cruza la medianoche.</p>
-    </div>
-
-    <div class="faq-item">
-      <h3>¿Puedo no poner descanso?</h3>
-      <p>Sí. Puedes dejar el campo vacío o poner 00:00 si no has tenido pausa.</p>
-    </div>
-
-    <div class="faq-item">
-      <h3>¿Qué significa "horas extra"?</h3>
-      <p>Las horas extra son el tiempo trabajado que supera la jornada prevista. Si trabajaste 9 horas y tu jornada era de 8, tienes 1 hora extra.</p>
-    </div>
-
-    <div class="faq-item">
-      <h3>¿Funciona en móvil?</h3>
-      <p>Sí. Optimizada para ordenadores, tabletas y teléfonos móviles.</p>
-    </div>
+  <section aria-labelledby="faq-heading" class="content-section">
+    <CollapsibleExamples
+      title="Preguntas frecuentes"
+      examples={[
+        {
+          summary: '¿La calculadora funciona si trabajo toda la noche?',
+          content: '<p>Sí. Puedes introducir una entrada (ej: 22:00) y salida anterior (ej: 06:00), lo que indica que la jornada cruza la medianoche.</p>',
+        },
+        {
+          summary: '¿Puedo no poner descanso?',
+          content: '<p>Sí. Puedes dejar el campo vacío o poner 00:00 si no has tenido pausa.</p>',
+        },
+        {
+          summary: '¿Qué significa "horas extra"?',
+          content: '<p>Las horas extra son el tiempo trabajado que supera la jornada prevista. Si trabajaste 9 horas y tu jornada era de 8, tienes 1 hora extra.</p>',
+        },
+      ]}
+    />
   </section>
 
   <section aria-labelledby="other-tools-heading" class="tools-list">
@@ -130,8 +114,6 @@ const { title, description } = {
       </ul>
     </nav>
   </section>
-
-  <hr />
 
   <footer role="contentinfo">
     <p>Herramienta gratuita</p>

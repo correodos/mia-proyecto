@@ -1,15 +1,11 @@
 ---
-/**
- * Calculadora de horas trabajadas - Componente Astro del MVP v1.0
- */
-
 import type { Hour } from '../../types/index.js';
 ---
 
 <div data-testid="calculator" class="card">
   <h2 id="calculator-title">Calculadora de horas trabajadas</h2>
   
-  <fieldset class="entry-section">
+  <fieldset>
     <legend>Horario</legend>
     
     <div class="form-group">
@@ -50,13 +46,13 @@ import type { Hour } from '../../types/index.js';
         aria-label="Minutos de descanso"
         aria-describedby="break-help"
       />
-      <span id="break-help">Ej: 30, 60, 90 minutos</span>
+      <span id="break-help" class="form-help">Ej: 30, 60, 90 minutos</span>
     </div>
   </fieldset>
 
   <div class="buttons">
-    <button type="button" data-event-calculate="true">Calcular</button>
-    <button type="button" id="reset-btn" data-event-reset="true">Reiniciar</button>
+    <button type="button" class="btn-primary" data-event-calculate="true">Calcular</button>
+    <button type="button" class="btn-secondary" id="reset-btn" data-event-reset="true">Reiniciar</button>
   </div>
 
   <section class="results-area" aria-live="polite" aria-labelledby="result-heading">

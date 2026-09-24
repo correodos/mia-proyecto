@@ -1,15 +1,10 @@
 ---
-/**
- * Calculadora de horas extra - Componente Astro
- */
-
-import type { Hour } from '../../types/index.js';
 ---
+<div data-testid="horas-extra-calculator" class="card">
 
-<div data-testid="horas-extra-calculator" class="calculator">
   <h2>Calculadora de horas extra</h2>
   
-  <fieldset class="entry-section">
+  <fieldset>
     <legend>Jornada y descanso</legend>
     
     <div class="form-group">
@@ -38,18 +33,18 @@ import type { Hour } from '../../types/index.js';
       />
     </div>
 
-<div class="form-group">
-        <label for="expected-shift">Jornada prevista:</label>
-        <input
-          id="expected-shift"
-          name="expectedShift"
-          type="text"
-          pattern="[0-9]{1,2}:?[0-9]{2}"
-          inputmode="numeric"
-          placeholder="Ej.: 8 o 08:00"
-          aria-label="Jornada prevista en formato H o HH:MM"
-        />
-      </div>
+    <div class="form-group">
+      <label for="expected-shift">Jornada prevista:</label>
+      <input
+        id="expected-shift"
+        name="expectedShift"
+        type="text"
+        pattern="[0-9]{1,2}:?[0-9]{2}"
+        inputmode="numeric"
+        placeholder="Ej.: 8 o 08:00"
+        aria-label="Jornada prevista en formato H o HH:MM"
+      />
+    </div>
 
     <div class="form-group">
       <label for="break-time">Descanso (minutos):</label>
@@ -63,13 +58,13 @@ import type { Hour } from '../../types/index.js';
         aria-label="Minutos de descanso"
         aria-describedby="break-help"
       />
-      <span id="break-help" class="help-text">Ej: 30, 60, 90 minutos</span>
+      <span id="break-help" class="form-help">Ej: 30, 60, 90 minutos</span>
     </div>
   </fieldset>
 
   <div class="buttons">
-    <button type="button" data-event-calculate-hours-extra="true">Calcular</button>
-    <button type="button" id="reset-btn" data-event-reset="true">Reiniciar</button>
+    <button type="button" class="btn-primary" data-event-calculate-hours-extra="true">Calcular</button>
+    <button type="button" class="btn-secondary" id="reset-btn" data-event-reset="true">Reiniciar</button>
   </div>
 
   <section class="results-area" aria-live="polite" aria-labelledby="result-heading">
@@ -77,147 +72,36 @@ import type { Hour } from '../../types/index.js';
     <ul class="result-list" role="list"></ul>
   </section>
 
-  <nav class="internal-links">
+  <nav class="internal-links" aria-label="Enlaces internos">
     <p><a href="/calculadora-horas/">← Calculadora de horas</a></p>
     <p><a href="/calcular-horas-trabajadas-con-descanso/">→ Horas con descanso</a></p>
   </nav>
 </div>
 
-<style lang="css">
-:root {
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-}
-
-.calculator {
-  background-color: var(--entry-bg, #fafafa);
-  border-radius: 8px;
-  padding: 1.5rem;
+<style>
+/* Estilos mínimos específicos del componente */
+.card {
   max-width: 600px;
 }
 
-h2#calculator-title {
-  color: #1f2937;
-  font-size: 1.5rem;
-  margin: 0 0 1rem 0;
-  text-align: center;
-}
-
-.entry-section,
-.expected-section,
-.break-section {
-  margin-bottom: 1rem;
-}
-
-.form-group {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.help-text {
-  font-size: 0.75rem;
-  color: #6b7280;
-  display: block;
-  margin-top: 4px;
-}
-
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  padding: 0.5rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  background-color: #fff;
-}
-
-::placeholder {
-  color: #9ca3af;
-}
-
-.buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-button {
-  flex: 1;
-  min-width: 120px;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--primary, #3b82f6);
-  color: #fff;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: var(--primary-hover, #2563eb);
-}
-
-.results-area {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background-color: var(--result-bg, #f0fdf4);
-  border-radius: 8px;
-}
-
-.result-list li {
-  padding: 0.5rem;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.result-list li:last-child {
-  border-bottom: none;
-}
-
-.error-message {
-  color: #ef4444;
-  padding: 0.5rem;
-  background-color: rgba(239, 68, 68, 0.1);
-  border-radius: 4px;
-  margin-top: 0.5rem;
-}
-
 .internal-links {
-  margin-top: 1rem;
+  margin-top: var(--sp-6);
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
 }
 
 .internal-links a {
-  color: var(--primary, #3b82f6);
+  color: var(--primary);
   text-decoration: underline;
   font-size: 0.9rem;
 }
 
-@supports (pointer: coarse) {
-  button {
-    min-height: 48px;
-  }
-}
-
 @media (max-width: 500px) {
-  .calculator {
-    padding: 1rem;
-  }
-  
-  h2#calculator-title {
-    font-size: 1.25rem;
-  }
-  
-  .buttons {
-    flex-direction: column;
-  }
-  
-  button {
-    width: 100%;
-  }
-
   .internal-links {
     flex-direction: column;
+    gap: var(--sp-2);
   }
 }
 </style>

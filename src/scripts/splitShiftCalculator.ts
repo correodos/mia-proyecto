@@ -5,6 +5,7 @@
 import { calculateWorkingMinutes } from '../utils/calculateWorkingMinutes';
 import { formatShiftResult } from '../utils/formatShiftResult';
 import { renderSuccess, renderError, clearResultArea } from '../utils/renderResult';
+import { formatTimeToHHMM } from '../utils/time/formatTimeInput';
 
 // ─── Lógica pura (exportada para tests) ──────────────────────────────────────
 
@@ -72,7 +73,6 @@ export function calculateSplitShift(
 }
 
 export function getBreakBetweenShifts(exit1Str: string, entry2Str: string): number {
-  // Import inline para evitar dependencia circular
   const parse = (s: string) => {
     const m = s.trim().match(/^(\d{1,2}):(\d{2})$/);
     if (!m) return null;
@@ -86,20 +86,74 @@ export function getBreakBetweenShifts(exit1Str: string, entry2Str: string): numb
   return Math.max(0, entry2 - exit1);
 }
 
-// ─── Leer DOM ────────────────────────────────────────────────────────────────
+// ─── Helpers DOM ─────────────────────────────────────────────────────────────
+
+const getInput = (id: string) => document.getElementById(id);
+
+const toMinutes = (value: string): number | null => {
+  const match = /^(\d{2}):(\d{2})$/.exec(value);
+  if (!match) return null;
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  return hours <= 23 && minutes <= 59 ? hours * 60 + minutes : null;
+};
+
+const formatBreak = (minutes: number): string => {
+  if (minutes >= 60) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours}h ${mins === 0 ? '00' : String(mins).padStart(2, '0')}m`;
+  }
+  return `${minutes}m`;
+};
+
+// ─── Calcular y actualizar el campo de descanso automáticamente ──────────────
+
+const updateBreak = (): void => {
+  const exit1 = getInput('part1-exit')?.value ?? '';
+  const entry2 = getInput('part2-entry')?.value ?? '';
+  
+  const exit1Min = toMinutes(exit1);
+  const entry2Min = toMinutes(entry2);
+  
+  const breakInput = getInput('break-time');
+  if (!breakInput) return;
+  
+  if (exit1Min !== null && entry2Min !== null) {
+    const minutes = Math.max(0, entry2Min - exit1Min);
+    breakInput.value = formatBreak(minutes);
+  } else {
+    breakInput.value = '';
+  }
+};
+
+// ─── Auto-formato de horas ───────────────────────────────────────────────────
+
+const setupTimeInputs = (): void => {
+  const timeInputIds = ['part1-entry', 'part1-exit', 'part2-entry', 'part2-exit'];
+  timeInputIds.forEach(id => {
+    const input = getInput(id);
+    if (input) {
+      input.addEventListener('input', () => {
+        input.value = formatTimeToHHMM(input.value);
+      });
+      input.addEventListener('input', updateBreak);
+    }
+  });
+};
+
+// ─── Leer DOM y calcular ─────────────────────────────────────────────────────
 
 function getInputs() {
-  const v = (id: string) => (document.getElementById(id) as HTMLInputElement | null)?.value ?? '';
+  const v = (id: string) => getInput(id)?.value ?? '';
   return {
     part1Entry: v('part1-entry'),
     part1Exit:  v('part1-exit'),
     part2Entry: v('part2-entry'),
     part2Exit:  v('part2-exit'),
-    resultArea: document.querySelector('.split-results') as HTMLElement | null,
+    resultArea: document.querySelector('.split-results'),
   };
 }
-
-// ─── Calcular y pintar ───────────────────────────────────────────────────────
 
 function handleCalculate(): void {
   const { part1Entry, part1Exit, part2Entry, part2Exit, resultArea } = getInputs();
@@ -131,10 +185,12 @@ function handleCalculate(): void {
 
 function handleReset(): void {
   ['part1-entry', 'part1-exit', 'part2-entry', 'part2-exit'].forEach(id => {
-    const el = document.getElementById(id) as HTMLInputElement | null;
+    const el = getInput(id);
     if (el) el.value = '';
   });
-  const resultArea = document.querySelector('.split-results') as HTMLElement | null;
+  const breakInput = getInput('break-time');
+  if (breakInput) breakInput.value = '';
+  const resultArea = document.querySelector('.split-results');
   if (resultArea) clearResultArea(resultArea);
 }
 
@@ -149,8 +205,13 @@ export function attachButtonEventsForSplitShift(): void {
   });
 }
 
+export function initSplitShiftCalculator(): void {
+  setupTimeInputs();
+  attachButtonEventsForSplitShift();
+}
+
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', attachButtonEventsForSplitShift);
+  document.addEventListener('DOMContentLoaded', initSplitShiftCalculator);
 } else {
-  setTimeout(attachButtonEventsForSplitShift, 100);
+  initSplitShiftCalculator();
 }

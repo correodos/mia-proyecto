@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const pageData = {
+  title: 'Cómo calcular el tiempo entre dos fechas: guía completa',
+  description: 'Aprende a calcular días, horas y minutos entre dos fechas. Guía con fórmula, ejemplos (cruce mes, año, solo fechas), casos especiales y errores comunes.',
+  canonical: 'https://correodos.github.io/mia-proyecto/guias/calcular-entre-fechas/',
+  lastUpdated: '2026-09-24',
+  readingTime: '5 min'
+};
+
+const { title, description, canonical, lastUpdated, readingTime } = pageData;
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+<main role="main">
+  
+  <!-- Breadcrumb -->
+  <nav class="page-back" aria-label="Navegación">
+    <a href={import.meta.env.BASE_URL} class="page-back">← Inicio</a>
+    <span aria-hidden="true">/</span>
+    <a href={import.meta.env.BASE_URL + "guias/"} class="page-back">Guías</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">Calcular entre fechas</span>
+  </nav>
+
+  <article class="guide-article" itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="name" content={title} />
+    <meta itemprop="description" content={description} />
+    <link itemprop="url" href={canonical} />
+
+    <!-- Meta -->
+    <header class="guide-meta">
+      <time itemprop="dateModified" datetime={lastUpdated} class="guide-meta-item">
+        Actualizado: {new Date(lastUpdated).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <span class="guide-meta-item" aria-label="Tiempo de lectura estimado">
+        📖 {readingTime} de lectura
+      </span>
+    </header>
+
+    <!-- H1 -->
+    <h1 itemprop="headline">Cómo calcular el tiempo entre dos fechas: guía completa</h1>
+
+    <!-- Lead -->
+    <p class="guide-lead" itemprop="description">
+      Calcular el tiempo exacto entre dos fechas es útil para vacaciones, plazos, edad, antigüedad o cualquier periodo temporal. La clave: restar fecha inicial a fecha final, considerando horas opcionales.
+    </p>
+    <ul>
+      <li>Fórmula visual y 4 pasos claros</li>
+      <li>Ejemplos: con horas, solo fechas, cruce de mes, cruce de año</li>
+      <li>Casos especiales: misma fecha, fechas invertidas, zona horaria</li>
+      <li>Errores comunes y cómo evitarlos</li>
+    </ul>
+
+    <!-- Fórmula visual -->
+    <div class="formula-box" role="img" aria-label="Fórmula: Tiempo = Fecha final − Fecha inicial (con horas opcionales)">
+      <strong>Tiempo transcurrido = Fecha y hora final − Fecha y hora inicial</strong>
+      <br><br>
+      Resultado en: <strong>días, horas, minutos</strong> y <strong>total en horas decimales</strong>
+    </div>
+
+    <!-- Pasos -->
+    <section aria-labelledby="steps-heading">
+      <h2 id="steps-heading">Pasos para calcular</h2>
+      <ol class="steps">
+        <li>Selecciona o escribe la <strong>fecha inicial</strong> (formato YYYY-MM-DD).</li>
+        <li>Opcional: añade la <strong>hora inicial</strong> (HH:MM). Si la dejas vacía, se usa 00:00.</li>
+        <li>Selecciona o escribe la <strong>fecha final</strong> (YYYY-MM-DD).</li>
+        <li>Opcional: añade la <strong>hora final</strong> (HH:MM). Si la dejas vacía, se usa 00:00.</li>
+        <li>Pulsa calcular: obtendrás <strong>días, horas, minutos</strong> y <strong>total en horas decimales</strong>.</li>
+      </ol>
+    </section>
+
+    <!-- Ejemplos - cards estáticas -->
+    <section aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Ejemplos prácticos</h2>
+
+      <article class="example-card">
+        <header>📅 Con horas: 21/09/2026 07:00 → 23/09/2026 17:30</header>
+        <p><strong>Fecha inicial:</strong> 21/09/2026 07:00</p>
+        <p><strong>Fecha final:</strong> 23/09/2026 17:30</p>
+        <p><strong>Cálculo:</strong> 2 días + 10 h 30 min = <strong>58,50 horas totales</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>📆 Solo fechas (sin horas): 21/09/2026 → 23/09/2026</header>
+        <p><strong>Fecha inicial:</strong> 21/09/2026 00:00</p>
+        <p><strong>Fecha final:</strong> 23/09/2026 00:00</p>
+        <p><strong>Cálculo:</strong> 2 días exactos = <strong>48,00 horas</strong></p>
+      </article>
+
+      <article class="example-card">
+        <header>🔄 Cruce de mes: 30/09/2026 22:00 → 01/10/2026 02:00</header>
+        <p><strong>Fecha inicial:</strong> 30/09/2026 22:00</p>
+        <p><strong>Fecha final:</strong> 01/10/2026 02:00</p>
+        <p><strong>Cálculo:</strong> 0 días + 4 h = <strong>4,00 horas</strong> (cruce 30 sep → 1 oct)</p>
+      </article>
+
+      <article class="example-card">
+        <header>🎆 Cruce de año: 31/12/2026 23:00 → 01/01/2027 02:00</header>
+        <p><strong>Fecha inicial:</strong> 31/12/2026 23:00</p>
+        <p><strong>Fecha final:</strong> 01/01/2027 02:00</p>
+        <p><strong>Cálculo:</strong> 0 días + 3 h = <strong>3,00 horas</strong> (cruce 31 dic → 1 ene)</p>
+      </article>
+
+      <article class="example-card">
+        <header>📆 Misma fecha con horas: 15/03/2026 08:00 → 15/03/2026 14:30</header>
+        <p><strong>Fecha inicial:</strong> 15/03/2026 08:00</p>
+        <p><strong>Fecha final:</strong> 15/03/2026 14:30</p>
+        <p><strong>Cálculo:</strong> 0 días + 6 h 30 min = <strong>6,50 horas</strong></p>
+      </article>
+    </section>
+
+    <!-- Casos especiales -->
+    <section aria-labelledby="special-heading">
+      <h2 id="special-heading">Casos especiales</h2>
+      <div class="alert alert-info">
+        <strong>Misma fecha, misma hora:</strong> El resultado es 0 días, 0 h 0 min (0,00 horas). Útil para verificar que la herramienta funciona.
+      </div>
+      <div class="alert alert-info">
+        <strong>Fechas invertidas (final antes que inicial):</strong> La calculadora muestra error: "La fecha/hora final no puede ser anterior a la inicial". Siempre pon la fecha más antigua primero.
+      </div>
+      <div class="alert alert-info">
+        <strong>Solo fechas (sin horas):</strong> Si dejas los campos de hora vacíos, la calculadora usa 00:00 para ambas y calcula días completos entre fechas.
+      </div>
+      <div class="alert alert-info">
+        <strong>Zonas horarias / Horario de verano:</strong> La calculadora usa la hora local del navegador. Para cálculos legales/precisos, verifica la zona horaria.
+      </div>
+      <div class="alert alert-info">
+        <strong>Años bisiestos:</strong> El cálculo automático gestiona correctamente el 29 de febrero (ej. 28/02 → 01/03 en año no bisiesto = 1 día; en bisiesto = 2 días).
+      </div>
+    </section>
+
+    <!-- Errores comunes -->
+    <section aria-labelledby="errors-heading">
+      <h2 id="errors-heading">Errores comunes y cómo evitarlos</h2>
+      
+      <div class="alert alert-warning">
+        <strong>Fechas en orden incorrecto:</strong> Poner la fecha final antes que la inicial. La calculadora dará error. Siempre: fecha más antigua → fecha más reciente.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Formato de fecha incorrecto:</strong> Usa YYYY-MM-DD (ej. 2026-09-24). No uses DD/MM/YYYY ni MM/DD/YYYY en los campos de fecha.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Formato de hora incorrecto:</strong> Usa HH:MM en 24 h (ej. 14:30, 07:05, 23:00). No uses formato 12 h con AM/PM.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Olvidar que las horas son opcionales:</strong> Si no pones hora, se asume 00:00. Si quieres precisión horaria, rellena ambos campos de hora.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Confundir días naturales con laborables:</strong> La calculadora da días naturales (incluye fines de semana/festivos). Para días laborables, resta manualmente los fines de semana.
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="guide-cta" role="region" aria-label="Calculadora recomendada">
+      <h3>Calcula el tiempo entre fechas al instante</h3>
+      <p>Selecciona dos fechas (con u sin horas) y obtén días, horas, minutos y total en horas decimales al instante.
+      </p>
+      <p><a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="btn-primary">Abrir calculadora entre fechas</a></p>
+    </div>
+
+    <!-- Enlaces relacionados -->
+    <nav class="guide-related" aria-labelledby="related-heading">
+      <h2 id="related-heading">Te puede interesar</h2>
+      <div class="guide-related-grid">
+        <a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="guide-related-card">
+          <h3>Calculadora de horas trabajadas</h3>
+          <p>Entrada, salida, descanso en una jornada.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-semanal-horas/"} class="guide-related-card">
+          <h3>Calculadora semanal</h3>
+          <p>Suma jornadas de lunes a domingo.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="guide-related-card">
+          <h3>Horas extra</h3>
+          <p>Detecta extra sobre jornada prevista.</p>
+        </a>
+        <a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="guide-related-card">
+          <h3>Jornada partida</h3>
+          <p>Dos tramos con descanso entre turnos.</p>
+        </a>
+      </div>
+    </nav>
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": ["Article", "HowTo"],
+      "name": title,
+      "description": description,
+      "totalTime": "PT5M",
+      "step": [
+        { "@type": "HowToStep", "name": "Selecciona fecha inicial", "text": "Formato YYYY-MM-DD" },
+        { "@type": "HowToStep", "name": "Añade hora inicial (opcional)", "text": "Formato HH:MM, vacío = 00:00" },
+        { "@type": "HowToStep", "name": "Selecciona fecha final", "text": "Formato YYYY-MM-DD" },
+        { "@type": "HowToStep", "name": "Añade hora final (opcional)", "text": "Formato HH:MM, vacío = 00:00" },
+        { "@type": "HowToStep", "name": "Calcula", "text": "Obtén días, horas, minutos y decimal" }
+      ]
+    })} />
+  </article>
+</main>
+</BaseLayout>

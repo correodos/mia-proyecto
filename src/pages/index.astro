@@ -16,9 +16,7 @@ const { title, description, canonical } = pageData;
   <!-- HERO -->
   <section aria-labelledby="hero-heading" class="hero-section">
     <h1 id="hero-heading">Calculadoras de Horas Trabajadas</h1>
-    <p class="hero-description">
-      Herramientas gratuitas en español para calcular, organizar y planificar tu jornada laboral con precisión.
-    </p>
+    <p class="hero-description">Herramientas gratuitas en español para calcular, organizar y planificar tu jornada laboral con precisión.</p>
   </section>
 
   <!-- CALCULADORAS -->
@@ -42,32 +40,32 @@ const { title, description, canonical } = pageData;
         <article aria-labelledby="card-weekly-heading">
           <div class="calculator-card-icon" aria-hidden="true">📅</div>
           <h3 id="card-weekly-heading">Calculadora semanal de horas</h3>
-          <p>Calcula el total de horas trabajadas en tu semana completa, de lunes a domingo.</p>
-        </article>
+          <p>Calcula el total de horas trabajadas en tu semana completa, de lunes a domingo.
+</p></article>
       </a>
 
       <a href={import.meta.env.BASE_URL + "calculadora-horas-extra/"} class="calculator-card">
         <article aria-labelledby="card-extra-heading">
           <div class="calculator-card-icon" aria-hidden="true">➕</div>
           <h3 id="card-extra-heading">Calculadora de horas extra</h3>
-          <p>Calcula tus horas extra respecto a la jornada prevista, incluso en jornadas nocturnas.</p>
-        </article>
+          <p>Calcula tus horas extra respecto a la jornada prevista, incluso en jornadas nocturnas.
+          </p></article>
       </a>
 
       <a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"} class="calculator-card">
         <article aria-labelledby="card-split-heading">
           <div class="calculator-card-icon" aria-hidden="true">🔀</div>
           <h3 id="card-split-heading">Calculadora de jornada partida</h3>
-          <p>Para turnos divididos en dos o más tramos separados durante el día.</p>
-        </article>
+          <p>Para turnos divididos en dos o más tramos separados durante el día.
+          </p></article>
       </a>
 
       <a href={import.meta.env.BASE_URL + "calculadora-entre-fechas/"} class="calculator-card">
         <article aria-labelledby="card-dates-heading">
           <div class="calculator-card-icon" aria-hidden="true">📆</div>
           <h3 id="card-dates-heading">Calculadora de tiempo entre fechas</h3>
-          <p>Calcula el tiempo transcurrido entre dos fechas con opción de incluir horas exactas.</p>
-        </article>
+          <p>Calcula el tiempo transcurrido entre dos fechas con opción de incluir horas exactas.
+          </p></article>
       </a>
 
     </div>
@@ -89,11 +87,32 @@ const { title, description, canonical } = pageData;
         </article>
       </a>
 
-      <a href={import.meta.env.BASE_URL + "calcular-horas-trabajadas-con-descanso/"} class="guide-card">
-        <article aria-labelledby="guide-breaks-heading">
-          <h3 id="guide-breaks-heading">Cómo calcular horas trabajadas con descansos</h3>
-          <p>Aprende a restar correctamente los periodos de pausa sin cometer errores.</p>
-        </article>
+      <a href={import.meta.env.BASE_URL + "guias/calcular-jornada-partida/"} class="guide-card">
+        <article aria-labelledby="guide-split-heading">
+          <h3 id="guide-split-heading">Cómo calcular jornada partida</h3>
+          <p>Dos tramos, descanso automático, casos de medianoche.
+        </p></article>
+      </a>
+
+      <a href={import.meta.env.BASE_URL + "guias/calcular-horas-extra/"} class="guide-card">
+        <article aria-labelledby="guide-extra-heading">
+          <h3 id="guide-extra-heading">Cómo calcular horas extra</h3>
+          <p>Fórmula, jornada prevista, medianoche y errores comunes.
+        </p></article>
+      </a>
+
+      <a href={import.meta.env.BASE_URL + "guias/calcular-entre-fechas/"} class="guide-card">
+        <article aria-labelledby="guide-dates-heading">
+          <h3 id="guide-dates-heading">Cómo calcular tiempo entre fechas</h3>
+          <p>Días, horas, minutos entre dos fechas con horas opcionales.
+        </p></article>
+      </a>
+
+      <a href={import.meta.env.BASE_URL + "guias/calcular-semanal-horas/"} class="guide-card">
+        <article aria-labelledby="guide-weekly-heading">
+          <h3 id="guide-weekly-heading">Cómo calcular horas semanales</h3>
+          <p>Suma jornadas variables, descansos por día, total en decimal.
+        </p></article>
       </a>
 
     </div>

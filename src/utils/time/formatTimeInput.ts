@@ -20,8 +20,10 @@
  * @param event - Evento DOM que disparó el listener
  */
 export function formatInputElement(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  input.value = formatTimeToHHMM(input.value);
+  const input = event.target;
+  if (input instanceof HTMLInputElement) {
+    input.value = formatTimeToHHMM(input.value);
+  }
 }
 
 /**
