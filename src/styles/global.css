@@ -383,6 +383,15 @@ a:focus-visible {
   text-decoration: underline;
 }
 
+.footer-nav-list {
+  list-style: none;
+  display: flex;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
 
 /* ============================================
    6. TARJETAS — componente base y variantes
