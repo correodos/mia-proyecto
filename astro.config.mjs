@@ -3,11 +3,6 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://correodos.github.io/mia-proyecto/',
-  base: '/mia-proyecto/',
-  integrations: [sitemap({
-    customPages: [
-      'https://correodos.github.io/mia-proyecto/calculadora-entre-fechas/',
-    ],
-  })],
+  site: 'https://mia-proyecto.pages.dev',
+  integrations: [sitemap()],
 });
