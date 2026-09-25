@@ -65,6 +65,33 @@ const CONSENT_VERSION = 'v1';
           </div>
         </div>
       </aside>
+
+      <!-- Cookie Consent Panel (hidden by default) -->
+      <aside id="cookie-panel" class="cookie-panel" role="dialog" hidden>
+        <div class="cookie-panel__content">
+          <header class="cookie-panel__header">
+            <h2 class="cookie-panel__title">Configurar cookies</h2>
+            <button type="button" class="cookie-panel__close" data-action="close-panel" aria-label="Cerrar panel">✕</button>
+          </header>
+          <div class="cookie-panel__body">
+            <fieldset>
+              <legend>Cookies de análisis</legend>
+              <label class="cookie-panel__toggle">
+                <input type="checkbox" id="analytics-toggle" role="switch" />
+                <span class="cookie-panel__toggle-label">
+                  <strong>Google Analytics</strong>
+                  <span>Recopila estadísticas anónimas para mejorar el sitio.</span>
+                </span>
+              </label>
+              <p class="cookie-panel__note">Requieren tu consentimiento. Puedes cambiar esto en cualquier momento.</p>
+            </fieldset>
+          </div>
+          <div class="cookie-panel__actions">
+            <button type="button" class="btn-secondary" data-action="close-panel">Cancelar</button>
+            <button type="button" class="btn-primary" data-action="save-preferences">Guardar preferencias</button>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <!-- HEADER -->
@@ -163,6 +190,32 @@ const CONSENT_VERSION = 'v1';
       @media (min-width: 640px) { .cookie-banner { bottom: var(--sp-6); left: var(--sp-6); right: auto; width: 420px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-md); } }
       @media (prefers-reduced-motion: reduce) { .cookie-banner { animation: none; } }
       @media (prefers-contrast: high) { .cookie-banner { border: 2px solid var(--text); } }
+
+      .cookie-panel { position: fixed; inset: 0; z-index: 1001; display: flex; align-items: center; justify-content: center; padding: var(--sp-4); background: rgba(0,0,0,0.4); animation: cookie-panel-fade var(--t-fast) ease; }
+      @keyframes cookie-panel-fade { from { opacity: 0; } to { opacity: 1; } }
+      .cookie-panel__content { width: 100%; max-width: 420px; background: var(--bg); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden; animation: cookie-panel-slide var(--t-base) ease; }
+      @keyframes cookie-panel-slide { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      .cookie-panel__header { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--border); }
+      .cookie-panel__title { font-size: 1.125rem; font-weight: 700; color: var(--text); margin: 0; }
+      .cookie-panel__close { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; background: none; border: none; border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 1.25rem; line-height: 1; cursor: pointer; transition: background-color var(--t-fast), color var(--t-fast); }
+      .cookie-panel__close:hover { background-color: var(--bg-muted); color: var(--text); }
+      .cookie-panel__close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+      .cookie-panel__body { padding: var(--sp-5); }
+      .cookie-panel__body fieldset { border: none; padding: 0; margin: 0; }
+      .cookie-panel__body legend { font-weight: 600; font-size: 0.9375rem; color: var(--text); margin-bottom: var(--sp-4); }
+      .cookie-panel__toggle { display: flex; align-items: flex-start; gap: var(--sp-3); cursor: pointer; }
+      .cookie-panel__toggle input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; accent-color: var(--primary); cursor: pointer; }
+      .cookie-panel__toggle-label { display: flex; flex-direction: column; gap: 2px; }
+      .cookie-panel__toggle-label strong { font-size: 0.9375rem; color: var(--text); }
+      .cookie-panel__toggle-label span { font-size: 0.8125rem; color: var(--text-secondary); }
+      .cookie-panel__note { margin-top: var(--sp-3); font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.5; }
+      .cookie-panel__actions { display: flex; justify-content: flex-end; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-top: 1px solid var(--border); background: var(--bg-subtle); }
+      .cookie-panel__actions .btn-primary,
+      .cookie-panel__actions .btn-secondary { min-width: 120px; }
+      @media (max-width: 639px) { .cookie-panel { padding: var(--sp-3); } .cookie-panel__content { max-width: 100%; } .cookie-panel__header { padding: var(--sp-3) var(--sp-4); } .cookie-panel__body { padding: var(--sp-4); } .cookie-panel__actions { padding: var(--sp-3) var(--sp-4); flex-direction: column-reverse; } .cookie-panel__actions .btn-primary, .cookie-panel__actions .btn-secondary { width: 100%; min-width: 0; } }
+      @media (prefers-reduced-motion: reduce) { .cookie-panel, .cookie-panel__content { animation: none; } }
+      @media (prefers-contrast: high) { .cookie-panel__content { border: 2px solid var(--text); } }
+      .cookie-panel[hidden] { display: none !important; }
     </style>
   </body>
 </html>
