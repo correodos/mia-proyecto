@@ -2,6 +2,7 @@
 import HorasExtraCalculator from '../../components/calculator/HorasExtraCalculator.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const pageData = {
   title: "Calculadora de Horas Extra",
@@ -10,14 +11,21 @@ const pageData = {
 };
 
 const { title, description, canonical } = pageData;
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Calculadora de horas extra', current: true }
+];
 ---
 
 <BaseLayout 
   title={title}
   description={description}
   canonical={canonical}
+  ogImage="/og-calculadoras.svg"
 >
 <main role="main">
+  <Breadcrumbs items={breadcrumbItems} />
   <h1>Calculadora de horas extra</h1>
   
   <section class="intro-section">
@@ -29,7 +37,7 @@ const { title, description, canonical } = pageData;
   <HorasExtraCalculator />
 
   <section aria-labelledby="how-to-heading" class="content-section">
-    <h2 id="how-to-heading">Cómo usarla</h2>
+    <h2 id="how-to-heading">Cómo funciona</h2>
     
     <p>Introduce los datos de tu jornada:</p>
     
@@ -47,8 +55,9 @@ const { title, description, canonical } = pageData;
   </section>
 
   <section aria-labelledby="examples-heading" class="content-section">
+    <h2 id="examples-heading">Ejemplos</h2>
     <CollapsibleExamples
-      title="Ejemplos"
+      title={false}
       examples={[
         {
           summary: 'Sin horas extra: 08:00 → 16:00, descanso 30 min, prevista 8 h',

@@ -2,23 +2,31 @@
 import BetweenDatesCalculator from '../../components/calculator/BetweenDatesCalculator.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const pageData = {
-  title: "Calculadora Entre Fechas",
+  title: "Calculadora de tiempo entre dos fechas",
   description: "Calculadora gratuita entre fechas. Calcula dias, horas y minutos entre dos fechas con horas opcionales.",
   canonical: "https://miaherramienta.com/calculadora-entre-fechas/"
 };
 
 const { title, description, canonical } = pageData;
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Calculadora de tiempo entre dos fechas', current: true }
+];
 ---
 
 <BaseLayout 
   title={title}
   description={description}
   canonical={canonical}
+  ogImage="/og-calculadoras.svg"
 >
 <main role="main">
-  <h1>Calculadora de tiempo entre dos fechas | Diferencia exacta con horas</h1>
+  <Breadcrumbs items={breadcrumbItems} />
+  <h1>Calculadora de tiempo entre dos fechas</h1>
   
   <section class="intro-section">
     <p class="intro-text">
@@ -29,7 +37,7 @@ const { title, description, canonical } = pageData;
   <BetweenDatesCalculator />
 
   <section aria-labelledby="how-to-heading" class="content-section">
-    <h2 id="how-to-heading">Cómo calcular el tiempo entre fechas paso a paso</h2>
+    <h2 id="how-to-heading">Cómo funciona</h2>
     
     <ol class="steps">
       <li>Selecciona la fecha inicial (con hora opcional).</li>
@@ -39,8 +47,9 @@ const { title, description, canonical } = pageData;
   </section>
 
   <section aria-labelledby="examples-heading" class="content-section">
+    <h2 id="examples-heading">Ejemplos</h2>
     <CollapsibleExamples
-      title="Ejemplos prácticos"
+      title={false}
       examples={[
         {
           summary: 'Con horas: 21/09/2026 07:00 → 23/09/2026 17:30',

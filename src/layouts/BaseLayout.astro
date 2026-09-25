@@ -6,10 +6,22 @@ interface Props {
   title: string;
   description: string;
   canonical?: string;
+  ogImage?: string;
+  skipWebPage?: boolean;
 }
 
-const { title, description, canonical } = Astro.props;
+const { title, description, canonical, ogImage, skipWebPage } = Astro.props;
+const ogImageUrl = ogImage ? `https://miaherramienta.com${ogImage}` : 'https://miaherramienta.com/og-image.svg';
+const siteName = 'MiA - Herramientas de tiempo';
+const siteUrl = 'https://miaherramienta.com';
+const pageUrl = canonical || Astro.url.href;
 const CONSENT_VERSION = 'v1';
+
+const ogImageAlt = ogImage === '/og-calculadoras.svg'
+  ? 'MiA - Calculadoras de horas'
+  : ogImage === '/og-guias.svg'
+    ? 'MiA - Guías de cálculo de horas'
+    : 'MiA - Herramientas de tiempo: Calculadoras gratuitas de horas trabajadas';
 ---
 
 <html lang="es">
@@ -23,11 +35,35 @@ const CONSENT_VERSION = 'v1';
     <meta property="og:url" content={Astro.url.href} />
     <meta property="og:site_name" content="MiA - Herramientas de tiempo" />
     <meta property="og:locale" content="es_ES" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
     <link rel="icon" href={import.meta.env.BASE_URL + "favicon.svg"} type="image/svg+xml" />
     <title>{title}</title>
+
+    <!-- Structured Data: WebSite (global) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": siteName,
+      "url": siteUrl
+    })} />
+
+    <!-- Structured Data: WebPage (per page) -->
+    {canonical && !skipWebPage && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": title,
+        "description": description,
+        "url": pageUrl
+      })} />
+    )}
 
     <!-- Google Analytics 4 con Consent Mode v2 -->
     <!--

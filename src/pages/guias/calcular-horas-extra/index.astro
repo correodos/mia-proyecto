@@ -20,7 +20,12 @@ const extraHoursSteps = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical}>
+<BaseLayout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage="/og-guias.svg"
+>
 <main role="main">
   
   <!-- Breadcrumb -->
@@ -110,7 +115,7 @@ const extraHoursSteps = [
         <strong>Jornada prevista en formato decimal:</strong> Puedes introducir 8, 7.5, 7.75, etc. La calculadora acepta tanto "8" como "08:00" o "7:30".
       </div>
       <div class="alert alert-info">
-        <strong>Jornadas que cruzan medianoche:</strong> Si trabajas de 22:00 a 06:00, la calculadora detecta el cruce y calcula 8 h trabajadas correctamente.
+        <strong>Jornadas que cruzan medianoche:</strong> La calculadora detecta el cruce y calcula las horas trabajadas correctamente.
       </div>
       <div class="alert alert-info">
         <strong>Jornada prevista en formato horas:minutos:</strong> Puedes poner "07:30" para 7 h 30 min de jornada prevista.

@@ -1,0 +1,110 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  current?: boolean;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const siteUrl = 'https://miaherramienta.com';
+---
+
+<!-- Breadcrumb navigation -->
+<nav class="breadcrumb" aria-label="Navegación">
+  <ol class="breadcrumb-list">
+    {items.map((item, index) => (
+      <li class="breadcrumb-item">
+        {item.current ? (
+          <span class="breadcrumb-current" aria-current="page">{item.label}</span>
+        ) : item.href ? (
+          <a class="breadcrumb-link" href={item.href}>{item.label}</a>
+        ) : (
+          <span class="breadcrumb-current" aria-current="page">{item.label}</span>
+        )}
+        {index < items.length - 1 && (
+          <span class="breadcrumb-separator" aria-hidden="true">/</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<!-- JSON-LD BreadcrumbList -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.label,
+    "item": item.href ? (item.href.startsWith('http') ? item.href : `${siteUrl}${item.href}`) : undefined
+  })).filter(Boolean)
+})} />
+
+<style>
+  .breadcrumb {
+    margin-bottom: var(--sp-6);
+  }
+
+  .breadcrumb-list {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--sp-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+  }
+
+  .breadcrumb-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--t-fast);
+  }
+
+  .breadcrumb-link:hover,
+  .breadcrumb-link:focus {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-link:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  .breadcrumb-separator {
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
+
+  .breadcrumb-current {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  @media (max-width: 639px) {
+    .breadcrumb-list {
+      font-size: 0.8125rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .breadcrumb-link {
+      transition: none;
+    }
+  }
+</style>

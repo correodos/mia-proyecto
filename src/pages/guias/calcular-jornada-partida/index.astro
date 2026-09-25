@@ -22,7 +22,12 @@ const splitShiftSteps = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical}>
+<BaseLayout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage="/og-guias.svg"
+>
 <main role="main">
   
   <!-- Breadcrumb -->
@@ -148,7 +153,7 @@ const splitShiftSteps = [
     <nav class="guide-related" aria-labelledby="related-heading">
       <h2 id="related-heading">Te puede interesar</h2>
       <div class="guide-related-grid">
-        <a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="guide-related-card">
+<a href={import.meta.env.BASE_URL + "calculadora-horas/"} class="guide-related-card">
           <h3>Calculadora de horas trabajadas</h3>
           <p>Jornada simple: entrada, salida y un solo descanso.</p>
         </a>

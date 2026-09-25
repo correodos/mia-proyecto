@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import GuideSteps from '../../components/GuideSteps.astro';
 
 const pageData = {
   title: 'Cómo calcular las horas trabajadas - Paso a paso con ejemplos',
@@ -10,12 +11,21 @@ const pageData = {
 };
 
 const { title, description, canonical, lastUpdated, readingTime } = pageData;
+
+const steps = [
+  'Anota la <strong>hora de entrada</strong> (formato HH:MM).',
+  'Anota la <strong>hora de salida</strong>.',
+  'Calcula el <strong>tiempo total</strong> entre ambas horas.',
+  'Suma <strong>todos los descansos</strong> en minutos (si hay varios, suma todos <em>antes</em> de restar).',
+  'Resta el total de descansos al tiempo total. El resultado son tus <strong>horas netas trabajadas</strong>.',
+];
 ---
 
 <BaseLayout 
   title={title}
   description={description}
   canonical={canonical}
+  ogImage="/og-guias.svg"
 >
 <main role="main">
   
@@ -65,25 +75,7 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
       En minutos: <strong>Minutos trabajados = Minutos totales − Minutos de descanso</strong>
     </div>
 
-    <!-- Pasos -->
-    <section aria-labelledby="steps-heading">
-      <h2 id="steps-heading">Pasos para calcular</h2>
-      <div class="alert alert-success">
-        <strong>1.</strong> Anota la <strong>hora de entrada</strong> (formato HH:MM).
-      </div>
-      <div class="alert alert-success">
-        <strong>2.</strong> Anota la <strong>hora de salida</strong>.
-      </div>
-      <div class="alert alert-success">
-        <strong>3.</strong> Calcula el <strong>tiempo total</strong> entre ambas horas.
-      </div>
-      <div class="alert alert-success">
-        <strong>4.</strong> Suma <strong>todos los descansos</strong> en minutos (si hay varios, suma todos <em>antes</em> de restar).
-      </div>
-      <div class="alert alert-success">
-        <strong>5.</strong> Resta el total de descansos al tiempo total. El resultado son tus <strong>horas netas trabajadas</strong>.
-      </div>
-    </section>
+    <GuideSteps steps={steps} />
 
     <!-- Ejemplos - cards estáticas -->
     <section aria-labelledby="examples-heading">
@@ -106,7 +98,7 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
       <article class="example-card">
         <header>☕ Jornada con varios descansos: 07:30 → 16:00 (15 min café + 20 min almuerzo)</header>
         <p><strong>Tiempo total:</strong> 8 h 30 min (510 min)</p>
-        <p><strong>Descansos:</strong> 15 + 20 = 35 min (sumar <em>antes</em> de restar)</p>
+        <p><strong>Descansos:</strong> 15 + 20 = 35 min</p>
         <p><strong>Cálculo:</strong> 510 − 35 = <strong>475 min = 7 h 55 min (7,92 h)</strong></p>
       </article>
 
@@ -127,7 +119,6 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
         <p><strong>Descansos individuales:</strong> 15 minutos de café + 20 minutos para almorzar = <strong>35 minutos totales</strong></p>
         <p><strong>Cálculo:</strong></p>
         <p>510 min − 35 min = <strong>475 minutos trabajados</strong>, es decir, <strong>7 horas y 55 minutos netos</strong>.</p>
-        <p>Aquí se sumaron dos periodos de descanso separados. Lo importante es sumar todos antes de restar del total en tu herramienta.</p>
       </article>
     </section>
 
@@ -135,7 +126,7 @@ const { title, description, canonical, lastUpdated, readingTime } = pageData;
     <section aria-labelledby="special-heading">
       <h2 id="special-heading">Casos especiales</h2>
       <div class="alert alert-info">
-        <strong>Turnos que cruzan medianoche:</strong> Si la salida es anterior a la entrada (ej. 22:00 → 06:00), la calculadora detecta automáticamente el cruce de medianoche y calcula correctamente las horas.
+        <strong>Turnos que cruzan medianoche:</strong> Si la salida es anterior a la entrada (ej. 22:00 → 06:00), la calculadora detecta el cruce automáticamente.
       </div>
       <div class="alert alert-info">
         <strong>Turnos partidos:</strong> Para jornadas en dos tramos (ej. 09:00–14:00 + 16:00–19:00), usa la <a href={import.meta.env.BASE_URL + "calculadora-jornada-partida/"}>calculadora de jornada partida</a> que calcula el descanso automático entre tramos.

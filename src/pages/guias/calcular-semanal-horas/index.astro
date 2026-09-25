@@ -21,7 +21,12 @@ const weeklySteps = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical}>
+<BaseLayout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage="/og-guias.svg"
+>
 <main role="main">
   
   <!-- Breadcrumb -->
@@ -120,7 +125,7 @@ const weeklySteps = [
         <strong>Días sin trabajar:</strong> Deja los campos vacíos para ese día. La calculadora lo ignora (suma 0).
       </div>
       <div class="alert alert-info">
-        <strong>Jornadas que cruzan medianoche:</strong> La calculadora detecta turnos como 22:00→06:00 y calcula 8 h correctamente.
+        <strong>Jornadas que cruzan medianoche:</strong> La calculadora detecta turnos nocturnos y calcula correctamente.
       </div>
       <div class="alert alert-info">
         <strong>Descansos diferentes por día:</strong> Puedes poner 30 min el lunes, 60 min el martes, 0 el miércoles, etc. Cada día es independiente.
@@ -129,7 +134,7 @@ const weeklySteps = [
         <strong>Semana incompleta (empiezas miércoles):</strong> Deja Lun/Mar vacíos. La suma solo cuenta desde el miércoles.
       </div>
       <div class="alert alert-info">
-        <strong>Resultado en decimal:</strong> 38 h 30 min = 38,50 h. Útil para nómina: multiplica por tarifa hora.
+        <strong>Resultado en decimal:</strong> 38 h 30 min = 38,50 h. Útil para nómina.
       </div>
     </section>
 
@@ -147,7 +152,7 @@ const weeklySteps = [
         <strong>No convertir descansos a minutos antes de restar:</strong> "Trabajo 8 h, descanso 1 h → 7 h" ✓. Pero si descanso es 45 min: 8 h = 480 min; 480 − 45 = 435 min = 7 h 15 min.
       </div>
       <div class="alert alert-warning">
-        <strong>Confundir decimal con horario:</strong> 7,50 h = 7 h 30 min. No es "7:30" (hora del reloj). El decimal sirve para multiplicar por tarifa.
+        <strong>Confundir decimal con horario:</strong> 7,50 h = 7 h 30 min. No es "7:30" (hora del reloj).
       </div>
     </section>
 

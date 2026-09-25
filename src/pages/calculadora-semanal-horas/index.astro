@@ -2,24 +2,30 @@
 import WeeklyCalculator from '../../components/calculator/WeeklyCalculator.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const pageData = {
   title: "Calculadora Semanal de Horas",
   description: "Calculadora gratuita semanal. Suma horas de lunes a domingo restando descansos. Total en horas/minutos y decimal.",
-  canonical: "https://miaherramienta.com/calculadora-semanal-horas/",
-  type: "website",
-  locale: "es_ES"
+  canonical: "https://miaherramienta.com/calculadora-semanal-horas/"
 };
 
-const { title, description, canonical, type, locale } = pageData;
+const { title, description, canonical } = pageData;
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Calculadora semanal de horas', current: true }
+];
 ---
 
 <BaseLayout 
   title={title}
   description={description}
   canonical={canonical}
+  ogImage="/og-calculadoras.svg"
 >
 <main>
+  <Breadcrumbs items={breadcrumbItems} />
   <h1>Calculadora semanal de horas</h1>
   
   <section class="intro-section">
@@ -30,14 +36,15 @@ const { title, description, canonical, type, locale } = pageData;
 
   <WeeklyCalculator />
 
-  <section aria-labelledby="how-to-weekly-heading" class="content-section">
-    <h2 id="how-to-weekly-heading">Cómo calcular horas semanales</h2>
+  <section aria-labelledby="how-to-heading" class="content-section">
+    <h2 id="how-to-heading">Cómo funciona</h2>
     <p>Introduce la hora de entrada, salida y duración del descanso para cada día. Pulsa "Calcular" para sumar toda tu jornada semanal.</p>
   </section>
 
-  <section aria-labelledby="examples-weekly-heading" class="content-section">
+  <section aria-labelledby="examples-heading" class="content-section">
+    <h2 id="examples-heading">Ejemplos</h2>
     <CollapsibleExamples
-      title="Ejemplos"
+      title={false}
       examples={[
         {
           summary: 'Jornada fija L-V: 08:00 → 17:00, 60 min descanso',

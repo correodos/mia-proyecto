@@ -2,6 +2,7 @@
 import DailyCalculator from '../../components/calculator/DailyCalculator.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CollapsibleExamples from '../../components/CollapsibleExamples.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const pageData = {
   title: "Calculadora de Horas Trabajadas",
@@ -10,10 +11,21 @@ const pageData = {
 };
 
 const { title, description, canonical } = pageData;
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Calculadora de horas trabajadas', current: true }
+];
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical}>
+<BaseLayout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage="/og-calculadoras.svg"
+>
 <main role="main">
+  <Breadcrumbs items={breadcrumbItems} />
   <h1>Calculadora de horas trabajadas</h1>
   
   <section class="intro-section">
@@ -25,7 +37,7 @@ const { title, description, canonical } = pageData;
   <DailyCalculator />
   
   <section aria-labelledby="how-to-heading" class="content-section">
-    <h2 id="how-to-heading">Cómo calcular las horas trabajadas</h2>
+    <h2 id="how-to-heading">Cómo funciona</h2>
     
     <ol class="steps">
       <li>Introduce la hora de entrada (formato HH:MM).</li>
@@ -35,8 +47,9 @@ const { title, description, canonical } = pageData;
   </section>
 
   <section aria-labelledby="examples-heading" class="content-section">
+    <h2 id="examples-heading">Ejemplos</h2>
     <CollapsibleExamples
-      title="Ejemplos de cálculo"
+      title={false}
       examples={[
         {
           summary: 'Jornada diurna: 09:00 → 17:30, descanso 60 min',
@@ -66,10 +79,10 @@ const { title, description, canonical } = pageData;
           summary: '¿Qué significa el resultado en horas decimales?',
           content: '<p>Es el tiempo total trabajado expresado como número decimal (ej. 7,50 h = 7 h 30 min). Útil para nóminas y facturación. No confundir con el formato horario "7:30".</p>',
         },
-        {
-          summary: '¿Qué son las horas decimales y los turnos nocturnos?',
-          content: '<p><strong>Horas decimales:</strong> 7 h 30 min = 7,50 h. El decimal representa tiempo total, no un horario.<br><strong>Turnos nocturnos:</strong> Si tu jornada cruza medianoche (ej. 22:00 → 06:00), la calculadora lo detecta y calcula correctamente las horas.</p>',
-        },
+{
+            summary: '¿Qué son las horas decimales?',
+            content: '<p><strong>Horas decimales:</strong> 7 h 30 min = 7,50 h. El decimal representa tiempo total, no un horario. No confundir con el formato horario "7:30".</p>',
+          },
       ]}
     />
   </section>
