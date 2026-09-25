@@ -177,8 +177,6 @@ function rejectAll() {
 }
 
 // Event listeners (delegación en root)
-const root = document.getElementById('cookie-consent-root');
-
 if (root) {
   root.addEventListener('click', (e) => {
     const target = e.target;
